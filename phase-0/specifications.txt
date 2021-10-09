@@ -1,5 +1,0 @@
-General Program Concept: A dog petter (cookie clicker clone) game where the user can interact with the dog and play minigames to gain currency/levels/experience. The dog can be upgraded and customized through the shop using the currency (dogecoin) that the player earns.
-
-Every time you click on the dog, you get one dogecoin. The dog you click on also gets experience, and can level up. The more levels the dog has, the more dogecoin you get per click. You can also buy and upgrade dogecoin miners from the Shop, which increase your DCPS (dogecoin per second). As its name suggests, this allows you to get extra dogecoins per second by idling!
-
-You can also buy more dogs from the shop, and those can be upgraded and customized as well. There will also be minigames to get more exp and coins from.

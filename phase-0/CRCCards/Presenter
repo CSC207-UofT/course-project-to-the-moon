@@ -1,0 +1,8 @@
+Class Name: Presenter
+
+Responsibilities:
+- Draws everything to the screen
+
+Collaborators:
+- JFrame
+- Interface

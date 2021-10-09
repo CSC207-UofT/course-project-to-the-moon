@@ -1,0 +1,9 @@
+Class Name: DogeCoinMiner (abstract)
+
+Responsibilities:
+- represents a DogeCoin miner that can be bought from the shop
+- you can buy as many miners as you want but they get more expensive each time
+
+
+Collaborators:
+- ShopItem

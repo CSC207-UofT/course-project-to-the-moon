@@ -1,0 +1,10 @@
+Class Name: DogGameController
+
+Responsibilities:
+- Processes mouse input to see what sprite is clicked on
+- If mouse input is on a dog, calls the corresponding DogManager method
+(there will need to be a DogManager for each dog)
+
+Collaborators:
+- DogGame
+- DogManager

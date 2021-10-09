@@ -1,0 +1,7 @@
+Class Name: Sprite
+
+Responsibilities:
+- Store a sequence of images
+- Store FPS, update the current frame in a separate thread
+
+Collaborators:

@@ -1,0 +1,7 @@
+Class Name: Controller
+
+Responsibilities:
+- Processes mouse inputs
+
+Collaborators:
+- MouseListener

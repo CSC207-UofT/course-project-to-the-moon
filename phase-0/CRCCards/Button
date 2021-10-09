@@ -1,0 +1,6 @@
+Class Name: Button
+
+Responsibilities:
+- Detect when clicked on, somehow send a signal (search up how to do this, maybe something to do with javax.swing)
+
+Collaborators:

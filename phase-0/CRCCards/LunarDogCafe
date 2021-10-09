@@ -1,0 +1,8 @@
+Class Name: LunarDogCafe (super: DogeCoinMiner)
+
+Responsibilities:
+- Represents a cafe, bought from the shop
+- The best type of DogeCoinMiner
+
+Collaborators:
+- ShopItem

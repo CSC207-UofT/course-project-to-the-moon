@@ -1,0 +1,13 @@
+Class Name: Dog
+
+Responsibilities:
+- Stores number of times it was pet
+- Stores the level and experience
+- Stores the coordinates of the dog
+- Stores how many coins this dog has given you
+
+
+Collaborators:
+- DogeCoinCalculator
+- DogExperienceCalculator
+- DogMover

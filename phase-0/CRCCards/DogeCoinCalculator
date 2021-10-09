@@ -1,0 +1,8 @@
+Class Name: DogeCoinCalculator
+
+Responsibilities:
+- Given a dog, calculate how much coin you get by petting it based on the dog’s level
+
+Collaborators:
+- Dog
+- DogManager
