@@ -1,6 +1,6 @@
-package UseCase;
+package main.java.usecases;
 
-import Entity.Dog;
+import main.java.entities.Dog;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Entity;
+package main.java.entities;
 
 public class Dog {
     private int coins;
