@@ -1,4 +1,4 @@
-Class Name: DogGameController
+Class Name: DogGameController implements MouseListener
 
 Responsibilities:
 - Processes mouse input to see what sprite is clicked on

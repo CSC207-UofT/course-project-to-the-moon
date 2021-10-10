@@ -1,0 +1,7 @@
+Class Name: DogGamePresenter extends JPanel
+
+Responsibilities:
+- Continually draws the game objects onto the screen
+
+Collaborators:
+- DogGame

@@ -1,12 +1,8 @@
 Class Name: DogGame
 
 Responsibilities:
-- Responsible for running the dog game (creates all the frames and displays everything)
-- The “view” class
-- Takes in user input (MouseListener) and passes it to the controller
-- Listens for model updates and updates the canvas
-- Internally stores all the objects that need to be drawn maybe
-- Continually redraw the canvas
+- Creates a JFrame, onto which a DogGamePresenter and DogGameController are added
 
 Collaborators:
 - DogGameController
+- DogGamePresenter
