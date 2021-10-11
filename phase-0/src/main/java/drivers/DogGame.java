@@ -2,6 +2,8 @@ package main.java.drivers;
 
 import main.java.adaptors.DogGameController;
 import main.java.adaptors.DogGamePresenter;
+import main.java.entities.Dog;
+import main.java.usecases.DogMover;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,7 +43,15 @@ public class DogGame {
         mainFrame.setFocusable(true);
         mainFrame.requestFocus();
 
+        // Jimin Song changed this part
+        // creating dog
+        Dog dog = new Dog();
+        // creating DogMover
+        DogMover dog_mover = new DogMover(dog, WIDTH, HEIGHT);
+        // move the dog randomly
+        dog.dm = dog_mover;
         JPanel presenter = new DogGamePresenter(WIDTH, HEIGHT);
+        ((DogGamePresenter) presenter).dog = dog;
         MouseListener controller = new DogGameController();
 
         presenter.addMouseListener(controller);

@@ -1,5 +1,7 @@
 package main.java.adaptors;
 
+import main.java.entities.Dog;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,6 +14,7 @@ import java.awt.Graphics;
 public class DogGamePresenter extends JPanel {
     private int width;
     private int height;
+    public Dog dog;
 
     /**
      * Initialize a new presenter.
@@ -34,6 +37,11 @@ public class DogGamePresenter extends JPanel {
 
         g.setColor(Color.BLUE);
         g.fillRect(0, 0, 100, 100);
+
+        // Jimin Song added.
+        //draw a dog
+        dog.dm.randomLocation();
+        dog.drawDog(g);
 
         try {
             Thread.sleep (100); // delay between frames
