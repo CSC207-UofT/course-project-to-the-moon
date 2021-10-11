@@ -3,11 +3,13 @@ package main.java.drivers;
 import main.java.adaptors.DogGameController;
 import main.java.adaptors.DogGamePresenter;
 import main.java.entities.Dog;
+import main.java.entities.Sprite;
 import main.java.usecases.DogMover;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 /**
  * This class represents a dog game instance, making all the JFrames necessary to run it.
@@ -61,7 +63,17 @@ public class DogGame {
     /**
      * Runs a new dog game.
      */
-    public void run() {
+    public void run() throws IOException {
+        Sprite newSprite = new Sprite();
+        Thread thread = new Thread(newSprite);
+        thread.start();
+        try{
+            Thread.sleep(1000/newSprite.getFPS());
+        }
+        catch(InterruptedException e){
+            System.out.println("The Thread was interrupted.");
+        }
+
         mainFrame.setVisible(true);
     }
 }
