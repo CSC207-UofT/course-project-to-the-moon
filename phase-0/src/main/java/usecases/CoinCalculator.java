@@ -8,7 +8,8 @@ public class CoinCalculator {
      */
 
     public int coinPet(Dog dog) {
-        return 0; //replace
+        int coins = dog.getCoins(); //Finds the current number of coins in the dog's account
+        return coins + 1; //Adds 1 coin to the account and returns it to be displayed.
     }
 
 

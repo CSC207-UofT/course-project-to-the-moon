@@ -9,7 +9,8 @@ public class ExpCalculator {
      */
 
     public int expPet(Dog dog) {
-        return 0; //replace
+        int exp = dog.getLevel(); //Finds the current number of exp points in the dog's account
+        return exp + 1; //Adds 1 exp point to the account and returns it to be displayed.
     }
 
 }
