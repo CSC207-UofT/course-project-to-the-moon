@@ -26,7 +26,7 @@ public class Sprite implements Runnable{
     }
     public void addImage(String directory) throws IOException{
         BufferedImage image = ImageIO.read(new File(directory));
-        imageList.add(image);
+        // imageList.add(image);
     }
 
     @Override
