@@ -1,4 +1,4 @@
-package java.usecases;
+package usecases;
 
 /**
  * This interface is to be implemented on all clickable entities

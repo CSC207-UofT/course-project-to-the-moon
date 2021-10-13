@@ -1,10 +1,14 @@
-package java.adaptors;
+package adaptors;
 
-import java.entities.Dog;
+import java.awt.image.BufferedImage;
+import entities.Dog;
+import usecases.Clickable;
+import usecases.Drawable;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
@@ -46,8 +50,16 @@ public class DogGamePresenter extends JPanel {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, width, height);
 
+        ArrayList<Clickable> clickables = (ArrayList<Clickable>) this.controller.getClickables();
 
-
+        for (Clickable clickable : clickables) {
+            if (clickable instanceof Drawable) {
+                int x = ((Drawable) clickable).getX();
+                int y = ((Drawable) clickable).getY();
+                BufferedImage image = ((Drawable) clickable).getImage();
+                g.drawImage(image, x, y, null);
+            }
+        }
 
         try {
             Thread.sleep (100); // delay between frames

@@ -1,14 +1,9 @@
-package java.drivers;
+package programdrivers;
 
-import java.adaptors.DogGameController;
-import java.adaptors.DogGamePresenter;
-import java.entities.Dog;
-import java.entities.Sprite;
-import java.usecases.DogMover;
+import adaptors.DogGameController;
+import adaptors.DogGamePresenter;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
 /**
@@ -45,8 +40,8 @@ public class DogGame {
         mainFrame.setFocusable(true);
         mainFrame.requestFocus();
 
-        JPanel presenter = new DogGamePresenter(WIDTH, HEIGHT);
-        MouseListener controller = new DogGameController();
+        DogGamePresenter presenter = new DogGamePresenter(WIDTH, HEIGHT);
+        DogGameController controller = new DogGameController();
 
         presenter.addController(controller);
         mainFrame.add(presenter);

@@ -1,9 +1,9 @@
-package java.adaptors;
+package adaptors;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.usecases.DogManager;
-import java.usecases.Clickable;
+import usecases.DogManager;
+import usecases.Clickable;
 import java.util.ArrayList;
 import java.util.List;
 

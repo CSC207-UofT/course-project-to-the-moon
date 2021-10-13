@@ -1,4 +1,4 @@
-package java.entities;
+package entities;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -8,12 +8,12 @@ import java.util.Arrays;
 
 /**
  * This class represents a sprite to be drawn to a window.
- * @author Andy Wang and Aria.
+ * @author Aria, edited by Andy Wang
  * @since 12 October 2021
  */
 public class Sprite {
     private BufferedImage[] frames; // the frames of the sprite
-    private boolean isFlipped = false; // if the sprite is currently flipped (facing left)
+    private boolean isFlipped = false; // if the sprite is currently flipped (facing right)
     private int currentFrame = 0; // index of the current frame
 
     /**
@@ -37,8 +37,9 @@ public class Sprite {
      */
     public Sprite(String folderName, int fps) {
         File folder = new File(folderName);
+        System.out.println(folder.getAbsolutePath());
         File[] frameFiles = folder.listFiles();
-        assert frameFiles != null;
+        assert(frameFiles != null);
 
         // Sort the frame files by name in ascending order
         Arrays.sort(frameFiles, (f1, f2) -> {
@@ -99,8 +100,8 @@ public class Sprite {
     }
 
     /**
-     * The isFlipped method returns whether the sprite is facing left.
-     * @return Whether the sprite is facing left.
+     * The isFlipped method returns whether the sprite is facing right.
+     * @return Whether the sprite is facing right.
      */
     public boolean isFlipped() {
         return isFlipped;
@@ -110,7 +111,7 @@ public class Sprite {
      * The currentFrame method returns the current frame as a BufferedImage.
      * @return The current frame as a BufferedImage
      */
-    public BufferedImage currentFrame() {
+    public BufferedImage getCurrentFrame() {
         return this.frames[this.currentFrame];
     }
 

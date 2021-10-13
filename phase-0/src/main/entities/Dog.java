@@ -1,18 +1,15 @@
-package java.entities;
-
-import java.usecases.DogMover;
+package entities;
 
 /**
  * This class represents a dog.
  * @author Juntae
  */
 public class Dog {
-    private int coins;
-    private int level;
-    private double exp;
+    private int coinsEarned;
+    private int exp;
     // dog position
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
     /**
      * This method translate the dog by a certain amount.
@@ -26,23 +23,21 @@ public class Dog {
 
     //getters and setters
     public int getCoins() {
-        return this.coins;
+        return this.coinsEarned;
     }
-    public int getLevel() {
-        return this.level;
-    }
+    public int getExp() { return this.exp; }
 
-    public int getX() {
+    public double getX() {
         return this.x;
     }
-    public int getY() {
+    public double getY() {
         return this.y;
     }
 
     public void setCoins(int coin) {
-        this.coins = coin;
+        this.coinsEarned = coin;
     }
-    public void setExp(double exp) {
+    public void setExp(int exp) {
         this.exp = exp;
     }
 }
