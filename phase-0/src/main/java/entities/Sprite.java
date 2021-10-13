@@ -14,7 +14,7 @@ public class Sprite implements Runnable{
 
     public Sprite() throws IOException {
         this.frameCounter =0;
-        this.addImage("main/dog1.png");
+        // this.addImage("main/dog1.png");
     }
 
     /**
@@ -26,7 +26,7 @@ public class Sprite implements Runnable{
     }
     public void addImage(String directory) throws IOException{
         BufferedImage image = ImageIO.read(new File(directory));
-        // imageList.add(image);
+        imageList.add(image);
     }
 
     @Override
