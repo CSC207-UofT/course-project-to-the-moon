@@ -1,10 +1,14 @@
-package main.java.adaptors;
+package adaptors;
 
-import main.java.entities.Dog;
+import java.awt.image.BufferedImage;
+import entities.Dog;
+import usecases.Clickable;
+import usecases.Drawable;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
@@ -14,6 +18,9 @@ import java.awt.Graphics;
 public class DogGamePresenter extends JPanel {
     private int width;
     private int height;
+
+    private DogGameController controller;
+
     public Dog dog;
 
     /**
@@ -27,21 +34,32 @@ public class DogGamePresenter extends JPanel {
     }
 
     /**
+     * Adds a dog game controller to this presenter.
+     * @param controller The controller to add.
+     */
+    public void addController(DogGameController controller) {
+        super.addMouseListener(controller);
+        this.controller = controller;
+    }
+
+    /**
      * Draws everything to the screen.
      */
     @Override
     public void paintComponent(Graphics g) {
-        // TODO: make it draw the game objects
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, width, height);
 
-        g.setColor(Color.BLUE);
-        g.fillRect(0, 0, 100, 100);
+        ArrayList<Clickable> clickables = (ArrayList<Clickable>) this.controller.getClickables();
 
-        // Jimin Song added.
-        //draw a dog
-        dog.dm.randomLocation();
-        dog.drawDog(g);
+        for (Clickable clickable : clickables) {
+            if (clickable instanceof Drawable) {
+                int x = ((Drawable) clickable).getX();
+                int y = ((Drawable) clickable).getY();
+                BufferedImage image = ((Drawable) clickable).getImage();
+                g.drawImage(image, x, y, null);
+            }
+        }
 
         try {
             Thread.sleep (100); // delay between frames
