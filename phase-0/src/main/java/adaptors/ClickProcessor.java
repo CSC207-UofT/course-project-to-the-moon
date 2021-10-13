@@ -1,5 +1,5 @@
 package main.java.adaptors;
-import main.java.usecases.DogManager;
+import main.java.usecases.Clickable;
 
 /**
  * This class processes the click and returns the object that was clicked on
@@ -8,17 +8,21 @@ import main.java.usecases.DogManager;
  */
 
 public class ClickProcessor {
-    private DogManager manager;
+    private Clickable[] managerList;
 
-    public ClickProcessor() {
-        this.manager = new DogManager();
+    public ClickProcessor(Clickable[] managerList) {
+        this.managerList = managerList;
     }
 
-    public boolean DogClicked(int mouseX, int mouseY) {
-        // ONLY checks if dog was clicked, need to expand
-        int[][] loc = manager.getLocation();
-        return ( (loc[0][0]  <= mouseX && mouseX <= loc[0][1]) && (loc[1][0] <= mouseY && mouseY <= loc[1][1]));
+    public Clickable getClicked(int mouseX, int mouseY) {
+        for(Clickable manager : this.managerList) {
+            if (manager.clicked(mouseX, mouseY)) {return manager;}
+        }
+        return null;
     }
+
     
+    // To-Do: implement quadtree for more efficient click detection
+
 
 }

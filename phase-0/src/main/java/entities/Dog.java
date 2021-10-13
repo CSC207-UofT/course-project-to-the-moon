@@ -33,6 +33,13 @@ public class Dog {
         return this.level;
     }
 
+    public void setCoins(int coin) {
+        this.coins += coin;
+    }
+    public void setExp(double exp) {
+        this.exp += exp;
+    }
+
     // Jimin Song added this part
     // create moveDog method
     public void moveDog(int delta_x, int delta_y){
@@ -45,10 +52,6 @@ public class Dog {
         //TODO: you should change this code to draw a dog.
         g.setColor(Color.RED);
         g.fillRect(this.x, this.y, this.d_width, this.d_height);
-    }
-
-    public void update(int newCoin, int newExp) {
-
     }
 
 

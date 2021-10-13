@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import main.java.adaptors.ClickProcessor;
 import main.java.usecases.DogManager;
+import main.java.usecases.Clickable;
 
 /**
  * This class represents a controller for the dog game. It processes mouse input.
@@ -16,15 +17,16 @@ public class DogGameController implements MouseListener {
 
     public DogGameController() {
         this.DogManager = new DogManager();
-        this. processor = new ClickProcessor();
+        this.processor = new ClickProcessor(new Clickable[]{
+            this.DogManager
+        });
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         // Juntae implemented this part. ONLY CHECKS DOG CLICKED, need to expand
-        if (processor.DogClicked(e.getX(), e.getY())) {
-            DogManager.pet();
-        };
+        Clickable clickedManager = this.processor.getClicked(e.getX(), e.getY());
+        if(clickedManager instanceof Clickable) {clickedManager.act();}
 
     }
 
