@@ -1,14 +1,9 @@
-package main.java.drivers;
+package programdrivers;
 
-import main.java.adaptors.DogGameController;
-import main.java.adaptors.DogGamePresenter;
-import main.java.entities.Dog;
-import main.java.entities.Sprite;
-import main.java.usecases.DogMover;
+import adaptors.DogGameController;
+import adaptors.DogGamePresenter;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
 /**
@@ -25,7 +20,7 @@ public class DogGame {
      */
     public static void main(String[] args) throws IOException {
         DogGame dg = new DogGame();
-        dg.run();
+        dg.start();
     }
 
     /**
@@ -45,35 +40,17 @@ public class DogGame {
         mainFrame.setFocusable(true);
         mainFrame.requestFocus();
 
-        // Jimin Song changed this part
-        // creating dog
-        Dog dog = new Dog();
-        // creating DogMover
-        DogMover dog_mover = new DogMover(dog, WIDTH, HEIGHT);
-        // move the dog randomly
-        dog.dm = dog_mover;
-        JPanel presenter = new DogGamePresenter(WIDTH, HEIGHT);
-        ((DogGamePresenter) presenter).dog = dog;
-        MouseListener controller = new DogGameController();
+        DogGamePresenter presenter = new DogGamePresenter(WIDTH, HEIGHT);
+        DogGameController controller = new DogGameController();
 
-        presenter.addMouseListener(controller);
+        presenter.addController(controller);
         mainFrame.add(presenter);
     }
 
     /**
-     * Runs a new dog game.
+     * Starts the dog game.
      */
-    public void run() throws IOException {
-        Sprite newSprite = new Sprite();
-        Thread thread = new Thread(newSprite);
-        thread.start();
-        try{
-            Thread.sleep(1000/newSprite.getFPS());
-        }
-        catch(InterruptedException e){
-            System.out.println("The Thread was interrupted.");
-        }
-
+    public void start() {
         mainFrame.setVisible(true);
     }
 }

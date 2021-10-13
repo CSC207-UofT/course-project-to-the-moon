@@ -1,3 +1,5 @@
+Clean Architecture Layer: Controller (Interface Adapters)
+
 Class Name: DogGameController implements MouseListener
 
 Responsibilities:
