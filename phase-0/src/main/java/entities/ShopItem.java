@@ -1,4 +1,4 @@
-package main.java.entities;
+package java.entities;
 
 public class ShopItem {
     private String name;

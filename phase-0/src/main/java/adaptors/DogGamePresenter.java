@@ -1,6 +1,6 @@
-package main.java.adaptors;
+package java.adaptors;
 
-import main.java.entities.Dog;
+import java.entities.Dog;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -14,6 +14,9 @@ import java.awt.Graphics;
 public class DogGamePresenter extends JPanel {
     private int width;
     private int height;
+
+    private DogGameController controller;
+
     public Dog dog;
 
     /**
@@ -27,21 +30,24 @@ public class DogGamePresenter extends JPanel {
     }
 
     /**
+     * Adds a dog game controller to this presenter.
+     * @param controller The controller to add.
+     */
+    public void addController(DogGameController controller) {
+        super.addMouseListener(controller);
+        this.controller = controller;
+    }
+
+    /**
      * Draws everything to the screen.
      */
     @Override
     public void paintComponent(Graphics g) {
-        // TODO: make it draw the game objects
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, width, height);
 
-        g.setColor(Color.BLUE);
-        g.fillRect(0, 0, 100, 100);
 
-        // Jimin Song added.
-        //draw a dog
-        dog.dm.randomLocation();
-        dog.drawDog(g);
+
 
         try {
             Thread.sleep (100); // delay between frames

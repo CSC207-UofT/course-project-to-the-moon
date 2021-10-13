@@ -1,31 +1,30 @@
-package main.java.entities;
+package java.entities;
 
-import main.java.usecases.DogMover;
+import java.usecases.DogMover;
 
-import java.awt.*;
-
+/**
+ * This class represents a dog.
+ * @author Juntae
+ */
 public class Dog {
     private int coins;
     private int level;
     private double exp;
     // dog position
-    public int x;
-    public int y;
-    public DogMover dm;
-    // dog size
-    public int d_width;
-    public int d_height;
+    private int x;
+    private int y;
 
-    public Dog() {
-        this.coins = 0;
-        this.level = 0;
-        this.exp = 0.0;
-        this.x = 0;
-        this.y = 0;
-        this.d_width = 70;
-        this.d_height = 100;
+    /**
+     * This method translate the dog by a certain amount.
+     * @param dx The x-amount to translate by.
+     * @param dy The y-amount to translate by.
+     */
+    public void translate(double dx, double dy) {
+        this.x += dx;
+        this.y += dy;
     }
 
+    //getters and setters
     public int getCoins() {
         return this.coins;
     }
@@ -33,26 +32,17 @@ public class Dog {
         return this.level;
     }
 
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
+
     public void setCoins(int coin) {
-        this.coins += coin;
+        this.coins = coin;
     }
     public void setExp(double exp) {
-        this.exp += exp;
+        this.exp = exp;
     }
-
-    // Jimin Song added this part
-    // create moveDog method
-    public void moveDog(int delta_x, int delta_y){
-        this.x += delta_x;
-        this.y += delta_y;
-    }
-
-
-    public void drawDog(Graphics g){
-        //TODO: you should change this code to draw a dog.
-        g.setColor(Color.RED);
-        g.fillRect(this.x, this.y, this.d_width, this.d_height);
-    }
-
-
 }

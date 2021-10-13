@@ -1,50 +1,88 @@
-package main.java.usecases;
+package java.usecases;
 
-import main.java.entities.Dog;
+import java.entities.Dog;
 import java.util.Random;
 
 /**
  * This class continuously moves the given dog randomly in a separate thread.
- * @author Jimin Song
+ * @author Jimin Song and Andy Wang
  * @since 10 October 2021
  */
 public class DogMover {
     public Dog dog;
-    // signs are for changing the direction of dog coordinates
-    private int x_sign = 1;
-    private int y_sign = 1;
-    // the size of the frame
-    private int w;
-    private int h;
+    // these represent x and y velocities of the dog
+    private float dx, dy;
+    // the size of the boundaries
+    private int width, height;
+    // random number generator
     private Random rand = new Random();
 
-    public DogMover(Dog dog, int w, int h){
+    /**
+     * Initializes a new DogMover that continuously moves a dog, given a boundary of where the dog
+     * is allowed to be.
+     * @param dog The dog to move.
+     */
+    public DogMover(Dog dog){
         this.dog = dog;
-        this.w = w;
-        this.h = h;
+        this.width = 300;
+        this.height = 200;
+
+        // TODO: make it take in width and height as parameters
+
+        this.startMoving();
     }
 
-    public void randomLocation(){
-        float chance = rand.nextFloat();
-        // chance is the chance of the dog movings.
-        if (chance <= 0.1){
-            int delta_x = rand.nextInt(10);
-            int delta_y = rand.nextInt(10);
+    /**
+     * Moves the dog to the given location, within the given time.
+     * @param x The x-coordinate to move the dog to.
+     * @param y The y-coordinate to move the dog to.
+     * @param t The time it takes to move the dog in seconds.
+     */
+    public void moveDogTo(int x, int y, double t) {
+        int delay = 10;
+        int numIterations = (int) ((t * 1000) / delay);
 
-            if (this.dog.x + this.dog.d_width + delta_x*x_sign>= this.w){
-                this.x_sign = -1;
-            }
-            else if (this.dog.x + delta_x*x_sign <=0){
-                this.x_sign = 1;
-            }
+        int currX = this.dog.getX();
+        int currY = this.dog.getY();
 
-            if (this.dog.y + this.dog.d_height + delta_y*y_sign >= this.h){
-                this.y_sign = -1;
+        this.dx = (x - currX) / (float) delay;
+        this.dy = (y - currY) / (float) delay;
+        for (int i = 0; i < numIterations; i++) {
+            this.dog.translate(this.dx, this.dy);
+
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                System.out.println("Something went wrong moving the dog");
             }
-            else if (this.dog.y + delta_y*y_sign <=0){
-                this.y_sign = 1;
-            }
-            this.dog.moveDog(delta_x * x_sign, delta_y * y_sign);
         }
+        this.dx = 0;
+        this.dy = 0;
+    }
+
+    /**
+     * Continuously moves the dog.
+     */
+    public void startMoving(){
+        Thread thread = new Thread(() -> {
+            while (true) {
+                // choose a random location to move to
+                int newX = rand.nextInt(this.width);
+                int newY = rand.nextInt(this.height;
+
+                // choose the time it takes
+                double time = .5 + rand.nextDouble();
+
+                // move the dog to the new location
+                this.moveDogTo(newX, newY, time);
+
+                // sleep for a random time
+                try {
+                    Thread.sleep(rand.nextInt(1000));
+                } catch (InterruptedException e) {
+                    System.out.println("Something went wrong moving the dog!");
+                }
+            }
+        });
     }
 }

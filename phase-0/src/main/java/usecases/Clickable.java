@@ -1,4 +1,4 @@
-package main.java.usecases;
+package java.usecases;
 
 /**
  * This interface is to be implemented on all clickable entities
@@ -9,7 +9,7 @@ package main.java.usecases;
 public interface Clickable {
     public boolean clicked(int mouseX, int mouseY);
 
-    public int[][] getLocation();
+    public int[] getLocation();
 
     public void act();
 }

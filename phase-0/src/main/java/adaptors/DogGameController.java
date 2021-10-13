@@ -1,10 +1,11 @@
-package main.java.adaptors;
+package java.adaptors;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import main.java.adaptors.ClickProcessor;
-import main.java.usecases.DogManager;
-import main.java.usecases.Clickable;
+import java.usecases.DogManager;
+import java.usecases.Clickable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents a controller for the dog game. It processes mouse input.
@@ -12,22 +13,30 @@ import main.java.usecases.Clickable;
  * @since 9 October 2021
  */
 public class DogGameController implements MouseListener {
-    private ClickProcessor processor;
-    private DogManager DogManager;
+    // stores all the clickable objects (managers)
+    private final ArrayList<Clickable> clickables = new ArrayList<>();
+    // god dammit IntelliJ if I add a final keyword will you finally be happy????
 
+    /**
+     * Initializes a new controller for the dog game, that process inputs.
+     */
     public DogGameController() {
-        this.DogManager = new DogManager();
-        this.processor = new ClickProcessor(new Clickable[]{
-            this.DogManager
-        });
+        this.clickables.add(new DogManager());
+    }
+
+    public List<Clickable> getClickables() {
+        return this.clickables;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // Juntae implemented this part. ONLY CHECKS DOG CLICKED, need to expand
-        Clickable clickedManager = this.processor.getClicked(e.getX(), e.getY());
-        if(clickedManager instanceof Clickable) {clickedManager.act();}
-
+        // Juntae implemented this part, edited by Andy
+        for (Clickable clickable : this.clickables) {
+            // find the clickable thing that you clicked on
+            if (clickable.clicked(e.getX(), e.getY())) {
+                clickable.act(); // make it act
+            }
+        }
     }
 
     @Override
