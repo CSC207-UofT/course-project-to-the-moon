@@ -23,7 +23,7 @@ public class DogGame {
      * This is the main method. Run this to run the game.
      * @param args Unused.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DogGame dg = new DogGame();
         dg.run();
     }
