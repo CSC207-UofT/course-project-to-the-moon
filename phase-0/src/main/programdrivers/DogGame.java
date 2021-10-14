@@ -46,7 +46,7 @@ public class DogGame {
         presenter.addController(controller);
         mainFrame.add(presenter);
     }
-
+    // getter method for testing
     public JFrame getFrame(){ return this.mainFrame;}
 
     /**
