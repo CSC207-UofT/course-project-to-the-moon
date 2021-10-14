@@ -1,5 +1,10 @@
 package entities;
 
+/**
+ * This class represents an item in the shop.
+ * @author Fatimeh Hassan
+ */
+
 public class ShopItem {
     private String name;
     private int cost;
