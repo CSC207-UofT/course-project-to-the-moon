@@ -13,6 +13,8 @@ import java.io.IOException;
  */
 public class DogGame {
     private JFrame mainFrame;
+    private final int WIDTH = 300;
+    private final int HEIGHT = 500;
 
     /**
      * This is the main method. Run this to run the game.
@@ -27,8 +29,6 @@ public class DogGame {
      * Initialize a new dog game and all its frames.
      */
     public DogGame() {
-        int WIDTH = 300;
-        int HEIGHT = 500;
 
         mainFrame = new JFrame();
         /* width of the frame */
@@ -46,6 +46,8 @@ public class DogGame {
         presenter.addController(controller);
         mainFrame.add(presenter);
     }
+    // getter method for testing
+    public JFrame getFrame(){ return this.mainFrame;}
 
     /**
      * Starts the dog game.
