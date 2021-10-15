@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  * @since 13 October 2021
 */
 public interface Drawable {
-    public int getX();
-    public int getY();
-    public BufferedImage getImage();
+     int getX();
+     int getY();
+     BufferedImage getImage();
 }

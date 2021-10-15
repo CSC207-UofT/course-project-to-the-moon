@@ -7,7 +7,7 @@ package usecases;
 */
 
 public interface Clickable {
-    public boolean clicked(int mouseX, int mouseY);
-    public int[] getLocation();
-    public void act();
+     boolean clicked(int mouseX, int mouseY);
+     int[] getLocation();
+     void act();
 }

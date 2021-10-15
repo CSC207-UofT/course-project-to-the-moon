@@ -12,14 +12,13 @@ import java.util.TimerTask;
  * @since 10 October 2021
  */
 public class DogMover {
-    private Dog dog;
-    private Sprite dogSprite;
-    // these represent x and y velocities of the dog
-    private float dx, dy;
+    private final Dog dog;
+    private final Sprite dogSprite;
     // the size of the boundaries
-    private int width, height;
+    private final int width;
+    private final int height;
     // random number generator
-    private Random rand = new Random();
+    private final Random rand = new Random();
 
     /**
      * Initializes a new DogMover that continuously moves a dog, given a boundary of where the dog
@@ -77,11 +76,12 @@ public class DogMover {
         int currX = (int) this.dog.getX();
         int currY = (int) this.dog.getY();
 
-        this.dx = (x - currX) / (float) numIterations;
-        this.dy = (y - currY) / (float) numIterations;
+        // these represent x and y velocities of the dog
+        float dx = (x - currX) / (float) numIterations;
+        float dy = (y - currY) / (float) numIterations;
 
         for (int i = 0; i < numIterations; i++) {
-            this.dog.translate(this.dx, this.dy);
+            this.dog.translate(dx, dy);
 
             try {
                 Thread.sleep(delay);
@@ -89,7 +89,7 @@ public class DogMover {
                 System.out.println("Something went wrong moving the dog");
             }
         }
-        this.dx = 0;
-        this.dy = 0;
+        dx = 0;
+        dy = 0;
     }
 }

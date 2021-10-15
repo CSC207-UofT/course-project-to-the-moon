@@ -4,7 +4,7 @@ import adaptors.DogGameController;
 import adaptors.DogGamePresenter;
 
 import javax.swing.JFrame;
-import java.io.IOException;
+
 
 /**
  * This class represents a dog game instance, making all the JFrames necessary to run it.
@@ -12,15 +12,13 @@ import java.io.IOException;
  * @since 9 October 2021
  */
 public class DogGame {
-    private JFrame mainFrame;
-    private final int WIDTH = 300;
-    private final int HEIGHT = 500;
+    private final JFrame mainFrame;
 
     /**
      * This is the main method. Run this to run the game.
      * @param args Unused.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         DogGame dg = new DogGame();
         dg.start();
     }
@@ -32,6 +30,8 @@ public class DogGame {
 
         mainFrame = new JFrame();
         /* width of the frame */
+        int WIDTH = 300;
+        int HEIGHT = 500;
         mainFrame.setSize(WIDTH, HEIGHT);
         mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
