@@ -103,9 +103,12 @@ public class DogManager implements Clickable, Drawable, Displayable {
         return this.myDog.getCoins();
     }
 
-    public int getExp() {
+    /*
+        public int getExp() {
         return this.myDog.getExp();
-    }
+        }
+       */
+
 
     /**
      * Gets the dog sprite's current frame.

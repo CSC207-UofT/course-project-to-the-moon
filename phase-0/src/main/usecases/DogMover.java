@@ -89,7 +89,6 @@ public class DogMover {
                 System.out.println("Something went wrong moving the dog");
             }
         }
-        dx = 0;
-        dy = 0;
+
     }
 }
