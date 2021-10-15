@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * This class represents a sprite to be drawn to a window.
@@ -36,50 +38,16 @@ public class Sprite {
      * @param fps The animation speed in frames per second.
      */
     public Sprite(String folderName, int fps) {
-        File folder = new File(folderName);
-        System.out.println(folder.getAbsolutePath());
-        File[] frameFiles = folder.listFiles();
-        assert(frameFiles != null);
+        this.loadFrames(folderName);
 
-        // Sort the frame files by name in ascending order
-        Arrays.sort(frameFiles, (f1, f2) -> {
-            // originally was going to use an anonymous comparator, but IntelliJ said I could use a lambda instead
-            // so here we are lol
-            // f1 and f2 are files to be compared
-            String n1 = f1.getName();
-            String n2 = f2.getName();
-
-            //Remove the ".png" at the end
-            n1 = n1.substring(0, n1.length() - 4);
-            n2 = n2.substring(0, n2.length() - 4);
-
-            return Integer.compare(Integer.parseInt(n1), Integer.parseInt(n2));
-        });
-
-        this.frames = new BufferedImage[frameFiles.length];
-
-        //Populate frames with BufferedImages
-        for (int i = 0; i < frames.length; i++) {
-            try {
-                frames[i] = ImageIO.read(frameFiles[i]);
-            } catch (IOException e) {
-                System.out.println("There was an error loading frame " + i);
+        Timer animator = new Timer();
+        TimerTask frameUpdateTask = new TimerTask() {
+            @Override
+            public void run() {
+                updateFrame();
             }
-        }
-
-        // Create a new thread to continuously animate this sprite
-        Thread spriteAnimator = new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(1000 / fps);
-                    // TODO: find a better way to do this that doesn't upset IntelliJ
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } this.currentFrame++;
-                this.currentFrame %= frames.length; // if currentFrame goes out of bounds it becomes zero again
-            }
-        });
-        spriteAnimator.start();
+        };
+        animator.scheduleAtFixedRate(frameUpdateTask, 0, 1000 / fps);
     }
 
     /**
@@ -129,5 +97,50 @@ public class Sprite {
      */
     public int getHeight() {
         return this.frames[0].getHeight(); // all sprites should have the same dimensions
+    }
+
+    /**
+     * A helper method to load all the frames into an array.
+     * @param folderName The name of the folder containing the frames.
+     */
+    private void loadFrames(String folderName) {
+        File folder = new File(folderName);
+        System.out.println(folder.getAbsolutePath());
+        File[] frameFiles = folder.listFiles();
+        assert(frameFiles != null);
+
+        // Sort the frame files by name in ascending order
+        Arrays.sort(frameFiles, (f1, f2) -> {
+            // originally was going to use an anonymous comparator, but IntelliJ said I could use a lambda instead
+            // so here we are lol
+            // f1 and f2 are files to be compared
+            String n1 = f1.getName();
+            String n2 = f2.getName();
+
+            //Remove the ".png" at the end
+            n1 = n1.substring(0, n1.length() - 4);
+            n2 = n2.substring(0, n2.length() - 4);
+
+            return Integer.compare(Integer.parseInt(n1), Integer.parseInt(n2));
+        });
+
+        this.frames = new BufferedImage[frameFiles.length];
+
+        //Populate frames with BufferedImages
+        for (int i = 0; i < frames.length; i++) {
+            try {
+                frames[i] = ImageIO.read(frameFiles[i]);
+            } catch (IOException e) {
+                System.out.println("There was an error loading frame " + i);
+            }
+        }
+    }
+
+    /**
+     * A helper method to update the frame to the next one in the animation.
+     */
+    private void updateFrame() {
+        this.currentFrame++;
+        this.currentFrame %= frames.length; // if currentFrame goes out of bounds it becomes zero again
     }
 }

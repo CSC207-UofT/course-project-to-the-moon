@@ -3,6 +3,11 @@ package entities;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * This class represents a shop which contains an inventory of items that can be sold.
+ * @author Fatimeh Hassan
+ */
+
 public class Shop {
     /* simple implementation of inventory right now, will create an interface(?) in phase 1 */
     protected List<ShopItem> inventory;

@@ -9,7 +9,7 @@ import entities.Sprite;
  * @author Juntae Park and Andy Wang
  * @since 12 October 2021
  */
-public class DogManager implements Clickable, Drawable {
+public class DogManager implements Clickable, Drawable, Displayable {
     private Dog myDog; // the dog that this manager handles
     private Sprite dogSprite;
     private CoinCalculator coinCalc; // the coin calculator for this dog
@@ -45,8 +45,6 @@ public class DogManager implements Clickable, Drawable {
 
         this.update(earnedCoin, earnedExp);
 
-        System.out.println("coin earned: " + earnedCoin);
-        System.out.println("exp earned: " + earnedExp);
     }
 
     /**
@@ -76,6 +74,15 @@ public class DogManager implements Clickable, Drawable {
     }
 
     /**
+     * Returns values of DogManager to be displayed
+     * @return the coin and exp of the dog, specifically in that order.
+     */
+    @Override
+    public int[] getDisplay() {
+        return new int[] {myDog.getCoins(), myDog.getExp()};
+    }
+
+    /**
      * Gets the x coordinate of the dog.
      * @return The x coordinate of the dog.
      */
@@ -93,6 +100,14 @@ public class DogManager implements Clickable, Drawable {
         return (int) this.myDog.getY();
     }
 
+    public int getCoins() {
+        return (int) this.myDog.getCoins();
+    }
+
+    public int getExp() {
+        return (int) this.myDog.getExp();
+    }
+
     /**
      * Gets the dog sprite's current frame.
      * @return The dog sprite's current frame.
@@ -101,4 +116,5 @@ public class DogManager implements Clickable, Drawable {
     public BufferedImage getImage() {
         return this.dogSprite.getCurrentFrame();
     }
+    
 }
