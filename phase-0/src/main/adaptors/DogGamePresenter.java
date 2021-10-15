@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import entities.Dog;
 import usecases.Clickable;
 import usecases.Drawable;
+import usecases.Displayable;
+import usecases.DogManager;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -12,12 +14,18 @@ import java.util.ArrayList;
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
- * @author Andy Wang
+ * @author Andy Wang, Juntae Park
  * @since 9 October 2021
  */
 public class DogGamePresenter extends JPanel {
     private int width;
     private int height;
+
+    private int COINX = 5;
+    private int COINY = 15;
+
+    private int EXPX = 5;
+    private int EXPY = 30;
 
     private DogGameController controller;
 
@@ -31,6 +39,7 @@ public class DogGamePresenter extends JPanel {
     public DogGamePresenter(int w, int h) {
         width = w;
         height = h;
+
     }
 
     /**
@@ -43,12 +52,35 @@ public class DogGamePresenter extends JPanel {
     }
 
     /**
+     * Updates the values displayed on the screen
+     */
+    public void updateHUD(Graphics g) {
+        g.setColor(Color.WHITE);
+
+        ArrayList<Displayable> displayables = (ArrayList<Displayable>) this.controller.getDisplayables();
+
+        for (Displayable manager : displayables) {
+            int[] output = manager.getDisplay();
+            if(manager instanceof DogManager) {
+                String coinText = "Coins earned " + output[0];
+                String expText = "Exp earned " + output[1];
+
+                g.drawString(coinText,COINX,COINY);
+                g.drawString(expText,EXPX,EXPY);
+            }
+        }
+
+        
+    }
+
+    /**
      * Draws everything to the screen.
      */
     @Override
     public void paintComponent(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, width, height);
+        updateHUD(g);
 
         ArrayList<Clickable> clickables = (ArrayList<Clickable>) this.controller.getClickables();
 

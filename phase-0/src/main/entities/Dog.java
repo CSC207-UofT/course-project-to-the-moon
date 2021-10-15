@@ -22,9 +22,8 @@ public class Dog {
     }
 
     //getters and setters
-    public int getCoins() {
-        return this.coinsEarned;
-    }
+    public int getCoins() { return this.coinsEarned; }
+    
     public int getExp() { return this.exp; }
 
     public double getX() {
