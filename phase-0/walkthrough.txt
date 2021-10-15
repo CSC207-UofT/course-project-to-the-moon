@@ -14,3 +14,5 @@ that calculate the coins earned from the click, and the amount of exp that the c
 then updates the Dog's exp and coinsEarned variables accordingly. The presenter finds the total amount of coins and exp earned
 by calling the getDisplay method on all displayable objects, which are objects with values to be displayed on the game screen 
 (only DogManager for now), and draws them on the screen.
+
+!!!!!! MAKE SURE THE PROJECT FOLDER IS THE WORKING DIRECTORY!!!!! OR ELSE IT WON'T BE ABLE TO FIND THE SPRITE FILES!!!!!!!!
