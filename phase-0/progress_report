@@ -2,14 +2,29 @@ Our idea for the final project has been an interactive dog application where the
 dog as well as play minigames and do other activities to gain experience/currency that can be used to buy items
 from the shop.
 
-One question about our project which is uncertain is our use of threads. We have created at least two threads for the
-movement of the dog and its sprite updating and we may add more in the future. However, IntelliJ raises a warning,
-and we are unsure of how to avert this.
+Our CRC model includes the basic cards that we could think of, like Dog, Sprite, DogGameController, DogGamePresenter, and DogGame. It is possible in the future that
+we will think of new classes, or decide that some classes just aren't needed.
+
+The scenario walk-through details what happens when you click (pet) on a dog. To sum it up, the mouse input is sent to the DogGameController, which looks to see which
+object the mouse coordinates are on. It calls that object's act method if it was indeed clicked. So for petting a dog, the DogManager's act method is called, which calculates
+coins and exp earned.
+
+Our skeleton program so far does exactly that; clicking on the moving dog sprite (courtesy of Undertale) will award coins and exp.
 
 So far, our overall organization of the code and progress has been satisfactory. We are further ahead in our skeleton
-code than previously expected, which enables us to add more complicated features and minigames in the later phases.
+code than previously expected, which enables us to add more complicated features and minigames in the later phases. The facade pattern of the managers
+has been working decently well, and following Clean Architecture has made Use Case and Entity classes pretty easy to modify.
 
-Andy:
+One question we have for ourselves is how exactly to implement the minigames in the future. Maybe something like you click a button to send you to a different screen
+with the minigame on it - that would require splitting the minigame screens and the main screen into multiple screens, and we are figuring out how to implement this in an efficient manner.
+What complicates it more is the threads in the Sprite and DogMover class - when we switch screens, will they still be running in the background, or should they be stopped? If we want
+to make the dog a controllable character in a minigame, should we use a completely new DogManager? How would the DogManager know how to move the dog depending on the minigame?
+When we switch screens, should all the Manager classes be removed and recreated?
+
+Andy: Helped with CRC Model and specification, wrote the scenario walkthrough. Started on the DogGame, DogGamePresenter, and DogGameController classes. 
+After everyone else did their initial tasks, did a quick code-review and refactoring to fix dependency issues and such. Helped implement the multithreading (with Timer) 
+in Sprite and DogMover classes. Made the Drawabale class that DogManager implements. Thinking about how to make shop buttons in an efficient manner, and how to implement
+minigames. Maybe a platformer? That would require gravity and collision detection, which would complicate the DogMover a bit.
 
 Juntae: Contributed to the files DogManager, DogGamePresenter, DogGameController, Dog, Clickable, and Displayable. Helped with the CRC model. In phase 1 I plan on working on the game's economy system by implementing inventories for the player and the shop, the ability to purchase and sell items, genearting variable prices for items based on stock market API calls, etc.
 
