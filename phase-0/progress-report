@@ -24,8 +24,8 @@ for items that can be bought from the Shop.
 
 Jimin: I managed a DogMover class which continuously moves the dogs’ locations. To implement this class, I also added
 some codes in Dog class and DogController, but a Dog class should only store the features of dogs so Andy helped to
- modify codes correctly by removing the draw method in a Dog class and adding it to a DogManager class. I am looking
- forward to contributing to Shop class and also to at least one minigame.
+modify codes correctly by removing the draw method in a Dog class and adding it to a DogManager class. I am looking
+forward to contributing to Shop class and also to at least one minigame.
 
 Praket: I contributed to some of the ideas put forth for the CRC cards along with ensuring that clean architecture was
 being followed while we were writing out the CRC cards itself. I also created an initial implementation of the Coin and
