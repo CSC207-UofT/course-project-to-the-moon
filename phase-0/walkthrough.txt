@@ -11,5 +11,6 @@ If the mouse is clicked on a sprite, it calls the clickable object's act method.
 object we have is a DogManager, it will call the DogManager's act method. Each DogManager has its own Dog, CoinCalculator,
 and ExpCalculator object (facade pattern). The DogManager's act method invokes the CoinCalculator and ExpCalculator methods
 that calculate the coins earned from the click, and the amount of exp that the clicked dog will receive. The DogManager
-then updates the Dog's exp and coinsEarned variables accordingly. The presenter finds the total amount of coins earned
-by reading the controller's DogManager, and draws it to the screen.
+then updates the Dog's exp and coinsEarned variables accordingly. The presenter finds the total amount of coins and exp earned
+by calling the getDisplay method on all displayable objects, which are objects with values to be displayed on the game screen 
+(only DogManager for now), and draws them on the screen.

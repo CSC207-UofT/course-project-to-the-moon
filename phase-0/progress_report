@@ -11,7 +11,7 @@ code than previously expected, which enables us to add more complicated features
 
 Andy:
 
-Juntae:
+Juntae: Contributed to the files DogManager, DogGamePresenter, DogGameController, Dog, Clickable, and Displayable. Helped with the CRC model. In phase 1 I plan on working on the game's economy system by implementing inventories for the player and the shop, the ability to purchase and sell items, genearting variable prices for items based on stock market API calls, etc.
 
 Aria: Alongside pitching ideas for the CRC model and specification I managed to write the Sprite class with some help
 from Andy. I also added the unit tests for most of the major classes that will be used. In the future, I will certainly
