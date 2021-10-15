@@ -7,6 +7,6 @@ package usecases;
 */
 
 public interface Displayable {
-    public int[] getDisplay();
+     int[] getDisplay();
 
 }

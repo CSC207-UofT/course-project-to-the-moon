@@ -10,11 +10,10 @@ import entities.Sprite;
  * @since 12 October 2021
  */
 public class DogManager implements Clickable, Drawable, Displayable {
-    private Dog myDog; // the dog that this manager handles
-    private Sprite dogSprite;
-    private CoinCalculator coinCalc; // the coin calculator for this dog
-    private ExpCalculator expCalc; // the exp calculator for this dog
-    private DogMover dogMover;
+    private final Dog myDog; // the dog that this manager handles
+    private final Sprite dogSprite;
+    private final CoinCalculator coinCalc; // the coin calculator for this dog
+    private final ExpCalculator expCalc; // the exp calculator for this dog
 
     /**
      * Initializes a dog manager, while also creating a dog and corresponding sprite.
@@ -26,8 +25,8 @@ public class DogManager implements Clickable, Drawable, Displayable {
         // facade pattern!!!
         this.coinCalc = new CoinCalculator();
         this.expCalc = new ExpCalculator();
-        this.dogMover = new DogMover(this.myDog, this.dogSprite);
-        this.dogMover.startMoving();
+        DogMover dogMover = new DogMover(this.myDog, this.dogSprite);
+        dogMover.startMoving();
     }
 
     private void update(int earnedCoin, int earnedExp) {
@@ -101,12 +100,15 @@ public class DogManager implements Clickable, Drawable, Displayable {
     }
 
     public int getCoins() {
-        return (int) this.myDog.getCoins();
+        return this.myDog.getCoins();
     }
 
-    public int getExp() {
-        return (int) this.myDog.getExp();
-    }
+    /*
+        public int getExp() {
+        return this.myDog.getExp();
+        }
+       */
+
 
     /**
      * Gets the dog sprite's current frame.

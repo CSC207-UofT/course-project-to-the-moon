@@ -18,14 +18,8 @@ import java.util.ArrayList;
  * @since 9 October 2021
  */
 public class DogGamePresenter extends JPanel {
-    private int width;
-    private int height;
-
-    private int COINX = 5;
-    private int COINY = 15;
-
-    private int EXPX = 5;
-    private int EXPY = 30;
+    private final int width;
+    private final int height;
 
     private DogGameController controller;
 
@@ -65,8 +59,12 @@ public class DogGamePresenter extends JPanel {
                 String coinText = "Coins earned " + output[0];
                 String expText = "Exp earned " + output[1];
 
-                g.drawString(coinText,COINX,COINY);
-                g.drawString(expText,EXPX,EXPY);
+                int COINX = 5;
+                int COINY = 15;
+                g.drawString(coinText, COINX, COINY);
+                int EXPX = 5;
+                int EXPY = 30;
+                g.drawString(expText, EXPX, EXPY);
             }
         }
 

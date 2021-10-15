@@ -6,8 +6,8 @@ package entities;
  */
 
 public class ShopItem {
-    private String name;
-    private int cost;
+    private final String name;
+    private final int cost;
 
     public ShopItem(String name, int cost) {
         this.name = name;
