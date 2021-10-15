@@ -1,1 +1,33 @@
+Our idea for the final project has been an interactive dog application where the player can interact with and pet the
+dog as well as play minigames and do other activities to gain experience/currency that can be used to buy items
+from the shop.
+
+One question about our project which is uncertain is our use of threads. We have created at least two threads for the
+movement of the dog and its sprite updating and we may add more in the future. However, IntelliJ raises a warning,
+and we are unsure of how to avert this.
+
+So far, our overall organization of the code and progress has been satisfactory. We are further ahead in our skeleton
+code than previously expected, which enables us to add more complicated features and minigames in the later phases.
+
+Andy:
+
+Juntae:
+
+Aria: Alongside pitching ideas for the CRC model and specification I managed to write the Sprite class with some help
+from Andy. I also added the unit tests for most of the major classes that will be used. In the future, I will certainly
+write at least one minigame of my own and I will also attempt to implement further graphical and sound features.
+
+Fatimeh: I helped write the specification and contributed to the CRC cards, I also added all the CRC cards we designed
+to the project on Github. I created an initial rough implementation of the Shop and ShopItem classes which I will continue
+to work on in future phases as well. I also plan to contribute to the minigames we will implement, and create more classes
+for items that can be bought from the Shop.
+
+Jimin: I managed a DogMover class which continuously moves the dogs’ locations. To implement this class, I also added
+some codes in Dog class and DogController, but a Dog class should only store the features of dogs so Andy helped to
+ modify codes correctly by removing the draw method in a Dog class and adding it to a DogManager class. I am looking
+ forward to contributing to Shop class and also to at least one minigame.
+
+Praket: I contributed to some of the ideas put forth for the CRC cards along with ensuring that clean architecture was
+being followed while we were writing out the CRC cards itself. I also created an initial implementation of the Coin and
+Exp Calculator, which I plan to further improve. I also plan to further contribute to the minigames and the shop items.
 
