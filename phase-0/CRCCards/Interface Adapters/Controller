@@ -1,9 +1,0 @@
-Clean Architecture Layer: Presenter (Interface Adapters)
-
-Class Name: Controller
-
-Responsibilities:
-- Processes mouse inputs
-
-Collaborators:
-- MouseListener
