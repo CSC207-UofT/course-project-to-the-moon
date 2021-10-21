@@ -1,0 +1,18 @@
+The scenario described here will be clicking on a dog and receiving coins and exp.
+
+When the program is run, DogGame will create a JFrame, and put a JPanel on it. The JPanel will be the DogGamePresenter,
+and it will also have a MouseListener, which will be DogGameController. The controller will have an ArrayList of
+clickable objects (so far, it only contains a DogManager, but we plan on adding multiple). When the controller detects
+a mouse click, it loops through each of the clickable objects, and checks to see if the mouse coordinates are on any of
+the object's sprites. It does this by checking the coordinates of the mouse with the x and y coordinates of the sprite,
+as well has the dimensions of the sprite.
+
+If the mouse is clicked on a sprite, it calls the clickable object's act method. In this case, since the only clickable
+object we have is a DogManager, it will call the DogManager's act method. Each DogManager has its own Dog, CoinCalculator,
+and ExpCalculator object (facade pattern). The DogManager's act method invokes the CoinCalculator and ExpCalculator methods
+that calculate the coins earned from the click, and the amount of exp that the clicked dog will receive. The DogManager
+then updates the Dog's exp and coinsEarned variables accordingly. The presenter finds the total amount of coins and exp earned
+by calling the getDisplay method on all displayable objects, which are objects with values to be displayed on the game screen 
+(only DogManager for now), and draws them on the screen.
+
+!!!!!! MAKE SURE THE PROJECT FOLDER IS THE WORKING DIRECTORY!!!!! OR ELSE IT WON'T BE ABLE TO FIND THE SPRITE FILES!!!!!!!!

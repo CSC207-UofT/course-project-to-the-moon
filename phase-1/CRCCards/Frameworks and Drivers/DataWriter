@@ -1,0 +1,9 @@
+Clean Architecture Layer: Frameworks & Drivers
+
+Class Name: DataWriter
+
+Responsibilities:
+- At autosave intervals and log-off time, writes game data to database
+
+Collaborators:
+- Database

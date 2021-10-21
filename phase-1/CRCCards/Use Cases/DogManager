@@ -1,0 +1,18 @@
+Clean Architecture Layer: Use Cases (Application Business Rules)
+
+Class Name: DogManager
+
+Responsibilities:
+- Associates a sprite with a given dog
+- Instantiates a DogeCoinCalculator, DogExperienceCalculator, and DogMover for the dog
+- Runs the DogMover thread that moves the dog
+- Has a pet dog method that calls DogeCoinCalculator and DogExperienceCalculator methods
+- Has a method that determines if a mouse click is on the sprite
+
+
+Collaborators:
+- Dog
+- Sprite
+- DogeCoinCalculator
+- DogExperienceCalculator
+- DogMover

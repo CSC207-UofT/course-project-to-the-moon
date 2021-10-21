@@ -1,0 +1,9 @@
+Clean Architecture Layer: Use Cases (Application Business Rules)
+
+Class Name: ShopManager
+
+Responsibilities:
+- Keep track of player's currency
+- Store coin per second, keep updating the player's currency in a separate thread
+
+Collaborators:

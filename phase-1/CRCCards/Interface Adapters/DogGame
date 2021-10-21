@@ -1,0 +1,10 @@
+Clean Architecture Layer: Presenter (Interface Adapters)
+
+Class Name: DogGame
+
+Responsibilities:
+- Creates a JFrame, onto which a DogGamePresenter and DogGameController are added
+
+Collaborators:
+- DogGameController
+- DogGamePresenter

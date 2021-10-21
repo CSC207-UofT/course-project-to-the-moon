@@ -1,0 +1,9 @@
+Clean Architecture Layer: Entities (Enterprise Business Rules)
+
+Class Name: HatItem
+
+Responsibilities:
+- aesthetic item that can be bought from the shop
+
+Collaborators:
+- ShopItem

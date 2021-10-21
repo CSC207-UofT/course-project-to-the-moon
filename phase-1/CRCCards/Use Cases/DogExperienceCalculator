@@ -1,0 +1,10 @@
+Clean Architecture Layer: Use Cases (Application Business Rules)
+
+Class Name: DogExperienceCalculator
+
+Responsibilities:
+- Given a dog, calculate how much experience the dog gains from a pet
+
+Collaborators:
+- Dog
+- DogManager

@@ -1,0 +1,9 @@
+Clean Architecture Layer: Frameworks & Drivers
+
+Class Name: Database
+
+Responsibilities:
+- Represents file where gamedata is stored
+- Stores all data regarding game
+
+Collaborators:
