@@ -12,29 +12,30 @@ import java.util.TimerTask;
  */
 public class SpriteAnimator {
     private int fps = 0; // The stored fps
+    private Timer timer = new Timer();
+    private TimerTask updateTask;
 
     /**
      * Animates a sprite given frames per second by scheduling a new task that calls the sprite's
      * incrementFrame method.
      *
-     * Preconditions: The sprite is not already animated, and fps > 0.
-     *
      * @param sprite The sprite to animate.
      * @param fps The animation speed in frames per second.
-     * @throws NullPointerException if the frames per second is 0.
      */
     public void animateSprite(Sprite sprite, int fps) {
         this.fps = fps;
 
-        Timer timer = new Timer();
-        TimerTask frameUpdateTask = new TimerTask() {
+        this.updateTask = new TimerTask() {
             @Override
             public void run() {
                 sprite.incrementFrame();
             }
         };
-        timer.scheduleAtFixedRate(frameUpdateTask, 0, 1000 / this.fps);
-    } // TODO: make it cancellable, in case we want an animated sprite to go idle
+
+        if (fps > 0) {
+            timer.scheduleAtFixedRate(this.updateTask, 0, 1000 / this.fps);
+        }
+    }
 
     /**
      * Returns the current fps being animated.
@@ -50,5 +51,13 @@ public class SpriteAnimator {
      */
     public void setFPS(int fps) {
         this.fps = fps;
+
+        this.timer.cancel(); // cancel the current timer
+        this.timer = new Timer(); // create a new timer
+
+        // schedule the update task at the new speed
+        if (fps > 0) {
+            timer.scheduleAtFixedRate(this.updateTask, 0, 1000 / this.fps);
+        }
     }
 }
