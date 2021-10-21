@@ -1,9 +1,0 @@
-Clean Architecture Layer: Frameworks & Drivers
-
-Class Name: DataReader
-
-Responsibilities:
-- Reads data from Database
-
-Collaborators:
-- Database

@@ -1,9 +1,0 @@
-Clean Architecture Layer: Entities (Enterprise Business Rules)
-
-Class Name: ShopItem
-
-Responsibilities:
-- contains name of item
-- contains cost of item
-
-Collaborators:

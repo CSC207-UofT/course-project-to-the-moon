@@ -1,9 +1,0 @@
-Clean Architecture Layer: Entities (Enterprise Business Rules)
-
-Class Name: Factory (super: DogeCoinMiner)
-
-Responsibilities:
-- better DogeCoinMiner than Computer
-
-Collaborators:
-- ShopItem

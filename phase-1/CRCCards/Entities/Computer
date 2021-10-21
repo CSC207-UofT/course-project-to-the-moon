@@ -1,9 +1,0 @@
-Clean Architecture Layer: Entities (Enterprise Business Rules)
-
-Class Name: Computer (super: DogeCoinMiner)
-
-Responsibilities:
-- basic DogeCoinMiner
-
-Collaborators:
-- ShopItem

@@ -1,9 +1,0 @@
-Clean Architecture Layer: Use Cases (Application Business Rules)
-
-Class Name: CoinManager
-
-Responsibilities:
-- Keep track of player’s currency
-- Store coin per second, keep updating the player’s currency in a separate thread
-
-Collaborators:

@@ -1,8 +1,0 @@
-Clean Architecture Layer: Entities (Enterprise Business Rules)
-
-Class Name: Inventory (interface)
-
-Responsibilities:
-- Store items
-
-Collaborators:
