@@ -34,7 +34,7 @@ public class SpriteAnimator {
             }
         };
         timer.scheduleAtFixedRate(frameUpdateTask, 0, 1000 / this.fps);
-    }
+    } // TODO: make it cancellable, in case we want an animated sprite to go idle
 
     /**
      * Returns the current fps being animated.

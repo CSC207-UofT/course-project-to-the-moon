@@ -24,9 +24,7 @@ public class SpriteFacade {
 
     /**
      * Initializes a sprite facade given its frames as a BufferedImage array.
-     * This method should be used for animated sprite.
-     *
-     * Precondiitons: fps should be > 0
+     * This method should be used for animated sprites.
      *
      * @param frames An array of BufferedImages representing its frames.
      * @param fps The animation speed in frames per second.
@@ -40,6 +38,7 @@ public class SpriteFacade {
         } catch (NullPointerException e) {
             System.err.println("Animation speed cannot be 0!");
         }
+        // TODO: make it so you can initialize a multi-frame sprite to be idle, then change fps later
     }
 
     /**
