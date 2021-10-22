@@ -44,4 +44,12 @@ public class SpriteFacade {
     public void changeFPS(int fps) {
         this.animator.setFPS(fps);
     }
+
+    /**
+     * Returns the sprite.
+     * @return The sprite used by this facade.
+     */
+    public Sprite getSprite() {
+        return this.sprite;
+    }
 }
