@@ -8,5 +8,5 @@ import entities.Transform;
  * @since 21 October 2021
  */
 public interface Mover {
-    public void run(Transform t);
+     void run(Transform t);
 }

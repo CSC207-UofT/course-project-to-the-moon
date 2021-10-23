@@ -49,9 +49,9 @@ public class GameObject {
      * Preconditions: this.mover == null
      * @param m The mover to add.
      */
-    public void addMover(Mover m) {
+    protected void addMover(Mover m) {
         this.mover = m;
-        m.run(this.transform);
+        mover.run(this.transform);
     }
 
     /**

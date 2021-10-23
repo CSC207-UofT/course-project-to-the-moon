@@ -1,5 +1,7 @@
 package utility;
 
+import usecases.DogGameObject;
+import usecases.DogMover;
 import usecases.GameObject;
 
 import java.awt.image.BufferedImage;
@@ -14,18 +16,17 @@ public class GameObjectFactory {
 
     /**
      * Creates the corresponding GameObject given the name.
-     * @param The name of the object.
+     * @param name The name of the object.
      * @return The corresponding name of the object.
      */
     public GameObject create(String name) {
         if (name.equals("Dog")) {
-            // Build a DogGameObject
-//            DogGameObject dog = new DogGameObject(0, 0);
-//            BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-1/sprites/dog");
-//            dog.addSpriteFromFrames(dogFrames, 1);
-//            dog.addMover(new DogMover());
-//            return dog
+            DogGameObject dog = new DogGameObject(0, 0);
+            BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-1/sprites/dog");
+            dog.addSpriteFromFrames(dogFrames, 1);
+            return dog;
             //TODO: make DogGameObject and DogMover, uncomment the above
         }
+        return new GameObject(0,0);
     }
 }

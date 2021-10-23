@@ -26,7 +26,7 @@ public class DogManager implements Clickable, Drawable, Displayable {
         this.coinCalc = new CoinCalculator();
         this.expCalc = new ExpCalculator();
         DogMover dogMover = new DogMover(this.myDog, this.dogSprite);
-        dogMover.startMoving();
+        dogMover.();
     }
 
     private void update(int earnedCoin, int earnedExp) {
@@ -102,6 +102,8 @@ public class DogManager implements Clickable, Drawable, Displayable {
     public int getCoins() {
         return this.myDog.getCoins();
     }
+
+
 
     /*
         public int getExp() {
