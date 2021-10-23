@@ -6,7 +6,7 @@ package entities;
  * @since 21 October 2021
  */
 public class Transform {
-    double x,y;
+    double x,y; // coordinates in WORLD POSITION!!!! NOT relative to whatever surface it's drawn on!!!
 
     /**
      * Initializes a new Transform object based on the given coordinates.

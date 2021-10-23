@@ -9,7 +9,7 @@ public class CoinCalculator {
      * @since 10 October 2021
      */
     public int calculateCoins(Dog dog) {
-        return (dog.getExp() / 10) + 1;
+        return (dog.getExp() / 1000) + 1;
     }
 
 

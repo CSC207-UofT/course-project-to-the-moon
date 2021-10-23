@@ -1,9 +1,10 @@
 package usecases;
 
+import adaptors.GameGraphics;
 import entities.Dog;
-import entities.Transform;
 
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**
@@ -16,18 +17,35 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
     private final Dog myDog; // the dog that this manager handles
     private final CoinCalculator coinCalc; // the coin calculator for this dog
     private final ExpCalculator expCalc; // the exp calculator for this dog
+    private int coinsEarnedFromLastPet;
 
-    public DogGameObject(int x, int y){
+    /**
+     * Initializes a new DogGameObject at the given coordinates.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param sprite The sprite of the dog.
+     */
+    public DogGameObject(int x, int y, SpriteFacade sprite){
         super(x, y);
         this.myDog = new Dog();
+        this.addSprite(sprite);
 
-        // facade pattern!!!
+        // Facade pattern; delegate calculations to other classes
+        // TODO: decide if this is really necessary. Dog doesn't have enough responsibilities, so it's
+        // probably a code smell. Perhaps it can calculate its own stuff.
         this.coinCalc = new CoinCalculator();
         this.expCalc = new ExpCalculator();
-        DogMover dogMover = new DogMover(this.myDog, super.getSprite().getSprite(),
-                300, 500);
-        super.addMover(dogMover);
-        dogMover.run(new Transform(x, y));
+
+        DogMover dogMover = new DogMover(this.getSprite(), 180, 180);
+        this.addMover(dogMover); // automatically runs
+    }
+
+    /**
+     * Returns the amount of coins earned from the last pet (click)
+     * @return The amount of coins earned from the last pet.
+     */
+    public int getCoinsEarnedFromLastPet() {
+        return this.coinsEarnedFromLastPet;
     }
 
     /**
@@ -39,29 +57,12 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
      */
     @Override
     public boolean clicked(int mouseX, int mouseY) {
-        int[] loc = this.getLocation();
-        int x = loc[0];
-        int y = loc[1];
-        int width = super.getSprite().getSprite().getWidth();
-        int height = super.getSprite().getSprite().getHeight();
+        double x = this.getX();
+        double y = this.getY();
+        int width = super.getSprite().getWidth();
+        int height = super.getSprite().getHeight();
 
         return ((x < mouseX) && (mouseX < x + width) && (y < mouseY) && (mouseY < y + height));
-    }
-
-    public int[] getDisplay() {
-        return new int[] {myDog.getCoins(), myDog.getExp()};
-    }
-
-    /**
-     * A getter method for the dog's coordinates.
-     * @return the location of the dog.
-     */
-    @Override
-    public int[] getLocation() {
-        int castX = (int) super.getTransform().getX();
-        int castY = (int) super.getTransform().getY();
-        return new int[]{castX, castY};
-
     }
 
     /**
@@ -73,39 +74,24 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         int earnedCoin = coinCalc.calculateCoins(myDog);
         int earnedExp = expCalc.calculateExp(myDog);
 
-        this.update(earnedCoin, earnedExp);
-
-    }
-
-    public int getCoins() {
-        return this.myDog.getCoins();
+        this.updateDog(earnedCoin, earnedExp);
     }
 
     /**
-     * Return the x coordinate.
-     * @return The x coordinate.
+     * Draw this dog on the screen.
+     * @param g The implementation of GameGraphics to use.
+     * @param offsetX How much to offset the drawn image's x coordinate.
+     * @param offsetY How much to offset the drawn image's y coordinate.
      */
-    @Override
-    public int getX() {
-        return (int) super.getTransform().getX();
-    }
+    @Override public void draw(GameGraphics g, int offsetX, int offsetY) {
+        BufferedImage frame = this.getSprite().getCurrentFrame();
+        int drawnX  = (int) this.getX() - offsetX;
+        int drawnY = (int) this.getY() - offsetY;
 
-    /**
-     * Return the y coordinate.
-     * @return The y coordinate.
-     */
-    @Override
-    public int getY() {
-        return (int) super.getTransform().getY();
-    }
+        g.drawImage(frame, drawnX, drawnY);
 
-    /**
-     * A getter method returning the dog's current sprite image
-     * @return the BufferedImage representation of the dog sprite.
-     */
-    @Override
-    public BufferedImage getImage() {
-        return super.getSprite().getSprite().getCurrentFrame();
+        g.setColor(Color.WHITE);
+        g.drawText("exp: " + Integer.toString(this.myDog.getExp()), drawnX + 30, drawnY + 95);
     }
 
     /**
@@ -113,9 +99,9 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
      * @param earnedCoin the number of coins earned.
      * @param earnedExp the amount of experience gained.
      */
-    private void update(int earnedCoin, int earnedExp) {
+    private void updateDog(int earnedCoin, int earnedExp) {
         this.myDog.setCoins(this.myDog.getCoins() + earnedCoin);
         this.myDog.setExp(this.myDog.getExp() + earnedExp);
+        this.coinsEarnedFromLastPet = earnedCoin;
     }
-
 }

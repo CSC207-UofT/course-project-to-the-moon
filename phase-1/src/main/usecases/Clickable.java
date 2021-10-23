@@ -8,6 +8,5 @@ package usecases;
 
 public interface Clickable {
      boolean clicked(int mouseX, int mouseY);
-     int[] getLocation();
      void act();
 }

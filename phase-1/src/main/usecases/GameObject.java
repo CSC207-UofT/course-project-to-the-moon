@@ -1,6 +1,7 @@
 package usecases;
 
 import entities.Collider;
+import entities.Sprite;
 import entities.Transform;
 
 import java.awt.image.BufferedImage;
@@ -12,10 +13,10 @@ import java.awt.image.BufferedImage;
  * @since 21 October 2021
  */
 public class GameObject {
-    private Transform transform;
-    private SpriteFacade sprite;
-    private Collider collider;
-    private Mover mover;
+    private Transform transform = null;
+    private SpriteFacade sprite = null;
+    private Collider collider = null;
+    private Mover mover = null;
 
     /**
      * Initializes a game object at the given coordinates.
@@ -27,30 +28,24 @@ public class GameObject {
     }
 
     /**
-     * Adds a sprite given its frames.
-     * @param frames The sprite's frames as a BufferedImage array.
+     * Adds a SpriteFacade to this GameObject.
+     * @param sprite The SpriteFacade to add.
      */
-    public void addSpriteFromFrames(BufferedImage[] frames) {
-        this.sprite = new SpriteFacade(frames);
+    public void addSprite(SpriteFacade sprite) {
+        this.sprite = sprite;
     }
 
     /**
-     * Adds a sprite given its frames and animation speed in frames per second.
-     * @param frames The sprite's frames as a BufferedImage array.
-     * @param fps The animation speed in frames per second.
-     */
-    public void addSpriteFromFrames(BufferedImage[] frames, int fps) {
-        this.sprite = new SpriteFacade(frames, fps);
-    }
-
-    /**
-     * Adds an implementation of Mover to control the movement of this object.
+     * Adds and runs an implementation of Mover to control the movement of this object.
      *
      * Preconditions: this.mover == null
      * @param m The mover to add.
      */
-    protected void addMover(Mover m) {
-        this.mover = m;
+    public void addMover(Mover m) {
+        if (this.mover == null) {
+            this.mover = m;
+        }
+
         mover.run(this.transform);
     }
 
@@ -67,8 +62,20 @@ public class GameObject {
         return this.transform;
     }
 
-    public SpriteFacade getSprite() {
-        return this.sprite;
+    public double getX() {
+        return this.transform.getX();
+    }
+
+    public double getY() {
+        return this.transform.getY();
+    }
+
+    public Sprite getSprite() {
+        return this.sprite.getSprite();
+    }
+
+    public BufferedImage getCurrentFrame() {
+        return this.getSprite().getCurrentFrame();
     }
 
     public Collider getCollider() {

@@ -10,7 +10,7 @@ public class ExpCalculator {
      */
 
     public int calculateExp(Dog dog) {
-        return (dog.getCoins() / 20) + 1;
+        return (dog.getCoins() / 200) + 1;
     }
 
 }

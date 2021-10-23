@@ -1,9 +1,18 @@
 package programdrivers;
 
+import adaptors.Camera;
 import adaptors.DogGameController;
-import adaptors.DogGamePresenter;
+import adaptors.DogGameFrameLoader;
+import adaptors.DogGameJPanel;
+import usecases.DogGameObject;
+import usecases.GameObject;
+import usecases.SpriteFacade;
 
 import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -27,11 +36,11 @@ public class DogGame {
      * Initialize a new dog game and all its frames.
      */
     public DogGame() {
-
         mainFrame = new JFrame();
         /* width of the frame */
         int WIDTH = 300;
         int HEIGHT = 500;
+
         mainFrame.setSize(WIDTH, HEIGHT);
         mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,14 +49,41 @@ public class DogGame {
         mainFrame.setFocusable(true);
         mainFrame.requestFocus();
 
-        DogGamePresenter presenter = new DogGamePresenter(WIDTH, HEIGHT);
+        DogGameJPanel presenter = new DogGameJPanel(WIDTH, HEIGHT);
         DogGameController controller = new DogGameController();
 
+        DogGameFrameLoader frameLoader = new DogGameFrameLoader();
+
+        // Create the main "stage"
+        // We could create a class for this, but it'd be a code smell (Data class?)
+        List<GameObject> mainStage = new ArrayList<>();
+
+        // create the default dog object
+        BufferedImage[] dogFrames = frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
+        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
+        DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite);
+
+        // try with 2 dogs!!!
+//        BufferedImage[] dogFrames2 = frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
+//        SpriteFacade dogSprite2 = new SpriteFacade(dogFrames2, 2);
+//        DogGameObject defaultDog2 = new DogGameObject(0, 0, dogSprite2);
+//        mainStage.add(defaultDog2);
+
+        mainStage.add(defaultDog);
+
+        Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
+        Camera camera = new Camera(mainStage, bounds);
+
+        controller.addFrameLoader(frameLoader);
+        controller.addStage(mainStage);
+
         presenter.addController(controller);
+        presenter.addCamera(camera);
+
         mainFrame.add(presenter);
     }
     // getter method for testing
-    public JFrame getFrame(){ return this.mainFrame;}
+    // public JFrame getFrame(){ return this.mainFrame;}
 
     /**
      * Starts the dog game.

@@ -30,7 +30,10 @@ public class Collider {
      * @return Whether this Collider intersects the other collider at the given coordinates.
      */
     public boolean intersects (double x, double y, Collider other){
-        return r.intersects(other.getHitBox());
+        Rectangle temp = new Rectangle((int) x, (int) y,
+                (int) this.r.getWidth(), (int) this.r.getHeight());
+
+        return temp.intersects(other.getHitBox());
     }
 
     /**

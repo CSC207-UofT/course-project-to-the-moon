@@ -13,34 +13,32 @@ import java.util.TimerTask;
  * @author Jimin Song and Andy Wang
  * @since 10 October 2021
  */
-public class DogMover implements Mover{
-    private final Dog dog;
+public class DogMover implements Mover {
     private final Sprite dogSprite;
     // the size of the boundaries
     private final int width;
     private final int height;
-    // random number generator
-    private final Random rand = new Random();
-
 
     /**
      * Initializes a new DogMover that continuously moves a dog, given a boundary of where the dog
      * is allowed to be.
-     * @param dog The dog to move.
+     * @param dogSprite The dog's sprite.
+     * @param width The width of the boundary.
+     * @param height The height of the boundary.
      */
-    public DogMover(Dog dog, Sprite dogSprite, int height, int width){
-        this.dog = dog;
+    public DogMover(Sprite dogSprite, int width, int height){
         this.dogSprite = dogSprite;
         this.width = width;
         this.height = height;
-
     }
 
     /**
-     * Continuously moves the dog.
+     * Continuously moves the dog; it moves to a random location, idles for a bit, then moves again.
      */
     @Override
     public void run(Transform t) {
+        Random rand = new Random();
+
         Timer timer = new Timer();
         TimerTask moverTask = new TimerTask() {
             @Override
@@ -53,9 +51,9 @@ public class DogMover implements Mover{
                 double time = 1 + rand.nextDouble() * 2;
 
                 // flip the dog accordingly
-                if ((dog.getX() < newX) && !dogSprite.flipped()) {
+                if ((t.getX() < newX) && !dogSprite.flipped()) {
                     dogSprite.flip();
-                } else if ((dog.getX() > newX) && dogSprite.flipped()) {
+                } else if ((t.getX() > newX) && dogSprite.flipped()) {
                     dogSprite.flip();
                 }
 
@@ -68,6 +66,6 @@ public class DogMover implements Mover{
             }
         };
 
-        timer.scheduleAtFixedRate(moverTask, 1000, 5000);
+        timer.scheduleAtFixedRate(moverTask, 1000, 7000);
     }
 }

@@ -1,4 +1,4 @@
-package utility;
+package adaptors;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -7,18 +7,16 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * A helper class to load sprite frames from a folder.
+ * A gateway class for loading sprite frames from a folder.
  * @author Andy Wang
- * @since 21 October 2021
+ * @since 23 October 2021
  */
-public class SpriteFrameLoader {
+public class DogGameFrameLoader implements FrameLoader {
     /**
-     * Given the folder containing a sprite's frames, load the frames into a BufferedImage array.
-     * The frames should be named number starting from 0, and returns them in order.
-     *
-     * @param folderName The name of the folder containing the frames.
-     * @return The sorted frames as a BufferedImage array.
+     * Loads frames from a folder as a BufferedImage array. The file names should be in numerical order.
+     * @param folderName The name of the folder.
      */
+    @Override
     public BufferedImage[] loadFramesFromFolder(String folderName) {
         File[] frameFiles = this.loadFrameFilesFromFolder(folderName);
         BufferedImage[] frames = new BufferedImage[frameFiles.length];
@@ -41,7 +39,6 @@ public class SpriteFrameLoader {
      */
     private File[] loadFrameFilesFromFolder(String folderName) {
         File folder = new File(folderName);
-        System.out.println(folder.getAbsolutePath());
         File[] frameFiles = folder.listFiles();
         assert(frameFiles != null);
 

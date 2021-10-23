@@ -1,6 +1,6 @@
 package usecases;
 
-import java.awt.image.BufferedImage;
+import adaptors.GameGraphics;
 
 /**
  * This interface represents something that can be drawn.
@@ -8,7 +8,5 @@ import java.awt.image.BufferedImage;
  * @since 13 October 2021
 */
 public interface Drawable {
-     int getX();
-     int getY();
-     BufferedImage getImage();
+     public void draw(GameGraphics g, int x, int y);
 }
