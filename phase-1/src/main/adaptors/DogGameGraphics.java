@@ -3,11 +3,11 @@ package adaptors;
 import java.awt.*;
 
 /**
- * An implementation of the GameGraphics object for use in DogGame.
+ * An implementation of the IGameGraphics object for use in DogGame.
  * @author Andy Wang
  * @since 23 October 2021
  */
-public class DogGameGraphics implements GameGraphics {
+public class DogGameGraphics implements IGameGraphics {
     private Graphics g = null;
 
     /**
@@ -34,18 +34,25 @@ public class DogGameGraphics implements GameGraphics {
      * @param s The text to draw.
      * @param x The x coordinate.
      * @param y The y coordinate.
+     * @param c The colour to use.
      */
     @Override
-    public void drawText(String s, int x, int y) {
+    public void drawText(String s, int x, int y, Color c) {
+        this.g.setColor(c);
         this.g.drawString(s, x, y);
     }
 
     /**
-     * Sets the color to use.
-     * @param c The new color.
+     * Draws a filled in rectangle.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param w The width.
+     * @param h The height.
+     * @param c The colour to use.
      */
     @Override
-    public void setColor(Color c) {
+    public void fillRect(int x, int y, int w, int h, Color c) {
         this.g.setColor(c);
+        this.g.drawRect(x, y, w, h);
     }
 }

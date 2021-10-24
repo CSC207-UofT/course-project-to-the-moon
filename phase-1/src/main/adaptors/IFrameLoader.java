@@ -7,6 +7,6 @@ import java.awt.image.BufferedImage;
  * @author Andy Wang
  * @since 23 October 2021
  */
-public interface FrameLoader {
+public interface IFrameLoader {
     public BufferedImage[] loadFramesFromFolder(String folderName);
 }

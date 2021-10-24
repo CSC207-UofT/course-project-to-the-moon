@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class DogGameController {
     private List<GameObject> mainStage = null; // In the future, we may have a List of stages instead
-    private FrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
+    private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
 
     /**
      * Adds a new stage to this controller.
@@ -25,10 +25,10 @@ public class DogGameController {
     }
 
     /**
-     * Adds a new implementation of FrameLoader for this controller to use.
-     * @param fl The implementation of FrameLoader to add.
+     * Adds a new implementation of IFrameLoader for this controller to use.
+     * @param fl The implementation of IFrameLoader to add.
      */
-    public void addFrameLoader(FrameLoader fl) {
+    public void addFrameLoader(IFrameLoader fl) {
         // It takes in an interface, not a concrete class! So it's not a dependency violation!
         // Modern problems require modern solutions
         this.frameLoader = fl;

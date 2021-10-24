@@ -1,6 +1,6 @@
 package usecases;
 
-import adaptors.GameGraphics;
+import adaptors.IGameGraphics;
 import entities.Dog;
 
 
@@ -79,19 +79,19 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
 
     /**
      * Draw this dog on the screen.
-     * @param g The implementation of GameGraphics to use.
+     * @param g The implementation of IGameGraphics to use.
      * @param offsetX How much to offset the drawn image's x coordinate.
      * @param offsetY How much to offset the drawn image's y coordinate.
      */
-    @Override public void draw(GameGraphics g, int offsetX, int offsetY) {
+    @Override public void draw(IGameGraphics g, int offsetX, int offsetY) {
         BufferedImage frame = this.getSprite().getCurrentFrame();
         int drawnX  = (int) this.getX() - offsetX;
         int drawnY = (int) this.getY() - offsetY;
 
         g.drawImage(frame, drawnX, drawnY);
 
-        g.setColor(Color.WHITE);
-        g.drawText("exp: " + Integer.toString(this.myDog.getExp()), drawnX + 30, drawnY + 95);
+        g.drawText("exp: " + Integer.toString(this.myDog.getExp()),
+                drawnX + 30, drawnY + 95, Color.WHITE);
     }
 
     /**

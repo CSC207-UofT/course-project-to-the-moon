@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A class that acts like a camera/viewport; whatever objects are seen on it are captured.
+ * A presenter class that acts like a camera/viewport; whatever objects are seen on it are captured.
  * @author Andy Wang
  * @since 23 October 2021
  */

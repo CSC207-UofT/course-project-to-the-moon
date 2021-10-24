@@ -21,7 +21,7 @@ import java.util.List;
  * @since 9 October 2021
  */
 public class DogGame {
-    private final JFrame mainFrame;
+    private JFrame mainFrame = null;
 
     /**
      * This is the main method. Run this to run the game.
@@ -36,20 +36,11 @@ public class DogGame {
      * Initialize a new dog game and all its frames.
      */
     public DogGame() {
-        mainFrame = new JFrame();
-        /* width of the frame */
         int WIDTH = 300;
         int HEIGHT = 500;
+        this.initializeMainFrame(WIDTH, HEIGHT);
 
-        mainFrame.setSize(WIDTH, HEIGHT);
-        mainFrame.setResizable(false);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // TODO: if we decide to implement saving, change the default operation to something else
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.setFocusable(true);
-        mainFrame.requestFocus();
-
-        DogGameJPanel presenter = new DogGameJPanel(WIDTH, HEIGHT);
+        DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
         DogGameController controller = new DogGameController();
 
         DogGameFrameLoader frameLoader = new DogGameFrameLoader();
@@ -77,13 +68,30 @@ public class DogGame {
         controller.addFrameLoader(frameLoader);
         controller.addStage(mainStage);
 
-        presenter.addController(controller);
-        presenter.addCamera(camera);
+        panel.addController(controller);
+        panel.addCamera(camera);
 
-        mainFrame.add(presenter);
+        mainFrame.add(panel);
     }
     // getter method for testing
     // public JFrame getFrame(){ return this.mainFrame;}
+
+    /**
+     * Initializes the main JFrame on which everything is drawn. Does not add a JPanel yet.
+     * @param w The width of the JFrame.
+     * @param h The height of the JFrame.
+     */
+    private void initializeMainFrame(int w, int h) {
+        mainFrame = new JFrame();
+
+        mainFrame.setSize(w, h);
+        mainFrame.setResizable(false);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // TODO: if we decide to implement saving, change the default operation to something else
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setFocusable(true);
+        mainFrame.requestFocus();
+    }
 
     /**
      * Starts the dog game.

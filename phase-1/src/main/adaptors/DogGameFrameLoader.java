@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @author Andy Wang
  * @since 23 October 2021
  */
-public class DogGameFrameLoader implements FrameLoader {
+public class DogGameFrameLoader implements IFrameLoader {
     /**
      * Loads frames from a folder as a BufferedImage array. The file names should be in numerical order.
      * @param folderName The name of the folder.

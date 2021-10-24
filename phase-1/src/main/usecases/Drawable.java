@@ -1,6 +1,6 @@
 package usecases;
 
-import adaptors.GameGraphics;
+import adaptors.IGameGraphics;
 
 /**
  * This interface represents something that can be drawn.
@@ -8,5 +8,5 @@ import adaptors.GameGraphics;
  * @since 13 October 2021
 */
 public interface Drawable {
-     public void draw(GameGraphics g, int x, int y);
+     public void draw(IGameGraphics g, int x, int y);
 }
