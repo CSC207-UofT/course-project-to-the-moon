@@ -2,6 +2,8 @@ package usecases;
 
 import entities.Dog;
 import entities.Sprite;
+import entities.Transform;
+
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,33 +13,32 @@ import java.util.TimerTask;
  * @author Jimin Song and Andy Wang
  * @since 10 October 2021
  */
-public class DogMover {
-    private final Dog dog;
+public class DogMover implements Mover {
     private final Sprite dogSprite;
     // the size of the boundaries
     private final int width;
     private final int height;
-    // random number generator
-    private final Random rand = new Random();
 
     /**
      * Initializes a new DogMover that continuously moves a dog, given a boundary of where the dog
      * is allowed to be.
-     * @param dog The dog to move.
+     * @param dogSprite The dog's sprite.
+     * @param width The width of the boundary.
+     * @param height The height of the boundary.
      */
-    public DogMover(Dog dog, Sprite dogSprite){
-        this.dog = dog;
+    public DogMover(Sprite dogSprite, int width, int height){
         this.dogSprite = dogSprite;
-        this.width = 200;
-        this.height = 200;
-
-        // TODO: make it take in width and height as parameters
+        this.width = width;
+        this.height = height;
     }
 
     /**
-     * Continuously moves the dog.
+     * Continuously moves the dog; it moves to a random location, idles for a bit, then moves again.
      */
-    public void startMoving() {
+    @Override
+    public void run(Transform t) {
+        Random rand = new Random();
+
         Timer timer = new Timer();
         TimerTask moverTask = new TimerTask() {
             @Override
@@ -50,45 +51,21 @@ public class DogMover {
                 double time = 1 + rand.nextDouble() * 2;
 
                 // flip the dog accordingly
-                if ((dog.getX() < newX) && !dogSprite.isFlipped()) {
+                if ((t.getX() < newX) && !dogSprite.flipped()) {
                     dogSprite.flip();
-                } else if ((dog.getX() > newX) && dogSprite.isFlipped()) {
+                } else if ((t.getX() > newX) && dogSprite.flipped()) {
                     dogSprite.flip();
                 }
 
                 // move the dog to the new location
-                moveDogTo(newX, newY, time);
+                try {
+                    t.tweenTo(newX, newY, time);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         };
 
-        timer.scheduleAtFixedRate(moverTask, 1000, 5000);
-    }
-    /**
-     * A helper method to move the dog to the given location, within the given time.
-     * @param x The x-coordinate to move the dog to.
-     * @param y The y-coordinate to move the dog to.
-     * @param t The time it takes to move the dog in seconds.
-     */
-    private void moveDogTo(int x, int y, double t) {
-        int delay = 10;
-        int numIterations = (int) ((t * 1000) / delay);
-
-        int currX = (int) this.dog.getX();
-        int currY = (int) this.dog.getY();
-
-        // these represent x and y velocities of the dog
-        float dx = (x - currX) / (float) numIterations;
-        float dy = (y - currY) / (float) numIterations;
-
-        for (int i = 0; i < numIterations; i++) {
-            this.dog.translate(dx, dy);
-
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException e) {
-                System.out.println("Something went wrong moving the dog");
-            }
-        }
-
+        timer.scheduleAtFixedRate(moverTask, 1000, 7000);
     }
 }

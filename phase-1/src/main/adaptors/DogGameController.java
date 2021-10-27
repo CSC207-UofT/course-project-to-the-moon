@@ -1,11 +1,9 @@
 package adaptors;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import usecases.DogManager;
 import usecases.Clickable;
-import usecases.Displayable;
-import java.util.ArrayList;
+import usecases.DogGameObject;
+import usecases.GameObject;
 import java.util.List;
 
 /**
@@ -13,51 +11,50 @@ import java.util.List;
  * @author Andy Wang, edited by Juntae
  * @since 9 October 2021
  */
-public class DogGameController implements MouseListener {
-    // stores all the clickable objects (managers)
-    private final ArrayList<Clickable> clickables = new ArrayList<>();
-    // god dammit IntelliJ if I add a final keyword will you finally be happy????
-    private final ArrayList<Displayable> displayables = new ArrayList<>();
+public class DogGameController {
+    private List<GameObject> mainStage = null; // In the future, we may have a List of stages instead
+    private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
 
     /**
-     * Initializes a new controller for the dog game, that process inputs.
+     * Adds a new stage to this controller.
+     * @param s The new stage to add.
      */
-    public DogGameController() {
-        DogManager dogManager = new DogManager();
-
-        this.clickables.add(dogManager);
-        this.displayables.add(dogManager);
+    public void addStage(List<GameObject> s) {
+        this.mainStage = s;
+        // TODO: n the future, make this add the stage to the list of stages
     }
 
-    public List<Clickable> getClickables() {
-        return this.clickables;
+    /**
+     * Adds a new implementation of IFrameLoader for this controller to use.
+     * @param fl The implementation of IFrameLoader to add.
+     */
+    public void addFrameLoader(IFrameLoader fl) {
+        // It takes in an interface, not a concrete class! So it's not a dependency violation!
+        // Modern problems require modern solutions
+        this.frameLoader = fl;
     }
 
-    public List<Displayable> getDisplayables() {
-        return this.displayables;
-    }
-
-
-    @Override
+    /**
+     * Processes a mouse click on the screen.
+     * @param e The given MouseEvent.
+     */
     public void mouseClicked(MouseEvent e) {
-        // Juntae implemented this part, edited by Andy
-        for (Clickable clickable : this.clickables) {
-            // find the clickable thing that you clicked on
-            if (clickable.clicked(e.getX(), e.getY())) {
-                clickable.act(); // make it act
+        // loop through game objects in the stage
+        for (GameObject go : this.mainStage) {
+            if (go instanceof Clickable) {
+                int x = e.getX();
+                int y = e.getY();
+
+                // check if the mouse is on the object
+                if (((Clickable) go).clicked(x, y)) {
+                    ((Clickable) go).act();
+
+                    if (go instanceof DogGameObject) {
+                        System.out.println("Got " + ((DogGameObject) go).getCoinsEarnedFromLastPet());
+                        // TODO: make the coins storage class, when we make that, increase by this amount
+                    }
+                }
             }
         }
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
 }
