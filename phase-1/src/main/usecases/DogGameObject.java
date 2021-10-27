@@ -15,8 +15,6 @@ import java.awt.image.BufferedImage;
  */
 public class DogGameObject extends GameObject implements Clickable, Drawable{
     private final Dog myDog; // the dog that this manager handles
-    private final CoinCalculator coinCalc; // the coin calculator for this dog
-    private final ExpCalculator expCalc; // the exp calculator for this dog
     private int coinsEarnedFromLastPet;
 
     /**
@@ -29,12 +27,6 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         super(x, y);
         this.myDog = new Dog();
         this.addSprite(sprite);
-
-        // Facade pattern; delegate calculations to other classes
-        // TODO: decide if this is really necessary. Dog doesn't have enough responsibilities, so it's
-        // probably a code smell. Perhaps it can calculate its own stuff.
-        this.coinCalc = new CoinCalculator();
-        this.expCalc = new ExpCalculator();
 
         DogMover dogMover = new DogMover(this.getSprite(), 180, 180);
         this.addMover(dogMover); // automatically runs
@@ -71,8 +63,8 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
      */
     @Override
     public void act() {
-        int earnedCoin = coinCalc.calculateCoins(myDog);
-        int earnedExp = expCalc.calculateExp(myDog);
+        int earnedCoin = myDog.calculateCoinsEarned();
+        int earnedExp = myDog.calculateExpEarned();
 
         this.updateDog(earnedCoin, earnedExp);
     }
@@ -102,6 +94,7 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
     private void updateDog(int earnedCoin, int earnedExp) {
         this.myDog.setCoins(this.myDog.getCoins() + earnedCoin);
         this.myDog.setExp(this.myDog.getExp() + earnedExp);
+
         this.coinsEarnedFromLastPet = earnedCoin;
     }
 }
