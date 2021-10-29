@@ -60,9 +60,8 @@ public class DogGameController {
                     ((Clickable) go).act();
 
                     if (go instanceof DogGameObject) {
-                        System.out.println("Got " + ((DogGameObject) go).getCoinsEarnedFromLastPet());
+                        //System.out.println("Got " + ((DogGameObject) go).getCoinsEarnedFromLastPet());
                         this.economy.updateCoins();
-                        System.out.println("Total coins earned: " + this.economy.getCoins());
                     }
                 }
             }

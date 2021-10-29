@@ -5,12 +5,12 @@ package usecases;
  * @author Fatimeh Hassan, edited by Juntae
  */
 
-public class ShopItem {
-    private final int cost;
-    private final int DCPS;
-    private final int EXPS;
+public class ShopObject implements Shoppable {
+    private int cost;
+    private int DCPS;
+    private int EXPS;
 
-    public ShopItem(int cost, int DCPS, int EXPS) {
+    public ShopObject(int cost, int DCPS, int EXPS) {
         this.cost = cost;
         this.DCPS = DCPS;
         this.EXPS = EXPS;
@@ -24,7 +24,14 @@ public class ShopItem {
         return this.EXPS;
     }
 
-    public int getCost() {
+    @Override public int getCost() {
         return this.cost;
     }
+
+    @Override
+    public void increasePrice(int addPrice) {
+        //increase the cost of this item by addPrice
+        this.cost += addPrice;
+    }
+
 }

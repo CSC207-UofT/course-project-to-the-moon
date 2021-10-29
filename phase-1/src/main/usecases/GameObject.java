@@ -1,10 +1,6 @@
 package usecases;
 
 import entities.Collider;
-import entities.Sprite;
-import entities.Transform;
-
-import java.awt.image.BufferedImage;
 
 /**
  * A "manager" class that represents a physical game object that the player can see and possibly
@@ -12,9 +8,7 @@ import java.awt.image.BufferedImage;
  * @author Andy Wang
  * @since 21 October 2021
  */
-public class GameObject {
-    private Transform transform = null;
-    private SpriteFacade sprite = null;
+public class GameObject extends AbstractObject {
     private Collider collider = null;
     private Mover mover = null;
 
@@ -24,15 +18,7 @@ public class GameObject {
      * @param y The y coordinate.
      */
     public GameObject(double x, double y) {
-        this.transform = new Transform(x, y);
-    }
-
-    /**
-     * Adds a SpriteFacade to this GameObject.
-     * @param sprite The SpriteFacade to add.
-     */
-    public void addSprite(SpriteFacade sprite) {
-        this.sprite = sprite;
+        super(x,y);
     }
 
     /**
@@ -45,7 +31,6 @@ public class GameObject {
         if (this.mover == null) {
             this.mover = m;
         }
-
         mover.run(this.transform);
     }
 
@@ -55,27 +40,6 @@ public class GameObject {
      */
     public void addCollider(Collider c) {
         this.collider = c;
-    }
-
-    // getter methods
-    public Transform getTransform() {
-        return this.transform;
-    }
-
-    public double getX() {
-        return this.transform.getX();
-    }
-
-    public double getY() {
-        return this.transform.getY();
-    }
-
-    public Sprite getSprite() {
-        return this.sprite.getSprite();
-    }
-
-    public BufferedImage getCurrentFrame() {
-        return this.getSprite().getCurrentFrame();
     }
 
     public Collider getCollider() {

@@ -3,6 +3,7 @@ package adaptors;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import usecases.Drawable;
+import usecases.UIObject;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -18,6 +19,7 @@ public class DogGameJPanel extends JPanel {
     private final int width;
     private final int height;
     private Camera camera = null;
+    private UIObject UI;
 
     /**
      * Initialize a new JPanel.
@@ -27,6 +29,7 @@ public class DogGameJPanel extends JPanel {
     public DogGameJPanel(int w, int h) {
         width = w;
         height = h;
+        this.UI = new UIObject(5, 15);
     }
 
     /**
@@ -79,12 +82,11 @@ public class DogGameJPanel extends JPanel {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, width, height);
 
-        // TODO: make the coins storage class and draw the total coins
-
         List<Drawable> drawables = this.camera.getDrawablesInBounds();
 
         // adapt the Graphics
         DogGameGraphics dg = new DogGameGraphics(g);
+        UI.draw(dg, this.camera.getX(), this.camera.getY());
         for (Drawable drawable : drawables) {
             drawable.draw(dg, this.camera.getX(), this.camera.getY());
         }
