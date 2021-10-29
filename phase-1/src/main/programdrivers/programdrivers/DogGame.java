@@ -4,6 +4,7 @@ import adaptors.Camera;
 import adaptors.DogGameController;
 import adaptors.DogGameFrameLoader;
 import adaptors.DogGameJPanel;
+import adaptors.Economy;
 import usecases.DogGameObject;
 import usecases.GameObject;
 import usecases.SpriteFacade;
@@ -61,6 +62,11 @@ public class DogGame {
 //        mainStage.add(defaultDog2);
 
         mainStage.add(defaultDog);
+
+        // initialize the economy for the game
+        Economy economy = new Economy();
+        economy.addDogObj(defaultDog);
+        controller.addEcon(economy);
 
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
         Camera camera = new Camera(mainStage, bounds);

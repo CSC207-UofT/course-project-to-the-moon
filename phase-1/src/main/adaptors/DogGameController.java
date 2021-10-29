@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import usecases.Clickable;
 import usecases.DogGameObject;
 import usecases.GameObject;
+
 import java.util.List;
 
 /**
@@ -14,6 +15,15 @@ import java.util.List;
 public class DogGameController {
     private List<GameObject> mainStage = null; // In the future, we may have a List of stages instead
     private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
+    private Economy economy;
+
+    /**
+     * Adds the economy system to this controller
+     * @param economy The economy system to add
+     */
+    public void addEcon(Economy econ) {
+        this.economy = econ;
+    }
 
     /**
      * Adds a new stage to this controller.
@@ -51,7 +61,8 @@ public class DogGameController {
 
                     if (go instanceof DogGameObject) {
                         System.out.println("Got " + ((DogGameObject) go).getCoinsEarnedFromLastPet());
-                        // TODO: make the coins storage class, when we make that, increase by this amount
+                        this.economy.updateCoins();
+                        System.out.println("Total coins earned: " + this.economy.getCoins());
                     }
                 }
             }
