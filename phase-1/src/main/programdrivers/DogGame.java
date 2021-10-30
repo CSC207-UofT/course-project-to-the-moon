@@ -1,10 +1,7 @@
 package programdrivers;
 
-import adaptors.Camera;
-import adaptors.DogGameController;
-import adaptors.DogGameFrameLoader;
-import adaptors.DogGameJPanel;
-import adaptors.Economy;
+import adaptors.*;
+import usecases.Bank;
 import usecases.DogGameObject;
 import usecases.GameObject;
 import usecases.SpriteFacade;
@@ -44,11 +41,14 @@ public class DogGame {
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
         DogGameController controller = new DogGameController();
 
+        // create the Bank to store currency
+        Bank bank = new Bank();
+        controller.setBank(bank);
+
         DogGameFrameLoader frameLoader = new DogGameFrameLoader();
 
-        // Create the main "stage"
-        // We could create a class for this, but it'd be a code smell (Data class?)
-        List<GameObject> mainStage = new ArrayList<>();
+        // Create the main stage
+        Stage mainStage = new Stage();
 
         // create the default dog object
         BufferedImage[] dogFrames = frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
@@ -62,11 +62,6 @@ public class DogGame {
 //        mainStage.add(defaultDog2);
 
         mainStage.add(defaultDog);
-
-        // initialize the economy for the game
-        Economy economy = new Economy();
-        economy.addDogObj(defaultDog);
-        controller.addEcon(economy);
 
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
         Camera camera = new Camera(mainStage, bounds);
