@@ -1,15 +1,13 @@
 package usecases;
-
-import entities.Collider;
+import java.awt.Rectangle;
 
 /**
- * A "manager" class that represents a physical game object that the player can see and possibly
+ * A "manager" class that represents a collidable game object that the player can see and possibly
  * interact with.
- * @author Andy Wang
+ * @author Andy Wang, Juntae Park
  * @since 21 October 2021
  */
-public class GameObject extends AbstractObject {
-    private Collider collider = null;
+public class GameObject extends AbstractObject implements Collidable{
     private Mover mover = null;
 
     /**
@@ -19,6 +17,7 @@ public class GameObject extends AbstractObject {
      */
     public GameObject(double x, double y) {
         super(x,y);
+        
     }
 
     /**
@@ -31,18 +30,14 @@ public class GameObject extends AbstractObject {
         if (this.mover == null) {
             this.mover = m;
         }
-        mover.run(this.transform);
     }
 
-    /**
-     * Adds a collider so that this object may collide with other objects.
-     * @param c The collider to add.
-     */
-    public void addCollider(Collider c) {
-        this.collider = c;
+    public Mover getMover() {
+        return this.mover;
     }
 
-    public Collider getCollider() {
-        return this.collider;
+    @Override public Rectangle getHitBox() {
+        return new Rectangle((int) super.getX(), (int) super.getY(), super.getSprite().getWidth(), super.getSprite().getHeight());
     }
+   
 }

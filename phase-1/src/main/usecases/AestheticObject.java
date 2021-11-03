@@ -1,8 +1,9 @@
 package usecases;
 
 import adaptors.IGameGraphics;
-import java.awt.image.BufferedImage;
 import entities.Transform;
+
+import java.awt.image.BufferedImage;
 
 /**
  * Hats for doggies
@@ -18,7 +19,7 @@ public class AestheticObject extends AbstractObject implements Drawable, Mover, 
     }
 
     @Override
-    public void run(Transform t) {
+    public void run() {
         //To-do: make this object follow the position of the dog to which it is assigned to
     };
 

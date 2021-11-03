@@ -1,7 +1,7 @@
 package adaptors;
 
 import usecases.Bank;
-import usecases.StageType;
+import usecases.Stage;
 
 import java.awt.event.MouseEvent;
 
@@ -14,8 +14,8 @@ public interface IGameController {
     public void mouseClicked(MouseEvent e);
     boolean getKeyPressed(char c);
 
-    void addStage(Stage s);
-    void setActiveStage(StageType type);
+    void addStage(String type, Stage s);
+    void setActiveStage(String type);
     Stage getActiveStage();
 
     Bank getBank();

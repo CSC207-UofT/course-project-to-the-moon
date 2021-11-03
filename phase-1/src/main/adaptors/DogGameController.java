@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @since 9 October 2021
  */
 public class DogGameController implements IGameController {
-    private HashMap<StageType, Stage> stages = new HashMap();
+    private HashMap<String, Stage> stages = new HashMap();
     private Stage activeStage = null;
     private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
     private Bank bank;
@@ -76,7 +76,7 @@ public class DogGameController implements IGameController {
      * @param s The new stage to add.
      */
     @Override
-    public void addStage(StageType type, Stage s) {
+    public void addStage(String type, Stage s) {
         this.stages.put(type, s);
     }
 
@@ -85,7 +85,7 @@ public class DogGameController implements IGameController {
      * @param type The stage to set as the active one.
      */
     @Override
-    public void setActiveStage(StageType type) {
+    public void setActiveStage(String type) {
         this.activeStage = this.stages.get(type);
     }
 
@@ -112,7 +112,7 @@ public class DogGameController implements IGameController {
      * @return The bank.
      */
     @Override
-    public void getBank() {
+    public Bank getBank() {
         return this.bank;
     }
 }

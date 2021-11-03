@@ -53,4 +53,12 @@ public abstract class AbstractObject {
         return this.getSprite().getCurrentFrame();
     }
 
+    public int getWidth() {
+        return this.sprite.getSprite().getWidth();
+    }
+
+    public int getHeight() {
+        return this.sprite.getSprite().getHeight();
+    }
+
 }

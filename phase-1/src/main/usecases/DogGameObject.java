@@ -1,8 +1,8 @@
 package usecases;
 
+import adaptors.IGameController;
 import adaptors.IGameGraphics;
 import entities.Dog;
-
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 public class DogGameObject extends GameObject implements Clickable, Drawable{
     private final Dog myDog; // the dog that this manager handles
     private int coinsEarnedFromLastPet;
+    private IGameController controller;
 
     /**
      * Initializes a new DogGameObject at the given coordinates.
@@ -23,13 +24,15 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
      * @param y The y coordinate.
      * @param sprite The sprite of the dog.
      */
-    public DogGameObject(int x, int y, SpriteFacade sprite){
+    public DogGameObject(int x, int y, SpriteFacade sprite, IGameController controller){
         super(x, y);
         this.myDog = new Dog();
         this.addSprite(sprite);
 
-        DogMover dogMover = new DogMover(this.getSprite(), 180, 180);
-        this.addMover(dogMover); // automatically runs
+        DogMover dogMover = new DogMover(this.getSprite(), this.transform, 180, 180);
+        this.addMover(dogMover);
+        this.controller = controller;
+
     }
 
     /**
@@ -67,6 +70,7 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         int earnedExp = myDog.calculateExpEarned();
 
         this.updateDog(earnedCoin, earnedExp);
+        controller.getBank().increaseCoins(earnedCoin);
     }
 
     /**
@@ -97,4 +101,5 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
 
         this.coinsEarnedFromLastPet = earnedCoin;
     }
+    
 }

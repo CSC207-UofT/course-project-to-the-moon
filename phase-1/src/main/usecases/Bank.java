@@ -39,4 +39,8 @@ public class Bank {
     public void increaseDCPS(int dcps) {
         this.dcps += dcps;
     }
+
+    public int getCoin(){
+        return this.coins;
+    }
 }
