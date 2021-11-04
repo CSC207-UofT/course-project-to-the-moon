@@ -6,8 +6,6 @@ import java.awt.Rectangle;
  * @author Juntae Park
  * @since 29 October 2021
  */
-
 public interface Collidable {
     Rectangle getHitBox();
-    
 }

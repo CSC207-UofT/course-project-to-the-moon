@@ -1,4 +1,4 @@
-package usecases;
+package entities;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,7 +40,18 @@ public class Bank {
         this.dcps += dcps;
     }
 
-    public int getCoin(){
+    /**
+     * Makes a transaction, and returns whether it was successful.
+     * @return Whether the transaction was successful. True iff coins >= cost.
+     */
+    public boolean makePurchase(int cost) {
+        if (this.coins >= cost) {
+            this.coins -= cost;
+            return true;
+        } return false;
+    }
+
+    public int getCoins(){
         return this.coins;
     }
 }

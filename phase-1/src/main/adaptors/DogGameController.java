@@ -2,6 +2,7 @@ package adaptors;
 
 import java.awt.event.MouseEvent;
 
+import entities.Bank;
 import usecases.*;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.HashMap;
  * @since 9 October 2021
  */
 public class DogGameController implements IGameController {
-    private HashMap<String, Stage> stages = new HashMap();
+    private final HashMap<String, Stage> stages = new HashMap<>();
     private Stage activeStage = null;
     private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
     private Bank bank;
@@ -28,6 +29,22 @@ public class DogGameController implements IGameController {
     }
 
     /**
+     * Adds the bank system to this controller
+     * @param b The bank system to add
+     */
+    public void setBank(Bank b) {
+        this.bank = b;
+    }
+
+    /**
+     * Return the bank.
+     * @return The bank.
+     */
+    public Bank getBank() {
+        return this.bank;
+    }
+
+    /**
      * Processes a mouse click on the screen.
      * @param e The given MouseEvent.
      */
@@ -40,8 +57,8 @@ public class DogGameController implements IGameController {
                 int y = e.getY();
 
                 // check if the mouse is on the object
-                if (((Clickable) go).clicked(x, y)) {
-                    ((Clickable) go).act();
+                if (((Clickable) go).isClicked(x, y)) {
+                    ((Clickable) go).onClick();
                 }
             }
         }
@@ -53,8 +70,8 @@ public class DogGameController implements IGameController {
                 int y = e.getY();
 
                 // check if the mouse is on the object
-                if (((Clickable) tl).clicked(x, y)) {
-                    ((Clickable) tl).act();
+                if (((Clickable) tl).isClicked(x, y)) {
+                    ((Clickable) tl).onClick();
                 }
             }
         }
@@ -73,20 +90,21 @@ public class DogGameController implements IGameController {
 
     /**
      * Adds a new stage to this controller.
+     * @param name The name of the stage.
      * @param s The new stage to add.
      */
     @Override
-    public void addStage(String type, Stage s) {
-        this.stages.put(type, s);
+    public void addStage(String name, Stage s) {
+        this.stages.put(name, s);
     }
 
     /**
      * Sets the active stage. This is the stage whose objects are checked for user interaction.
-     * @param type The stage to set as the active one.
+     * @param name The name of the stage to set as the active one.
      */
     @Override
-    public void setActiveStage(String type) {
-        this.activeStage = this.stages.get(type);
+    public void setActiveStage(String name) {
+        this.activeStage = this.stages.get(name);
     }
 
     /**
@@ -96,23 +114,5 @@ public class DogGameController implements IGameController {
     @Override
     public Stage getActiveStage() {
         return this.activeStage;
-    }
-
-    /**
-     * Adds the bank system to this controller
-     * @param b The bank system to add
-     */
-    @Override
-    public void setBank(Bank b) {
-        this.bank = b;
-    }
-
-    /**
-     * Return the bank.
-     * @return The bank.
-     */
-    @Override
-    public Bank getBank() {
-        return this.bank;
     }
 }

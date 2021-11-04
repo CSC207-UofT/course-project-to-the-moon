@@ -2,15 +2,13 @@ package adaptors;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import usecases.Drawable;
-import usecases.HUDObject;
-import usecases.GameSystem;
+import usecases.TextLabel;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
@@ -21,7 +19,6 @@ public class DogGameJPanel extends JPanel {
     private final int width;
     private final int height;
     private Camera camera = null;
-    private HUDObject HUD;
 
     /**
      * Initialize a new JPanel.
@@ -40,11 +37,6 @@ public class DogGameJPanel extends JPanel {
     public void addCamera(Camera c) {
         this.camera = c;
     }
-
-    public void addHUD(HUDObject h) {
-        this.HUD = h;
-    }
-
 
     /**
      * Adds a dog game controller to this presenter.
@@ -85,23 +77,22 @@ public class DogGameJPanel extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
-
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, width, height);
 
-        List<Drawable> drawables = this.camera.getDrawablesInBounds();
-
         // adapt the Graphics
         DogGameGraphics dg = new DogGameGraphics(g);
-        
-        // draw the HUD
-        HUD.draw(dg, this.camera.getX(), this.camera.getY()); 
-        
-        for (Drawable drawable : drawables) {
+
+        //draw objects
+        for (Drawable drawable : this.camera.getDrawableObjectsInBounds()) {
             drawable.draw(dg, this.camera.getX(), this.camera.getY());
         }
 
-        
+        // draw the GUI
+        for (TextLabel label : this.camera.getTextLabels()) {
+            label.draw(dg, 0, 0);
+        }
+
         try {
             Thread.sleep (50); // delay between frames
             repaint();

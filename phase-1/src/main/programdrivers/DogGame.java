@@ -1,17 +1,16 @@
-//package programdrivers;
+package programdrivers;
 
 import adaptors.*;
-import usecases.Bank;
+import entities.Bank;
+import org.w3c.dom.Text;
 import usecases.DogGameObject;
 import usecases.SpriteFacade;
 import usecases.Stage;
-import usecases.HUDObject;
+import usecases.TextLabel;
 
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -21,6 +20,9 @@ import java.util.List;
  */
 public class DogGame {
     private JFrame mainFrame = null;
+    private final Bank bank = new Bank();
+    private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
+    private final DogGameController controller = new DogGameController();
 
     /**
      * This is the main method. Run this to run the game.
@@ -40,46 +42,20 @@ public class DogGame {
         this.initializeMainFrame(WIDTH, HEIGHT);
 
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
-        DogGameController controller = new DogGameController();
-
-        // create the Bank to store currency
-        Bank bank = new Bank();
-        controller.setBank(bank);
-
-        // create the HUD to display currency, etc
-        HUDObject HUD = new HUDObject(5, 15, bank);
-
-        DogGameFrameLoader frameLoader = new DogGameFrameLoader();
+        this.controller.setBank(bank);
 
         // Create the main stage
-        Stage mainStage = new Stage();
-
-        // create the default dog object
-        BufferedImage[] dogFrames = frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
-        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
-        DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite, controller);
-        mainStage.addGameObject(defaultDog);
-
-        // try with 2 dogs!!!
-
-        
-        BufferedImage[] dogFrames2 = frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
-        SpriteFacade dogSprite2 = new SpriteFacade(dogFrames2, 2);
-        DogGameObject defaultDog2 = new DogGameObject(100, 150, dogSprite2, controller);
-        mainStage.addGameObject(defaultDog2);
+        Stage mainStage = this.createMainStage();
 
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
         Camera camera = new Camera(mainStage, bounds);
 
         controller.addFrameLoader(frameLoader);
-        controller.addStage("MAIN", mainStage);
-        controller.setActiveStage("MAIN");
+        controller.addStage("Main", mainStage);
+        controller.setActiveStage("Main");
 
         panel.addController(controller);
         panel.addCamera(camera);
-        panel.addHUD(HUD);
-        
-        // create game system
 
         mainFrame.add(panel);
     }
@@ -101,6 +77,40 @@ public class DogGame {
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setFocusable(true);
         mainFrame.requestFocus();
+    }
+
+    /**
+     * Helper method to create a single default dog.
+     * @return The dog.
+     */
+    private DogGameObject createDog() {
+        // create the default dog object
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
+
+        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
+        DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite, this.controller, this.bank);
+
+        return defaultDog;
+    }
+
+    /**
+     * Creates the Main stage.
+     * @return The main stage.
+     */
+    private Stage createMainStage() {
+        Stage mainStage = new Stage("Main");
+        DogGameObject defaultDog = this.createDog();
+        mainStage.addGameObject(defaultDog);
+
+        // create the coin label
+        TextLabel coinLabel = new TextLabel(new Rectangle(15, 15, 50, 20),
+                "Coins: 0", "CoinLabel");
+        coinLabel.setLabelColor(null);
+        coinLabel.setTextColor(Color.WHITE);
+
+        mainStage.addTextLabel(coinLabel);
+
+        return mainStage;
     }
 
     /**

@@ -1,10 +1,6 @@
 package adaptors;
 
-import usecases.Drawable;
-import usecases.Collidable;
-import usecases.GameObject;
-import usecases.Mover;
-import usecases.Stage;
+import usecases.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,7 +13,7 @@ import entities.Transform;
  * @author Andy Wang, Juntae Park
  * @since 23 October 2021
  */
-public class Camera implements ICamera{
+public class Camera {
     private Stage activeStage = null;
     private Rectangle bounds = null;
     private Transform transform = null;
@@ -40,7 +36,7 @@ public class Camera implements ICamera{
      * bounds.
      * @return All the GameObjects on the camera's current stage whose coordinates are within the camera's bounds.
      */
-    public List<Drawable> getDrawablesInBounds() {
+    public List<Drawable> getDrawableObjectsInBounds() {
         ArrayList<Drawable> drawablesSoFar = new ArrayList<>();
         List<GameObject> gameObjList = activeStage.getGameObjects();
 
@@ -58,26 +54,35 @@ public class Camera implements ICamera{
     }
 
     /**
-     * Returns all the Collidable GameObjects on the camera's current stage whose coordinates are within the camera's
-     * bounds.
-     * @return All the GameObjects on the camera's current stage whose coordinates are within the camera's bounds.
+     * Returns all the TextLabels that are adorned to the Camera's active stage.
+     * @return All the TextLabels to be drawn. These are not affected by the camera's position.
      */
-    @Override public List<Collidable> getCollidablesInBounds() {
-        ArrayList<Collidable> collidablesSoFar = new ArrayList<>();
-        List<GameObject> gameObjList = activeStage.getGameObjects();
-
-        for (GameObject go : gameObjList) {
-            if (go instanceof Collidable) {
-                Rectangle objectSpriteBounds = new Rectangle((int) go.getX(), (int) go.getY(),
-                        go.getSprite().getWidth(), go.getSprite().getHeight());
-
-                if (this.bounds.intersects(objectSpriteBounds)) {
-                    collidablesSoFar.add((Collidable) go);
-                }
-            }
-        }
-        return collidablesSoFar;
+    public List<TextLabel> getTextLabels() {
+        return this.activeStage.getTextLabels();
     }
+
+    // we might not need this?
+//    /**
+//     * Returns all the Collidable GameObjects on the camera's current stage whose coordinates are within the camera's
+//     * bounds.
+//     * @return All the GameObjects on the camera's current stage whose coordinates are within the camera's bounds.
+//     */
+//    public List<Collidable> getCollidablesInBounds() {
+//        ArrayList<Collidable> collidablesSoFar = new ArrayList<>();
+//        List<GameObject> gameObjList = activeStage.getGameObjects();
+//
+//        for (GameObject go : gameObjList) {
+//            if (go instanceof Collidable) {
+//                Rectangle objectSpriteBounds = new Rectangle((int) go.getX(), (int) go.getY(),
+//                        go.getSprite().getWidth(), go.getSprite().getHeight());
+//
+//                if (this.bounds.intersects(objectSpriteBounds)) {
+//                    collidablesSoFar.add((Collidable) go);
+//                }
+//            }
+//        }
+//        return collidablesSoFar;
+//    }
 
     /**
      * Sets the GameObjects that this camera should be focusing on.

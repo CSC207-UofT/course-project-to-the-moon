@@ -1,9 +1,7 @@
 package usecases;
 
-import entities.Sprite;
+import adaptors.IGameController;
 import entities.Transform;
-
-import java.awt.image.BufferedImage;
 
 /**
  * Represents any 'object' in the program that can be displayed on screen.
@@ -14,22 +12,19 @@ import java.awt.image.BufferedImage;
 public abstract class AbstractObject {
     protected Transform transform = null;
     protected SpriteFacade sprite = null;
+    protected IGameController controller = null;
+
+    private String tag = null;
 
     /**
      * Initializes an abstract object at the given coordinates.
      * @param x The x coordinate.
      * @param y The y coordinate.
+     * @param tag The tag of this object.
      */
-    public AbstractObject(double x, double y) {
+    public AbstractObject(double x, double y, String tag) {
         this.transform = new Transform(x, y);
-    }
-
-    /**
-     * Adds a SpriteFacade to this GameObject.
-     * @param sprite The SpriteFacade to add.
-     */
-    public void addSprite(SpriteFacade sprite) {
-        this.sprite = sprite;
+        this.tag = tag;
     }
 
     // getter methods
@@ -45,20 +40,7 @@ public abstract class AbstractObject {
         return this.transform.getY();
     }
 
-    public Sprite getSprite() {
-        return this.sprite.getSprite();
+    public String getTag() {
+        return this.tag;
     }
-
-    public BufferedImage getCurrentFrame() {
-        return this.getSprite().getCurrentFrame();
-    }
-
-    public int getWidth() {
-        return this.sprite.getSprite().getWidth();
-    }
-
-    public int getHeight() {
-        return this.sprite.getSprite().getHeight();
-    }
-
 }

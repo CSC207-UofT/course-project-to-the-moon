@@ -1,6 +1,6 @@
 package adaptors;
 
-import usecases.Bank;
+import entities.Bank;
 import usecases.Stage;
 
 import java.awt.event.MouseEvent;
