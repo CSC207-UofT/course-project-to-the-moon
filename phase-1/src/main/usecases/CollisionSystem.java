@@ -54,8 +54,6 @@ public class CollisionSystem {
 
         double dx = ((GameObject) c).getTransform().getDx();
         double dy = ((GameObject) c).getTransform().getDy();
-        double xSign = Math.signum(dx);
-        double ySign = Math.signum(dy);
 
         if (x < h2.getX()){
             xCorr = -1*((x + h1.getWidth()) - h2.getX());
@@ -77,6 +75,6 @@ public class CollisionSystem {
             xCorr = 0;
         }
         
-        return new double[]{xCorr*xSign, yCorr*ySign};
+        return new double[]{xCorr, yCorr};
     }
 }
