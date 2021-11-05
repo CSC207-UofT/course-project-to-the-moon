@@ -2,12 +2,13 @@ package adaptors;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import usecases.Drawable;
+import usecases.TextLabel;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.List;
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
@@ -79,14 +80,17 @@ public class DogGameJPanel extends JPanel {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, width, height);
 
-        // TODO: make the coins storage class and draw the total coins
-
-        List<Drawable> drawables = this.camera.getDrawablesInBounds();
-
         // adapt the Graphics
         DogGameGraphics dg = new DogGameGraphics(g);
-        for (Drawable drawable : drawables) {
+
+        //draw objects
+        for (Drawable drawable : this.camera.getDrawableObjectsInBounds()) {
             drawable.draw(dg, this.camera.getX(), this.camera.getY());
+        }
+
+        // draw the GUI
+        for (TextLabel label : this.camera.getTextLabels()) {
+            label.draw(dg, 0, 0);
         }
 
         try {
@@ -94,6 +98,6 @@ public class DogGameJPanel extends JPanel {
             repaint();
         } catch (InterruptedException e) {
             System.out.println("Delaying between frames went wrong.");
-        }
+        } 
     }
 }

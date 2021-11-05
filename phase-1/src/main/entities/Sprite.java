@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author Andy Wang
  * @since 21 October 2021
  */
-public class Sprite implements Serializable {
+public class Sprite {
     private BufferedImage[] frames; // the frames of the sprite
     private BufferedImage currentFrame; // the current frame to be drawn
     private boolean flipped = false; // if the sprite is currently flipped (facing right)

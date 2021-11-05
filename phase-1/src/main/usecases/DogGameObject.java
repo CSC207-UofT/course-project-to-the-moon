@@ -1,8 +1,9 @@
 package usecases;
 
+import adaptors.IGameController;
 import adaptors.IGameGraphics;
+import entities.Bank;
 import entities.Dog;
-
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -16,20 +17,26 @@ import java.awt.image.BufferedImage;
 public class DogGameObject extends GameObject implements Clickable, Drawable{
     private final Dog myDog; // the dog that this manager handles
     private int coinsEarnedFromLastPet;
+    private IGameController controller = null;
+    private Bank bank = null;
 
     /**
      * Initializes a new DogGameObject at the given coordinates.
      * @param x The x coordinate.
      * @param y The y coordinate.
      * @param sprite The sprite of the dog.
+     * @param controller The controller controlling this DogGameObject.
+     * @param bank The bank that this object modifies.
      */
-    public DogGameObject(int x, int y, SpriteFacade sprite){
-        super(x, y);
+    public DogGameObject(int x, int y, SpriteFacade sprite,
+                         IGameController controller, Bank bank){
+        super(x, y, "DogGameObject", sprite, controller);
         this.myDog = new Dog();
-        this.addSprite(sprite);
 
-        DogMover dogMover = new DogMover(this.getSprite(), 180, 180);
-        this.addMover(dogMover); // automatically runs
+        DogMover dogMover = new DogMover(this.getSprite(),180, 180);
+        this.addMover(dogMover);
+        this.controller = controller;
+        this.bank = bank;
     }
 
     /**
@@ -48,7 +55,7 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
      * @return whether the sprite was clicked or not.
      */
     @Override
-    public boolean clicked(int mouseX, int mouseY) {
+    public boolean isClicked(int mouseX, int mouseY) {
         double x = this.getX();
         double y = this.getY();
         int width = super.getSprite().getWidth();
@@ -62,11 +69,17 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
      * when the dog's sprite is clicked.
      */
     @Override
-    public void act() {
+    public void onClick() {
         int earnedCoin = myDog.calculateCoinsEarned();
         int earnedExp = myDog.calculateExpEarned();
 
         this.updateDog(earnedCoin, earnedExp);
+        this.bank.increaseCoins(earnedCoin);
+
+        // update the text label
+        TextLabel coinLabel = this.controller.getActiveStage().getTextLabelWithTag("CoinLabel");
+        coinLabel.setText("Coins: " + this.bank.getCoins());
+        //TODO: maybe observer pattern? there's gotta be a better way to do this
     }
 
     /**
@@ -97,4 +110,5 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
 
         this.coinsEarnedFromLastPet = earnedCoin;
     }
+    
 }

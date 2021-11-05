@@ -7,6 +7,6 @@ package usecases;
 */
 
 public interface Clickable {
-     boolean clicked(int mouseX, int mouseY);
-     void act();
+     boolean isClicked(int mouseX, int mouseY);
+     void onClick();
 }

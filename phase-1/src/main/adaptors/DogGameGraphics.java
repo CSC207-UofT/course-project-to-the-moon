@@ -1,6 +1,7 @@
 package adaptors;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * An implementation of the IGameGraphics object for use in DogGame.
@@ -39,7 +40,14 @@ public class DogGameGraphics implements IGameGraphics {
     @Override
     public void drawText(String s, int x, int y, Color c) {
         this.g.setColor(c);
-        this.g.drawString(s, x, y);
+
+        // By default, Graphics draws strings from the LOWER LEFT corner
+        // I want to make it draw from the UPPER LEFT corner
+        FontMetrics fm = this.g.getFontMetrics();
+        Rectangle2D bounds = fm.getStringBounds(s, this.g);
+        int height = (int) bounds.getHeight();
+
+        this.g.drawString(s, x, y + height);
     }
 
     /**
@@ -53,6 +61,6 @@ public class DogGameGraphics implements IGameGraphics {
     @Override
     public void fillRect(int x, int y, int w, int h, Color c) {
         this.g.setColor(c);
-        this.g.drawRect(x, y, w, h);
+        this.g.fillRect(x, y, w, h);
     }
 }
