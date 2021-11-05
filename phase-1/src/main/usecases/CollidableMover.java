@@ -11,10 +11,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * This class continuously moves the given dog randomly in a separate thread.
- * @author Jimin Song, Andy Wang, Juntae Park
- * @since 10 October 2021
- */
+ * COPY-PASTED FROM DOGMOVER, NEED TO CHANGE
+*/
 public class CollidableMover implements Mover {
     private final Collidable obj;
     // the size of the boundaries
@@ -36,9 +34,7 @@ public class CollidableMover implements Mover {
         this.stage = stage;
     }
 
-    /**
-     * COPY-PASTED FROM DOGMOVER, NEED TO CHANGE
-     */
+    
     @Override
     public void run(Transform t) {
         Random rand = new Random();
