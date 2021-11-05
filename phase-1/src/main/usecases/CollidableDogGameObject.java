@@ -5,6 +5,7 @@ import adaptors.IGameGraphics;
 import entities.Bank;
 import entities.Dog;
 
+import java.awt.Rectangle;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
@@ -14,7 +15,7 @@ import java.awt.image.BufferedImage;
  * @author Aria Paydari
  * @since 22 October 2021
  */
-public class DogGameObject extends GameObject implements Clickable, Drawable{
+public class CollidableDogGameObject extends GameObject implements Clickable, Drawable, Collidable{
     private final Dog myDog; // the dog that this manager handles
     private int coinsEarnedFromLastPet;
     private IGameController controller = null;
@@ -28,15 +29,17 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
      * @param controller The controller controlling this DogGameObject.
      * @param bank The bank that this object modifies.
      */
-    public DogGameObject(int x, int y, SpriteFacade sprite,
-                         IGameController controller, Bank bank){
+    public CollidableDogGameObject(int x, int y, SpriteFacade sprite,
+                         IGameController controller, Bank bank, boolean movable){
         super(x, y, "DogGameObject", sprite, controller);
         this.myDog = new Dog();
         this.controller = controller;
         this.bank = bank;
-
-        DogMover dogMover = new DogMover(this.getSprite(), 180, 180);
-        this.addMover(dogMover);
+        
+        if (movable) {
+            CollidableMover dogMover = new CollidableMover(this, 180, 180, this.controller.getActiveStage());
+            this.addMover(dogMover);
+        }
     }
 
     /**
@@ -109,6 +112,10 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         this.myDog.setExp(this.myDog.getExp() + earnedExp);
 
         this.coinsEarnedFromLastPet = earnedCoin;
+    }
+
+    @Override public Rectangle getHitBox() {
+        return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), this.getHeight());
     }
     
 }

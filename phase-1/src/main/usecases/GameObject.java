@@ -46,8 +46,7 @@ public class GameObject extends AbstractObject {
         if (this.mover == null) {
             this.mover = m;
         }
-
-        this.mover.run(this.transform);
+        this.mover.run(this.getTransform());
     }
 
     /**
