@@ -1,4 +1,4 @@
-package programdrivers;
+//package programdrivers;
 
 import adaptors.*;
 import entities.Bank;
@@ -7,6 +7,7 @@ import usecases.DogGameObject;
 import usecases.SpriteFacade;
 import usecases.Stage;
 import usecases.TextLabel;
+import usecases.CollidableDogGameObject;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -54,6 +55,13 @@ public class DogGame {
         controller.addStage("Main", mainStage);
         controller.setActiveStage("Main");
 
+        // Create collidable dogs
+        CollidableDogGameObject defaultDog = this.createCollidableDog(0,0, true);
+        mainStage.addGameObject(defaultDog);
+        CollidableDogGameObject defaultDog2 = this.createCollidableDog(200,300, true);
+        mainStage.addGameObject(defaultDog2);
+
+
         panel.addController(controller);
         panel.addCamera(camera);
 
@@ -88,7 +96,18 @@ public class DogGame {
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
 
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
-        DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite, this.controller, this.bank);
+        DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite, this.controller, this.bank); 
+
+        return defaultDog;
+    }
+
+    //TESTING COLLISION
+    private CollidableDogGameObject createCollidableDog(int x, int y, boolean move) {
+        // create the default dog object
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
+
+        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
+        CollidableDogGameObject defaultDog = new CollidableDogGameObject(x, y, dogSprite, this.controller, this.bank, move);
 
         return defaultDog;
     }
@@ -99,9 +118,7 @@ public class DogGame {
      */
     private Stage createMainStage() {
         Stage mainStage = new Stage("Main");
-        DogGameObject defaultDog = this.createDog();
-        mainStage.addGameObject(defaultDog);
-
+        
         // create the coin label
         TextLabel coinLabel = new TextLabel(new Rectangle(15, 15, 50, 20),
                 "Coins: 0", "CoinLabel");

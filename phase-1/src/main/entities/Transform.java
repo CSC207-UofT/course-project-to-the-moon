@@ -1,12 +1,16 @@
 package entities;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * This class holds and edits coordinates.
- * @author Arip Paydari
+ * @author Arip Paydari, Juntae Park
  * @since 21 October 2021
  */
 public class Transform {
     double x,y; // coordinates in WORLD POSITION!!!! NOT relative to whatever surface it's drawn on!!!
+    double dx,dy; //velocity of the object
 
     /**
      * Initializes a new Transform object based on the given coordinates.
@@ -38,29 +42,20 @@ public class Transform {
         this.y += dy;
     }
 
-    /**
-     * Smoothly move this Transform to the given coordinates.
-     * @param x The new x coordinate.
-     * @param y The new y coordinate.
-     * @param time The time in seconds to move this Transform.
-     * @throws InterruptedException If there is an error while tweening.
-     */
-    public void tweenTo(double x, double y, double time) throws InterruptedException {
-        int delay = 10;
-        int numIterations = (int) ((time * 1000) / delay);
+    public double getDx() {
+        return this.dx;
+    }
 
-        int currX = (int) this.getX();
-        int currY = (int) this.getY();
+    public double getDy() {
+        return this.dy;
+    }
 
-        // these represent x and y velocities
-        double dx = (x - currX) /  numIterations;
-        double dy = (y - currY) / numIterations;
+    public void setDx(double dx) {
+        this.dx = dx;
+    }
 
-        for (int i = 0; i < numIterations; i++) {
-            this.translateBy(dx, dy);
-
-            Thread.sleep(delay);
-        }
+    public void setDy(double dy) {
+        this.dy = dy;
     }
 
     /**
@@ -78,4 +73,35 @@ public class Transform {
     public double getY(){
         return this.y;
     }
+
+    /**
+     * Smoothly move this Transform to the given coordinates.
+     * @param x The new x coordinate.
+     * @param y The new y coordinate.
+     * @param time The time in seconds to move this Transform.
+     * @throws InterruptedException If there is an error while tweening.
+     */
+    public void tweenTo(double x, double y, double time) throws InterruptedException {
+        int delay = 10;
+        int numIterations = (int) ((time * 1000) / delay);
+
+        int currX = (int) this.getX();
+        int currY = (int) this.getY();
+
+        // these represent x and y velocities
+        double dx = (x - currX) /  numIterations;
+        double dy = (y - currY) / numIterations;
+        this.setDx(dx);
+        this.setDy(dy);
+
+        for (int i = 0; i < numIterations; i++) {
+            this.translateBy(dx, dy);
+
+            Thread.sleep(delay);
+        }
+
+        this.setDx(0);
+        this.setDy(0);
+    }
+
 }

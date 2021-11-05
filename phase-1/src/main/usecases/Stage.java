@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Represents all text labels and collidable game objects on the screen.
- * @author Juntae Park
+ * @author Juntae Park, Andy Wang
  * @since 30 October 2021
 */
 
@@ -26,34 +26,6 @@ public class Stage {
         this.gameObjects = new ArrayList<GameObject>();
         this.textLabels = new ArrayList<TextLabel>();
         this.name = name;
-    }
-
-    /**
-     * Determines if the given Collidable will collide with any object with the given tag,
-     * at the given coordinates.
-     * @param c The Collidable to check for.
-     * @param x The x coordinate to check at.
-     * @param y The y coordinate to check at.
-     * @param otherTag The tag to check collision for.
-     * @return
-     */
-    public boolean placeMeeting(Collidable c, double x, double y, String otherTag) {
-        // TODO: Make this skip objects that are too far from the target coordinates?
-
-        Rectangle hitBox = c.getHitBox();
-        Rectangle collisionHitBox = new Rectangle((int) x, (int) y,
-                (int) hitBox.getWidth(), (int) hitBox.getHeight());
-
-        // loop through the GameObjects
-        for (GameObject go : this.gameObjects) {
-            if ((go instanceof Collidable) && (go.getTag().equals(otherTag))) {
-                Rectangle otherBox = ((Collidable) go).getHitBox();
-
-                if (collisionHitBox.intersects(otherBox)) {
-                    return true;
-                }
-            }
-        } return false;
     }
 
     /**
