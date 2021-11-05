@@ -79,40 +79,4 @@ public class CollisionSystem {
         
         return new double[]{xCorr*xSign, yCorr*ySign};
     }
-
-
-    public static double[] getAABBdist2(Collidable c, Collidable other) {
-        Rectangle h1 = c.getHitBox();
-        Rectangle h2 = other.getHitBox();
-
-        double xCorr = 0;
-        double yCorr = 0;
-
-        double dx = ((GameObject) c).getTransform().getDx();
-        double dy = ((GameObject) c).getTransform().getDy();
-
-        if (h1.getX() < h2.getX()){
-            xCorr = -1*((h1.getX() + h1.getWidth()) - h2.getX());
-        } 
-        else {
-            xCorr = (h2.getX() + h2.getWidth()) - h1.getX();
-        }
-
-        if (h1.getY() < h2.getY()) {
-            yCorr = -1*((h1.getY() + h1.getHeight()) - h2.getY());
-        }
-        else {
-            yCorr = (h2.getY() + h2.getHeight()) - h1.getY();
-        }
-
-        if(xCorr < yCorr){
-            yCorr = 0;
-        } else if (xCorr > yCorr) {
-            xCorr = 0;
-        }
-
-        
-        return new double[]{xCorr, yCorr};
-    }
-
 }
