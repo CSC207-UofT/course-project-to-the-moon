@@ -7,7 +7,6 @@ import usecases.DogGameObject;
 import usecases.SpriteFacade;
 import usecases.Stage;
 import usecases.TextLabel;
-import usecases.CollidableDogGameObject;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -55,10 +54,10 @@ public class DogGame {
         controller.addStage("Main", mainStage);
         controller.setActiveStage("Main");
 
-        // Create collidable dogs
-        CollidableDogGameObject defaultDog = this.createCollidableDog(0,0, true);
+        // Create dogs
+        DogGameObject defaultDog = this.createDog();
         mainStage.addGameObject(defaultDog);
-        CollidableDogGameObject defaultDog2 = this.createCollidableDog(200,300, true);
+        DogGameObject defaultDog2 = this.createDog();
         mainStage.addGameObject(defaultDog2);
 
 
@@ -97,17 +96,6 @@ public class DogGame {
 
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
         DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite, this.controller, this.bank); 
-
-        return defaultDog;
-    }
-
-    //TESTING COLLISION
-    private CollidableDogGameObject createCollidableDog(int x, int y, boolean move) {
-        // create the default dog object
-        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
-
-        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
-        CollidableDogGameObject defaultDog = new CollidableDogGameObject(x, y, dogSprite, this.controller, this.bank, move);
 
         return defaultDog;
     }

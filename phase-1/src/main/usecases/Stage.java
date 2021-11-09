@@ -70,4 +70,65 @@ public class Stage {
         return this.name;
     }
 
+    /**
+     * Determines if the given Collidable will collide with any object with the given tag,
+     * at the given coordinates. Returns true if object has collided with another object and has been resolved.
+     * @param c The Collidable to check for.
+     * @param x The x coordinate to check at.
+     * @param y The y coordinate to check at.
+     * @return
+     */
+    public boolean placeMeeting(Collidable c, double x, double y) {
+        // TODO: Make this skip objects that are too far from the target coordinates?
+
+        Rectangle hitBox = c.getHitBox();
+        Rectangle collisionHitBox = new Rectangle((int) x, (int) y,
+                (int) hitBox.getWidth(), (int) hitBox.getHeight());
+
+        for (GameObject go : this.gameObjects) {
+            if ((go instanceof Collidable) && (!((Collidable) go).equals(c))) {
+                Rectangle otherBox = ((Collidable) go).getHitBox();
+                if (collisionHitBox.intersects(otherBox)) {
+                    double[] AABBdist = getAABBdist((Collidable) c, (Collidable) go, x, y);
+                    ((GameObject) c).getTransform().setDx(AABBdist[0]);
+                    ((GameObject) c).getTransform().setDy(AABBdist[1]);
+
+                    return true;
+                    //does not work if colliding with multiple objects at the same time, but that might not be necessary
+                }
+            }
+        } return false;
+    }
+
+    //gets the corrected distance by which the object c should travel by in order to not collide with other
+    private double[] getAABBdist(Collidable c, Collidable other, double x, double y) {
+        Rectangle h1 = c.getHitBox();
+        Rectangle h2 = other.getHitBox();
+
+        double xCorr = 0;
+        double yCorr = 0;
+
+        if (x < h2.getX()){
+            xCorr = -1*((x + h1.getWidth()) - h2.getX());
+        } 
+        else {
+            xCorr = (h2.getX() + h2.getWidth()) - x;
+        }
+
+        if (y < h2.getY()) {
+            yCorr = -1*((y + h1.getHeight()) - h2.getY());
+        }
+        else {
+            yCorr = (h2.getY() + h2.getHeight()) - y;
+        }
+
+        if (Math.abs(xCorr) < Math.abs(yCorr)) {
+            yCorr = 0;
+        } else if (Math.abs(xCorr) > Math.abs(yCorr)) {
+            xCorr = 0;
+        }
+        
+        return new double[]{xCorr, yCorr};
+    }
+
 }
