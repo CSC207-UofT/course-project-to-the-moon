@@ -2,12 +2,11 @@ package programdrivers;
 
 import adaptors.*;
 import entities.Bank;
-import org.w3c.dom.Text;
 import usecases.DogGameObject;
 import usecases.SpriteFacade;
 import usecases.Stage;
 import usecases.TextLabel;
-import usecases.TextButton;
+import usecases.ShopButton;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -19,7 +18,7 @@ import java.awt.image.BufferedImage;
  * @author Andy Wang
  * @since 9 October 2021
  */
-public class DogGame implements IDogGame {
+public class DogGame{
     private JFrame mainFrame = null;
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
@@ -47,12 +46,14 @@ public class DogGame implements IDogGame {
 
         // Create the main stage
         Stage mainStage = this.createMainStage();
+        Stage shopStage = this.createShopStage();
 
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
-        Camera camera = new Camera(mainStage, bounds);
+        ICamera camera = new Camera(mainStage, bounds);
 
         controller.addFrameLoader(frameLoader);
         controller.addStage("Main", mainStage);
+        controller.addStage("Shop", shopStage);
         controller.setActiveStage("Main");
 
         panel.addController(controller);
@@ -111,13 +112,18 @@ public class DogGame implements IDogGame {
 
         mainStage.addTextLabel(coinLabel);
 
-        TextButton ShopButton = new TextButton(new Rectangle(200, 400, 50, 20),
-                "Shop", "ShopButton");
-        ShopButton.setLabelColor(null);
-        ShopButton.setTextColor(Color.WHITE);
+        ShopButton Shop = new ShopButton(new Rectangle(200, 400, 50, 20),
+                "Shop", "Shop", this.controller);
+        Shop.setLabelColor(null);
+        Shop.setTextColor(Color.WHITE);
 
-        mainStage.addTextLabel(ShopButton);
+        mainStage.addTextLabel(Shop);
         return mainStage;
+    }
+
+    private Stage createShopStage(){
+        Stage shopStage = new Stage("Shop");
+        return shopStage;
     }
 
     /**

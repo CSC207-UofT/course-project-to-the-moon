@@ -18,7 +18,7 @@ import javax.swing.JButton;
 public class DogGameJPanel extends JPanel{
     private final int width;
     private final int height;
-    private Camera camera = null;
+    private ICamera camera = null;
 
     /**
      * Initialize a new JPanel.
@@ -34,7 +34,7 @@ public class DogGameJPanel extends JPanel{
      * Add a new Camera to this JPanel, so that the JPanel knows what to draw.
      * @param c The new Camera to add.
      */
-    public void addCamera(Camera c) {
+    public void addCamera(ICamera c) {
         this.camera = c;
     }
 
@@ -70,6 +70,7 @@ public class DogGameJPanel extends JPanel{
 
             }
         });
+        controller.addCamera(camera);
     }
 
     /**

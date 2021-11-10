@@ -13,7 +13,7 @@ import entities.Transform;
  * @author Andy Wang, Juntae Park
  * @since 23 October 2021
  */
-public class Camera {
+public class Camera implements ICamera {
     private Stage activeStage = null;
     private Rectangle bounds = null;
     private Transform transform = null;
@@ -36,6 +36,7 @@ public class Camera {
      * bounds.
      * @return All the GameObjects on the camera's current stage whose coordinates are within the camera's bounds.
      */
+    @Override
     public List<Drawable> getDrawableObjectsInBounds() {
         ArrayList<Drawable> drawablesSoFar = new ArrayList<>();
         List<GameObject> gameObjList = activeStage.getGameObjects();
@@ -57,6 +58,7 @@ public class Camera {
      * Returns all the TextLabels that are adorned to the Camera's active stage.
      * @return All the TextLabels to be drawn. These are not affected by the camera's position.
      */
+    @Override
     public List<TextLabel> getTextLabels() {
         return this.activeStage.getTextLabels();
     }
@@ -88,6 +90,7 @@ public class Camera {
      * Sets the GameObjects that this camera should be focusing on.
      * @param stage The GameObjects to focus on.
      */
+    @Override
     public void setStage(Stage stage) {
         this.activeStage = stage;
     }
@@ -97,6 +100,7 @@ public class Camera {
      * meaning that the subject will be at the centre of the camera's view.
      * @param subject The GameObject to set the subject as.
      */
+    @Override
     public void setSubject(GameObject subject) {
         this.mover = null; // remove the old mover
         // TODO: maybe add a cancel method? idk if java's garbage collection will handle it already
@@ -104,10 +108,12 @@ public class Camera {
     }
 
     // getters
+    @Override
     public int getX() {
         return (int) this.transform.getX();
     }
 
+    @Override
     public int getY() {
         return (int) this.transform.getY();
     }
