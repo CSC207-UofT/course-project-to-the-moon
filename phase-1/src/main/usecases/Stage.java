@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Stage {
     List<GameObject> gameObjects;
     List<TextLabel> textLabels;
+    List<TextButton> textButtons;
     private String name;
 
     /**

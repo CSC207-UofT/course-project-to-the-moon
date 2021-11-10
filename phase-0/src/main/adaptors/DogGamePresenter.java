@@ -1,5 +1,6 @@
 package adaptors;
 
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import entities.Dog;
 import usecases.Clickable;
@@ -7,7 +8,7 @@ import usecases.Drawable;
 import usecases.Displayable;
 import usecases.DogManager;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class DogGamePresenter extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.fillRect(0, 0, width, height);
         updateHUD(g);
 
