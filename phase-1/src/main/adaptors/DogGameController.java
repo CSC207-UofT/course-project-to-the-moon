@@ -17,6 +17,7 @@ public class DogGameController implements IGameController {
     private Stage activeStage = null;
     private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
     private Bank bank;
+    private ICamera camera;
 
     /**
      * Adds a new implementation of IFrameLoader for this controller to use.
@@ -27,6 +28,10 @@ public class DogGameController implements IGameController {
         // Modern problems require modern solutions
         this.frameLoader = fl;
     }
+
+    public void addCamera(ICamera camera) {
+        this.camera = camera;
+    };
 
     /**
      * Adds the bank system to this controller

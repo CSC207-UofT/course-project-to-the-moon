@@ -1,8 +1,5 @@
 package usecases;
 
-import org.w3c.dom.Text;
-import org.w3c.dom.css.Rect;
-
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ import java.util.ArrayList;
 public class Stage {
     List<GameObject> gameObjects;
     List<TextLabel> textLabels;
-    List<TextButton> textButtons;
+    List<ShopButton> textButtons;
     private String name;
 
     /**

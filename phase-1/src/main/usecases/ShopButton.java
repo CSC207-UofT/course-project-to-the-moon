@@ -1,10 +1,16 @@
 package usecases;
 
-import programdrivers.IDogGame;
+import adaptors.IGameController;
 
 import java.awt.*;
 
-public class TextButton extends TextLabel implements Clickable, IDogGame {
+/**
+ * A class that represents the button for the shop.
+ * @author Praket Kanaujia
+ * @since 10 November 2021
+ */
+public class ShopButton extends TextLabel implements Clickable{
+    private IGameController control;
     /**
      * Initializes a new TextLabel.
      *
@@ -12,8 +18,9 @@ public class TextButton extends TextLabel implements Clickable, IDogGame {
      * @param text The text to display.
      * @param tag  The tag of this label.
      */
-    public TextButton(Rectangle r, String text, String tag) {
+    public ShopButton(Rectangle r, String text, String tag, IGameController control) {
         super(r, text, tag);
+        this.control = control;
     }
 
     @Override
@@ -28,6 +35,6 @@ public class TextButton extends TextLabel implements Clickable, IDogGame {
 
     @Override
     public void onClick() {
-        createShopStage();
+        control.setActiveStage("Shop");
     }
 }
