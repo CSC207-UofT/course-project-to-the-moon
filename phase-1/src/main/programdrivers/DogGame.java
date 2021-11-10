@@ -7,6 +7,7 @@ import usecases.DogGameObject;
 import usecases.SpriteFacade;
 import usecases.Stage;
 import usecases.TextLabel;
+import usecases.TextButton;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -18,7 +19,7 @@ import java.awt.image.BufferedImage;
  * @author Andy Wang
  * @since 9 October 2021
  */
-public class DogGame {
+public class DogGame implements IDogGame {
     private JFrame mainFrame = null;
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
@@ -110,6 +111,12 @@ public class DogGame {
 
         mainStage.addTextLabel(coinLabel);
 
+        TextButton ShopButton = new TextButton(new Rectangle(200, 400, 50, 20),
+                "Shop", "ShopButton");
+        ShopButton.setLabelColor(null);
+        ShopButton.setTextColor(Color.WHITE);
+
+        mainStage.addTextLabel(ShopButton);
         return mainStage;
     }
 
