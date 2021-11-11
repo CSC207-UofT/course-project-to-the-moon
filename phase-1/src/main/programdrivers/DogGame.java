@@ -1,4 +1,4 @@
-package programdrivers;
+//package programdrivers;
 
 import adaptors.*;
 import entities.Bank;
@@ -57,6 +57,13 @@ public class DogGame{
         controller.addCamera(camera);
         controller.setActiveStage("Main");
 
+        // Create dogs
+        DogGameObject defaultDog = this.createDog();
+        mainStage.addGameObject(defaultDog);
+        DogGameObject defaultDog2 = this.createDog();
+        mainStage.addGameObject(defaultDog2);
+
+
         panel.addController(controller);
         panel.addCamera(camera);
 
@@ -91,7 +98,7 @@ public class DogGame{
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
 
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
-        DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite, this.controller, this.bank);
+        DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite, this.controller, this.bank); 
 
         return defaultDog;
     }
@@ -102,9 +109,7 @@ public class DogGame{
      */
     private Stage createMainStage() {
         Stage mainStage = new Stage("Main");
-        DogGameObject defaultDog = this.createDog();
-        mainStage.addGameObject(defaultDog);
-
+        
         // create the coin label
         TextLabel coinLabel = new TextLabel(new Rectangle(15, 15, 50, 20),
                 "Coins: 0", "CoinLabel");
