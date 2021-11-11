@@ -58,7 +58,7 @@ public class DogGame{
         controller.addCamera(camera);
 
         panel.addController(controller);
-        //panel.addCamera(camera);
+        panel.addCamera(camera);
 
         mainFrame.add(panel);
     }

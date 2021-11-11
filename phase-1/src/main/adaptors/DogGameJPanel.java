@@ -34,9 +34,9 @@ public class DogGameJPanel extends JPanel{
      * Add a new Camera to this JPanel, so that the JPanel knows what to draw.
      * @param c The new Camera to add.
      */
-//    public void addCamera(ICamera c) {
-//        this.camera = c;
-//    }
+    public void addCamera(ICamera c) {
+        this.camera = c;
+    }
 
     /**
      * Adds a dog game controller to this presenter.
