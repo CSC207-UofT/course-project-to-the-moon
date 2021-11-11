@@ -17,6 +17,7 @@ public class DogGameController implements IGameController {
     private Stage activeStage = null;
     private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
     private Bank bank;
+    private ICamera camera;
 
     /**
      * Adds a new implementation of IFrameLoader for this controller to use.
@@ -26,6 +27,14 @@ public class DogGameController implements IGameController {
         // It takes in an interface, not a concrete class! So it's not a dependency violation!
         // Modern problems require modern solutions
         this.frameLoader = fl;
+    }
+
+    /**
+     * Adds the camera system to this controller
+     * @param camera The camera to add
+     */
+    public void addCamera(ICamera camera) {
+        this.camera = camera;
     }
 
     /**
@@ -97,7 +106,6 @@ public class DogGameController implements IGameController {
     public void addStage(String name, Stage s) {
         this.stages.put(name, s);
     }
-
     /**
      * Sets the active stage. This is the stage whose objects are checked for user interaction.
      * @param name The name of the stage to set as the active one.
@@ -105,6 +113,10 @@ public class DogGameController implements IGameController {
     @Override
     public void setActiveStage(String name) {
         this.activeStage = this.stages.get(name);
+
+        if (camera != null) {
+            camera.setStage(this.activeStage);
+        }
     }
 
     /**

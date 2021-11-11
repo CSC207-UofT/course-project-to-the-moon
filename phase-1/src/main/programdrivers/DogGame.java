@@ -2,11 +2,11 @@
 
 import adaptors.*;
 import entities.Bank;
-import org.w3c.dom.Text;
 import usecases.DogGameObject;
 import usecases.SpriteFacade;
 import usecases.Stage;
 import usecases.TextLabel;
+import usecases.ShopButton;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
  * @author Andy Wang
  * @since 9 October 2021
  */
-public class DogGame {
+public class DogGame{
     private JFrame mainFrame = null;
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
@@ -46,12 +46,15 @@ public class DogGame {
 
         // Create the main stage
         Stage mainStage = this.createMainStage();
+        Stage shopStage = this.createShopStage();
 
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
-        Camera camera = new Camera(mainStage, bounds);
+        ICamera camera = new Camera(mainStage, bounds);
 
         controller.addFrameLoader(frameLoader);
         controller.addStage("Main", mainStage);
+        controller.addStage("Shop", shopStage);
+        controller.addCamera(camera);
         controller.setActiveStage("Main");
 
         // Create dogs
@@ -115,7 +118,18 @@ public class DogGame {
 
         mainStage.addTextLabel(coinLabel);
 
+        ShopButton Shop = new ShopButton(new Rectangle(200, 400, 50, 20),
+                "Shop", "Shop", this.controller);
+        Shop.setLabelColor(null);
+        Shop.setTextColor(Color.WHITE);
+
+        mainStage.addTextLabel(Shop);
         return mainStage;
+    }
+
+    private Stage createShopStage(){
+        Stage shopStage = new Stage("Shop");
+        return shopStage;
     }
 
     /**

@@ -3,7 +3,9 @@ package programdrivers;
 import adaptors.DogGameController;
 import adaptors.DogGamePresenter;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.JFrame;
  * @author Andy Wang
  * @since 9 October 2021
  */
-public class DogGame {
+public class DogGame{
     private final JFrame mainFrame;
 
     /**

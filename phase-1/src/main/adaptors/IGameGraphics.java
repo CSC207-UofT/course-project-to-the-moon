@@ -12,4 +12,6 @@ public interface IGameGraphics {
     public void drawImage(Image i, int x, int y);
     public void drawText(String s, int x, int y, Color c);
     public void fillRect(int x, int y, int w, int h, Color c);
+    public void drawRect(int x, int y, int w, int h, int stroke, Color c);
+    public int[] getTextBounds(String s);
 }

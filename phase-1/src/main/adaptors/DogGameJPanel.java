@@ -1,5 +1,6 @@
 package adaptors;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -7,18 +8,17 @@ import usecases.Drawable;
 import usecases.TextLabel;
 
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Graphics;
+import javax.swing.JButton;
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
  * @author Andy Wang, Juntae Park
  * @since 9 October 2021
  */
-public class DogGameJPanel extends JPanel {
+public class DogGameJPanel extends JPanel{
     private final int width;
     private final int height;
-    private Camera camera = null;
+    private ICamera camera = null;
 
     /**
      * Initialize a new JPanel.
@@ -34,7 +34,7 @@ public class DogGameJPanel extends JPanel {
      * Add a new Camera to this JPanel, so that the JPanel knows what to draw.
      * @param c The new Camera to add.
      */
-    public void addCamera(Camera c) {
+    public void addCamera(ICamera c) {
         this.camera = c;
     }
 
@@ -92,7 +92,6 @@ public class DogGameJPanel extends JPanel {
         for (TextLabel label : this.camera.getTextLabels()) {
             label.draw(dg, 0, 0);
         }
-
         try {
             Thread.sleep (50); // delay between frames
             repaint();
