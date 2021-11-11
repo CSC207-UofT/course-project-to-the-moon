@@ -79,7 +79,6 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         // update the text label
         TextLabel coinLabel = this.controller.getActiveStage().getTextLabelWithTag("CoinLabel");
         coinLabel.setText("Coins: " + this.bank.getCoins());
-        //TODO: maybe observer pattern? there's gotta be a better way to do this
     }
 
     /**
@@ -96,7 +95,7 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         g.drawImage(frame, drawnX, drawnY);
 
         g.drawText("exp: " + Integer.toString(this.myDog.getExp()),
-                drawnX + 30, drawnY + 95, Color.WHITE);
+                drawnX + 30, drawnY + 85, Color.WHITE);
     }
 
     /**

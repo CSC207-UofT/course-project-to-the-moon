@@ -16,6 +16,8 @@ public class TextLabel extends AbstractObject implements Drawable {
 
     private Color labelColor = null;
     private Color textColor = null;
+    private Color strokeColor = null;
+    private int stroke = 0;
 
     /**
      * Initializes a new TextLabel.
@@ -43,6 +45,10 @@ public class TextLabel extends AbstractObject implements Drawable {
         this.text = text;
     }
 
+    public void setStrokeColor(Color c) {this.strokeColor = c;}
+
+    public void setStrokeWidth(int stroke) { this.stroke = stroke; }
+
     /**
      * Draw this text label.
      * @param g The GameGraphics implementation.
@@ -51,16 +57,31 @@ public class TextLabel extends AbstractObject implements Drawable {
      */
     @Override
     public void draw(IGameGraphics g, int offsetX, int offsetY) {
-        //TODO: Add more customization to this, like outline and font?
         int drawnX  = (int) this.getX() - offsetX;
         int drawnY = (int) this.getY() - offsetY;
 
+        // draw the outline
+        if (this.strokeColor != null) {
+            g.drawRect(drawnX, drawnY,
+                    this.rectangle.width, this.rectangle.height,
+                    this.stroke, this.strokeColor);
+        }
+
+        // draw the label
         if (this.labelColor != null) {
             g.fillRect(drawnX, drawnY,
-                    (int) this.rectangle.getWidth(), (int) this.rectangle.getHeight(),
+                    this.rectangle.width, this.rectangle.height,
                     this.labelColor);
         }
 
-        g.drawText(this.text, drawnX, drawnY, this.textColor);
+        // draw the text (centre it on the label)
+        int[] dimensions = g.getTextBounds(this.text);
+        int tWidth = dimensions[0];
+        int tHeight = dimensions[1];
+
+        int textX = drawnX + this.rectangle.width / 2 - tWidth / 2;
+        int textY = drawnY + this.rectangle.height / 2 - tHeight / 2;
+
+        g.drawText(this.text, textX, textY, this.textColor);
     }
 }
