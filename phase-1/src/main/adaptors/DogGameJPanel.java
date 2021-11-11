@@ -70,7 +70,7 @@ public class DogGameJPanel extends JPanel{
 
             }
         });
-        controller.addCamera(camera);
+       controller.addCamera(camera);
     }
 
     /**
