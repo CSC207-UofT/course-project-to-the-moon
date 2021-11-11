@@ -54,8 +54,8 @@ public class DogGame{
         controller.addFrameLoader(frameLoader);
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
-        controller.setActiveStage("Main");
         controller.addCamera(camera);
+        controller.setActiveStage("Main");
 
         panel.addController(controller);
         panel.addCamera(camera);

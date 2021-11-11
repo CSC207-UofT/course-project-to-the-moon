@@ -113,7 +113,7 @@ public class DogGameController implements IGameController {
     @Override
     public void setActiveStage(String name) {
         this.activeStage = this.stages.get(name);
-        // camera.setStage(this.activeStage);
+        camera.setStage(this.activeStage);
     }
 
     /**
