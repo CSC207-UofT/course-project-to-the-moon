@@ -29,9 +29,13 @@ public class DogGameController implements IGameController {
         this.frameLoader = fl;
     }
 
+    /**
+     * Adds the camera system to this controller
+     * @param camera The camera to add
+     */
     public void addCamera(ICamera camera) {
         this.camera = camera;
-    };
+    }
 
     /**
      * Adds the bank system to this controller
@@ -102,7 +106,6 @@ public class DogGameController implements IGameController {
     public void addStage(String name, Stage s) {
         this.stages.put(name, s);
     }
-
     /**
      * Sets the active stage. This is the stage whose objects are checked for user interaction.
      * @param name The name of the stage to set as the active one.
@@ -110,6 +113,7 @@ public class DogGameController implements IGameController {
     @Override
     public void setActiveStage(String name) {
         this.activeStage = this.stages.get(name);
+        camera.setStage(this.activeStage);
     }
 
     /**
