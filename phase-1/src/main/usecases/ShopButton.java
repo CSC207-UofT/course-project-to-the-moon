@@ -21,6 +21,9 @@ public class ShopButton extends TextLabel implements Clickable{
     public ShopButton(Rectangle r, String text, String tag, IGameController control) {
         super(r, text, tag);
         this.control = control;
+
+        this.setStrokeWidth(2);
+        this.setStrokeColor(Color.WHITE);
     }
 
     @Override

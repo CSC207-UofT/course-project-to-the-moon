@@ -10,7 +10,7 @@ import java.util.TimerTask;
 
 /**
  * This class continuously moves the given dog randomly in a separate thread.
- * @author Jimin Song and Andy Wang
+ * @author Jimin Song, Andy Wang, Juntae Park
  * @since 10 October 2021
  */
 public class DogMover implements Mover {

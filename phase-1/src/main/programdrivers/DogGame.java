@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
  * @author Andy Wang
  * @since 9 October 2021
  */
-public class DogGame{
+public class DogGame {
     private JFrame mainFrame = null;
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
@@ -54,6 +54,7 @@ public class DogGame{
         controller.addFrameLoader(frameLoader);
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
+        controller.addCamera(camera);
         controller.setActiveStage("Main");
 
         panel.addController(controller);
@@ -88,11 +89,9 @@ public class DogGame{
     private DogGameObject createDog() {
         // create the default dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
-
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
-        DogGameObject defaultDog = new DogGameObject(0, 0, dogSprite, this.controller, this.bank);
 
-        return defaultDog;
+        return new DogGameObject(0, 0, dogSprite, this.controller, this.bank);
     }
 
     /**
@@ -101,8 +100,9 @@ public class DogGame{
      */
     private Stage createMainStage() {
         Stage mainStage = new Stage("Main");
-        DogGameObject defaultDog = this.createDog();
-        mainStage.addGameObject(defaultDog);
+
+        DogGameObject dog = createDog();
+        mainStage.addGameObject(dog);
 
         // create the coin label
         TextLabel coinLabel = new TextLabel(new Rectangle(15, 15, 50, 20),

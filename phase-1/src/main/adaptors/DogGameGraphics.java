@@ -9,14 +9,14 @@ import java.awt.geom.Rectangle2D;
  * @since 23 October 2021
  */
 public class DogGameGraphics implements IGameGraphics {
-    private Graphics g = null;
+    private Graphics2D g = null;
 
     /**
      * Initializes a new DogGameGraphics by adapting a default Graphics object.
      * @param g The Graphics object to adapt.
      */
     public DogGameGraphics(Graphics g) {
-        this.g = g;
+        this.g = (Graphics2D) g;
     }
 
     /**
@@ -47,7 +47,7 @@ public class DogGameGraphics implements IGameGraphics {
         Rectangle2D bounds = fm.getStringBounds(s, this.g);
         int height = (int) bounds.getHeight();
 
-        this.g.drawString(s, x, y + height);
+        this.g.drawString(s, x, y + height - fm.getMaxDescent());
     }
 
     /**
@@ -62,5 +62,34 @@ public class DogGameGraphics implements IGameGraphics {
     public void fillRect(int x, int y, int w, int h, Color c) {
         this.g.setColor(c);
         this.g.fillRect(x, y, w, h);
+    }
+
+    /**
+     * Draws a rectangle using the given stroke width.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param w The width.
+     * @param h The height.
+     * @param stroke The width of the stroke.
+     * @param c The colour to use.
+     */
+    @Override
+    public void drawRect(int x, int y, int w, int h, int stroke, Color c) {
+        this.g.setColor(c);
+        this.g.setStroke(new BasicStroke(stroke));
+        this.g.drawRect(x, y, w, h);
+    }
+
+    /**
+     * Gets the dimensions of the drawn string.
+     * @param s The string to analyze.
+     * @return The dimensions as an int array.
+     */
+    @Override
+    public int[] getTextBounds(String s) {
+        FontMetrics fm = this.g.getFontMetrics();
+        Rectangle2D bounds = fm.getStringBounds(s, this.g);
+
+        return new int[] {(int) bounds.getWidth(), (int) bounds.getHeight()};
     }
 }
