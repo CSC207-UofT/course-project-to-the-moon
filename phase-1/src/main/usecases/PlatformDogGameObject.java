@@ -24,10 +24,9 @@ public class PlatformDogGameObject extends GameObject implements Drawable{
      * @param y The y coordinate.
      * @param sprite The sprite of the dog.
      * @param controller The controller controlling this DogGameObject.
-     * @param bank The bank that this object modifies.
      */
     public PlatformDogGameObject(int x, int y, SpriteFacade sprite,
-                         IGameController controller, Bank bank){
+                         IGameController controller){
         super(x, y, "DogGameObject", sprite, controller);
         this.myDog = new Dog();
 
@@ -45,9 +44,6 @@ public class PlatformDogGameObject extends GameObject implements Drawable{
         int drawnY = (int) this.getY() - offsetY;
 
         g.drawImage(frame, drawnX, drawnY);
-
-        g.drawText("exp: " + Integer.toString(this.myDog.getExp()),
-                drawnX + 30, drawnY + 95, Color.WHITE);
     }
 
 

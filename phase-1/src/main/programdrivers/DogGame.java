@@ -152,7 +152,8 @@ public class DogGame {
     private Stage createMinigameStage(){
         // Assume (300, 500)
         Stage minigameStage = new Stage("Minigame");
-        // PlatformDogGameObject miniDog = new PlatformDogGameObject();
+        PlatformDogGameObject miniDog = createMiniDog();
+        minigameStage.addGameObject(miniDog);
         BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/platform");
         SpriteFacade platformSprtie = new SpriteFacade(platFrames, 2);
         PlatformGameObject bottomPlatform = new PlatformGameObject(0, 10000, 50, 300, platformSprtie);
@@ -160,14 +161,25 @@ public class DogGame {
         addRandomPlatforms(minigameStage, platformSprtie);
 
         // Change later!
-        DogGameObject dog = createDog();
-        minigameStage.addGameObject(dog);
+
+
         return minigameStage;
     }
 
 //    public PlatformGameObject createPlatform(){
 //
 //    }
+    /**
+     * Helper method to create a single default dog.
+     * @return The dog.
+     */
+    private PlatformDogGameObject createMiniDog() {
+        // create the minigame dog object
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog_shrunk");
+        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
+
+        return new PlatformDogGameObject(0, 0, dogSprite, this.controller);
+    }
 
     /**
      * A method which takes a minigame stage,
