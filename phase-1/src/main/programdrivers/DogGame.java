@@ -10,8 +10,9 @@ import usecases.TextLabel;
 import usecases.ShopButton;
 import usecases.MinerButton;
 import usecases.HomeButton;
-iimport usecases.PlatformGameObject;
+import usecases.PlatformGameObject;
 import usecases.PlatformDogGameObject;
+import usecases.MiniGameButton;
 
 import javax.swing.JFrame;
 import java.awt.*;
