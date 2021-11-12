@@ -15,7 +15,6 @@ import java.awt.image.BufferedImage;
  * @since 11 November 2021
  */
 public class PlatformDogGameObject extends GameObject implements Drawable{
-    private final Dog myDog; // the dog that this manager handles
     private IGameController controller = null;
 
     /**
@@ -27,18 +26,15 @@ public class PlatformDogGameObject extends GameObject implements Drawable{
      */
     public PlatformDogGameObject(int x, int y, SpriteFacade sprite,
                          IGameController controller){
-        super(x, y, "DogGameObject", sprite, controller);
-        this.myDog = new Dog();
+        super(x, y, "PlatformerDogGameObject", sprite, controller);
 
         DogMover dogMover = new DogMover(this.getSprite(),180, 180);
         this.addMover(dogMover);
         this.controller = controller;
     }
 
-
-
-
-    @Override public void draw(IGameGraphics g, int offsetX, int offsetY) {
+    @Override
+    public void draw(IGameGraphics g, int offsetX, int offsetY) {
         BufferedImage frame = this.getSprite().getCurrentFrame();
         int drawnX  = (int) this.getX() - offsetX;
         int drawnY = (int) this.getY() - offsetY;

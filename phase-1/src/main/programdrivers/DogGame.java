@@ -17,8 +17,8 @@ import java.util.Random;
  */
 public class DogGame {
     private JFrame mainFrame = null;
-    private JFrame miniFrame = null;
-    final private int jumpHeight = 100;
+    private final int MAX_PLATFORM_DISTANCE = 100;
+    private final int MIN_PLATFORM_DISTANCE = 20;
 
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
@@ -120,7 +120,7 @@ public class DogGame {
 
         shop.setLabelColor(null);
         shop.setTextColor(Color.WHITE);
-        MiniGameButton miniButton = new MiniGameButton(new Rectangle(200, 430, 50, 20),
+        MinigameButton miniButton = new MinigameButton(new Rectangle(200, 430, 60, 20),
                 "Minigame", "Minigame", this.controller);
         miniButton.setLabelColor(null);
         miniButton.setTextColor(Color.GREEN);
@@ -133,65 +133,55 @@ public class DogGame {
     private Stage createShopStage(){
         Stage shopStage = new Stage("Shop");
 
-        MinerButton Computer = new MinerButton(new Rectangle(100, 50, 100, 100),
-                "Computer", "Computer", this.bank, 50, 10, 5);
+        // a computer to mine dogecoin automatically
+        MinerButton computer = new MinerButton(new Rectangle(90, 30, 120, 100),
+                "Buy Computer", "Computer", this.bank, 50, 10, 5);
 
-        shopStage.addTextLabel(Computer);
+        shopStage.addTextLabel(computer);
 
-        MinerButton Factory = new MinerButton(new Rectangle(100, 200, 100, 100),
-                "Factory", "Factory", this.bank, 500, 100 , 20);
+        // a factory to mine a bunch of dogecoin
+        MinerButton factory = new MinerButton(new Rectangle(90, 150, 120, 100),
+                "Buy Factory", "Factory", this.bank, 500, 100 , 20);
 
-        shopStage.addTextLabel(Factory);
+        shopStage.addTextLabel(factory);
 
-        MinerButton LunarDogCafe = new MinerButton(new Rectangle(100, 350, 100, 100),
-                "Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 50);
+        MinerButton lunarDogCafe = new MinerButton(new Rectangle(90, 300, 120, 100),
+                "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 50);
 
-        shopStage.addTextLabel(LunarDogCafe);
+        shopStage.addTextLabel(lunarDogCafe);
 
-        HomeButton Home = new HomeButton(new Rectangle(220, 450, 50, 20),
-                "Home", "Home", this.controller);
-        Home.setLabelColor(null);
-        Home.setTextColor(Color.WHITE);
+        HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
+                "Return", "Home", this.controller);
+        home.setLabelColor(null);
+        home.setTextColor(Color.WHITE);
 
-        shopStage.addTextLabel(Home);
+        shopStage.addTextLabel(home);
 
         return shopStage;
-    }
-    private void initializeMiniFrame(int w, int h) {
-        miniFrame = new JFrame();
-
-        miniFrame.setSize(w, h);
-        miniFrame.setResizable(false);
-        miniFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        miniFrame.setLocationRelativeTo(null);
-        miniFrame.setFocusable(true);
-        miniFrame.requestFocus();
     }
 
     /**
      * A method which creates the minigame's stage
-     * @return returns the minigame's Stage.
+     * @return The minigame's Stage.
      */
     private Stage createMinigameStage(){
         // Assume (300, 500)
         Stage minigameStage = new Stage("Minigame");
         PlatformDogGameObject miniDog = createMiniDog();
         minigameStage.addGameObject(miniDog);
+
         BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/platform");
-        SpriteFacade platformSprtie = new SpriteFacade(platFrames, 2);
-        PlatformGameObject bottomPlatform = new PlatformGameObject(0, 420, 300, 50, platformSprtie);
+        SpriteFacade platformSprite = new SpriteFacade(platFrames);
+
+        // bottom platform is the floor
+        PlatformGameObject bottomPlatform = new PlatformGameObject(0, 420,  platformSprite);
         minigameStage.addGameObject(bottomPlatform);
-        addRandomPlatforms(minigameStage, platformSprtie);
 
-        // Change later!
-
+        addRandomPlatforms(minigameStage, platformSprite);
 
         return minigameStage;
     }
 
-//    public PlatformGameObject createPlatform(){
-//
-//    }
     /**
      * Helper method to create a single default dog.
      * @return The dog.
@@ -207,34 +197,25 @@ public class DogGame {
     /**
      * A method which takes a minigame stage,
      * and adds 100 random platforms to it,
-     * which all have a horizontal distance of at most 100.
+     * which all have a horizontal distance from MIN_PLATFORM_DISTANCE to MAX_PLATFORM_DISTANCE.
      * @param minigameStage the stage that is added to.
      */
     private void addRandomPlatforms(Stage minigameStage, SpriteFacade platformSprite){
         Random random = new Random();
-        int previousY = 10000;
-        for(int i= 0; i< 100; i++){
+        int previousY = 420;  // the y-coordinate of the previous platform
+
+        for(int i = 0; i < 100; i++){
             PlatformGameObject newPlatform;
 
-            // What should the width of each platform be?
-            //do {
-                int rX = random.nextInt(100);
-                // Random number between 51 and 151
-                int rY = random.nextInt(jumpHeight) + 51;
-                int newY = previousY - rY;
-                // Length of the platform is 25 x 50
-                newPlatform = new PlatformGameObject(rX, newY, 80, 10, platformSprite);
+            int rX = random.nextInt(200);
+            // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
+            int rY = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;
+            int newY = previousY - rY;
 
-                previousY = newY;
+            newPlatform = new PlatformGameObject(rX, newY, platformSprite);
+            previousY = newY;
 
-            //}while(!(minigameStage.placeMeeting(newPlatform, newPlatform.getX(), newPlatform.getY())));
-            // do-while is just to make sure that no platforms overlap,
-            // but it's probably not necessary
-            // Has to be added first
             minigameStage.addGameObject(newPlatform);
-
-
-
         }
     }
 

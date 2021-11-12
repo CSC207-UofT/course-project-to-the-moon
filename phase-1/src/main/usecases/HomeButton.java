@@ -9,25 +9,19 @@ import java.awt.*;
  * @author Fatimeh Hassan
  * @since 12 November 2021
  */
-public class HomeButton extends TextLabel implements Clickable{
-    private IGameController controller;
-
+public class HomeButton extends TextButton {
+    /**
+     * Initialize a new button that takes you back to home.
+     * @param r The bounds of the button.
+     * @param text The text.
+     * @param tag The tag of the button.
+     * @param controller The controller controlling this button.
+     */
     public HomeButton(Rectangle r, String text, String tag, IGameController controller) {
-        super(r, text, tag);
-        this.controller = controller;
+        super(r, text, tag, controller);
 
         this.setStrokeWidth(2);
         this.setStrokeColor(Color.WHITE);
-    }
-
-    @Override
-    public boolean isClicked(int mouseX, int mouseY) {
-        double x = this.getX();
-        double y = this.getY();
-        int width = (int) super.rectangle.getWidth();
-        int height = (int) super.rectangle.getHeight();
-
-        return ((x < mouseX) && (mouseX < x + width) && (y < mouseY) && (mouseY < y + height));
     }
 
     @Override
