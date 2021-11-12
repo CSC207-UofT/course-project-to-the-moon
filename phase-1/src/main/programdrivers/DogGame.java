@@ -195,12 +195,12 @@ public class DogGame {
 
             // What should the width of each platform be?
             //do {
-                int rX = random.nextInt(276);
+                int rX = random.nextInt(200);
                 // Random number between 51 and 151
                 int rY = random.nextInt(jumpHeight) + 51;
                 int newY = previousY - rY;
                 // Length of the platform is 25 x 50
-                newPlatform = new PlatformGameObject(rX, newY, 50, 25, platformSprite);
+                newPlatform = new PlatformGameObject(rX, newY, 80, 10, platformSprite);
 
                 previousY = newY;
 

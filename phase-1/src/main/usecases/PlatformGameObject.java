@@ -35,7 +35,7 @@ public class PlatformGameObject extends GameObject implements Drawable, Collidab
 
     // What exactly is the purpose of offsetY?
     @Override public void draw(IGameGraphics g, int offsetX, int offsetY) {
-        g.fillRect((int) super.getX() - offsetX, (int) super.getY() - offsetY, WIDTH, LENGTH, Color.WHITE);
+        g.fillRect((int) super.getX() , (int) super.getY() , WIDTH, LENGTH, Color.WHITE);
 
     }
 
