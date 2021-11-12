@@ -161,7 +161,7 @@ public class DogGame {
             PlatformGameObject newPlatform;
 
             // What should the width of each platform be?
-            do {
+            //do {
                 int rX = random.nextInt(276);
                 // Random number between 51 and 151
                 int rY = random.nextInt(jumpHeight) + 51;
@@ -171,9 +171,10 @@ public class DogGame {
 
                 previousY = newY;
 
-            }while(!(minigameStage.placeMeeting(newPlatform, newPlatform.getX(), newPlatform.getY())));
+            //}while(!(minigameStage.placeMeeting(newPlatform, newPlatform.getX(), newPlatform.getY())));
             // do-while is just to make sure that no platforms overlap,
             // but it's probably not necessary
+            // Has to be added first
             minigameStage.addGameObject(newPlatform);
 
 
