@@ -156,7 +156,7 @@ public class DogGame {
         minigameStage.addGameObject(miniDog);
         BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/platform");
         SpriteFacade platformSprtie = new SpriteFacade(platFrames, 2);
-        PlatformGameObject bottomPlatform = new PlatformGameObject(0, 10000, 50, 300, platformSprtie);
+        PlatformGameObject bottomPlatform = new PlatformGameObject(0, 420, 300, 50, platformSprtie);
         minigameStage.addGameObject(bottomPlatform);
         addRandomPlatforms(minigameStage, platformSprtie);
 
