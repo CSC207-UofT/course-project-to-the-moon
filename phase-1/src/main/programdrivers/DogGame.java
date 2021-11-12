@@ -218,7 +218,7 @@ public class DogGame {
 
             // What should the width of each platform be?
             //do {
-                int rX = random.nextInt(200);
+                int rX = random.nextInt(100);
                 // Random number between 51 and 151
                 int rY = random.nextInt(jumpHeight) + 51;
                 int newY = previousY - rY;
