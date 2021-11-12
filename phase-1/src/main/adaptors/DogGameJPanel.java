@@ -1,6 +1,8 @@
 package adaptors;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -67,6 +69,24 @@ public class DogGameJPanel extends JPanel{
 
             @Override
             public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        super.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                controller.getKeyPressed(e.getKeyChar());
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                controller.releaseKey(e.getKeyChar());
 
             }
         });

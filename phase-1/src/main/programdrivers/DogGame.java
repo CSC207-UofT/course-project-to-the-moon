@@ -2,15 +2,12 @@ package programdrivers;
 
 import adaptors.*;
 import entities.Bank;
-import usecases.DogGameObject;
-import usecases.SpriteFacade;
-import usecases.Stage;
-import usecases.TextLabel;
-import usecases.ShopButton;
+import usecases.*;
 
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 
 /**
@@ -20,6 +17,9 @@ import java.awt.image.BufferedImage;
  */
 public class DogGame {
     private JFrame mainFrame = null;
+    private JFrame miniFrame = null;
+    final private int jumpHeight = 100;
+
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
     private final DogGameController controller = new DogGameController();
@@ -47,6 +47,7 @@ public class DogGame {
         // Create the main stage
         Stage mainStage = this.createMainStage();
         Stage shopStage = this.createShopStage();
+        Stage miniStage = this.createMinigameStage();
 
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
         ICamera camera = new Camera(mainStage, bounds);
@@ -54,6 +55,7 @@ public class DogGame {
         controller.addFrameLoader(frameLoader);
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
+        controller.addStage("Minigame", miniStage);
         controller.addCamera(camera);
         controller.setActiveStage("Main");
 
@@ -112,18 +114,71 @@ public class DogGame {
 
         mainStage.addTextLabel(coinLabel);
 
-        ShopButton Shop = new ShopButton(new Rectangle(200, 400, 50, 20),
+        ShopButton shop = new ShopButton(new Rectangle(200, 400, 50, 20),
                 "Shop", "Shop", this.controller);
-        Shop.setLabelColor(null);
-        Shop.setTextColor(Color.WHITE);
+        // You can change the coordinates of this button later
 
-        mainStage.addTextLabel(Shop);
+        shop.setLabelColor(null);
+        shop.setTextColor(Color.WHITE);
+        MiniGameButton miniButton = new MiniGameButton(new Rectangle(200, 450, 50, 20),
+                "Minigame", "Minigame", this.controller);
+        miniButton.setLabelColor(null);
+        miniButton.setTextColor(Color.GREEN);
+
+        mainStage.addTextLabel(shop);
         return mainStage;
     }
 
     private Stage createShopStage(){
         Stage shopStage = new Stage("Shop");
         return shopStage;
+    }
+    private void initializeMiniFrame(int w, int h) {
+        miniFrame = new JFrame();
+
+        miniFrame.setSize(w, h);
+        miniFrame.setResizable(false);
+        miniFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        miniFrame.setLocationRelativeTo(null);
+        miniFrame.setFocusable(true);
+        miniFrame.requestFocus();
+    }
+
+    private Stage createMinigameStage(){
+        // Assume (300, 500)
+        Stage minigameStage = new Stage("Minigame");
+        // PlatformDogGameObject miniDog = new PlatformDogGameObject();
+        PlatformGameObject bottomPlatform = new PlatformGameObject(0, 10000, 300, 50);
+        minigameStage.addGameObject(bottomPlatform);
+        addRandomPlatforms(minigameStage);
+        return minigameStage;
+    }
+
+    private void addRandomPlatforms(Stage minigameStage){
+        Random random = new Random();
+        int previousY = 10000;
+        for(int i= 0; i< 100; i++){
+            PlatformGameObject newPlatform;
+
+            // What should the width of each platform be?
+            do {
+                int rX = random.nextInt(276);
+                // Random number between 51 and 151
+                int rY = random.nextInt(jumpHeight) + 51;
+                int newY = previousY - rY;
+                // Length of the platform is 25 x 50
+                newPlatform = new PlatformGameObject(rX, newY, 25, 50);
+
+                previousY = newY;
+
+            }while(!(minigameStage.placeMeeting(newPlatform, newPlatform.getX(), newPlatform.getY())));
+            // do-while is just to make sure that no platforms overlap,
+            // but it's probably not necessary
+            minigameStage.addGameObject(newPlatform);
+
+
+
+        }
     }
 
     /**

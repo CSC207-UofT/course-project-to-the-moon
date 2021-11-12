@@ -29,6 +29,10 @@ public class GameObject extends AbstractObject {
         this.controller = c;
     }
 
+    public GameObject(double x, double y, String tag){
+        super(x, y, tag);
+    }
+
     /**
      * Sets this object's SpriteFacade to use.
      * @param sprite The SpriteFacade to set.

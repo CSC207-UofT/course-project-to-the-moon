@@ -10,15 +10,13 @@ import java.awt.image.BufferedImage;
 
 /**
  * A class which manages a single dog object
- * Within a game.
+ * Within the minigame.
  * @author Aria Paydari
  * @since 11 November 2021
  */
 public class PlatformDogGameObject extends GameObject implements Drawable{
     private final Dog myDog; // the dog that this manager handles
-    private int coinsEarnedFromLastPet;
     private IGameController controller = null;
-    private Bank bank = null;
 
     /**
      * Initializes a new DogGameObject at the given coordinates.
@@ -36,16 +34,8 @@ public class PlatformDogGameObject extends GameObject implements Drawable{
         DogMover dogMover = new DogMover(this.getSprite(),180, 180);
         this.addMover(dogMover);
         this.controller = controller;
-        this.bank = bank;
     }
 
-    /**
-     * Returns the amount of coins earned from the last pet (click)
-     * @return The amount of coins earned from the last pet.
-     */
-    public int getCoinsEarnedFromLastPet() {
-        return this.coinsEarnedFromLastPet;
-    }
 
 
 
@@ -60,16 +50,5 @@ public class PlatformDogGameObject extends GameObject implements Drawable{
                 drawnX + 30, drawnY + 95, Color.WHITE);
     }
 
-    /**
-     * Updates the dog's coin and experience
-     * @param earnedCoin the number of coins earned.
-     * @param earnedExp the amount of experience gained.
-     */
-    private void updateDog(int earnedCoin, int earnedExp) {
-        this.myDog.setCoins(this.myDog.getCoins() + earnedCoin);
-        this.myDog.setExp(this.myDog.getExp() + earnedExp);
-
-        this.coinsEarnedFromLastPet = earnedCoin;
-    }
 
 }
