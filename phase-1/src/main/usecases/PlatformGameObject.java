@@ -24,8 +24,8 @@ public class PlatformGameObject extends GameObject implements Drawable, Collidab
      * @param x The x coordinate.
      * @param y The y coordinate.
      */
-    public PlatformGameObject(int x, int y, int width, int length){
-        super(x, y, "DogGameObject");
+    public PlatformGameObject(int x, int y, int width, int length,SpriteFacade sprite) {
+        super(x, y, "DogGameObject", sprite);
         WIDTH = width;
         LENGTH = length;
 

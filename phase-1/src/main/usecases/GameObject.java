@@ -28,9 +28,19 @@ public class GameObject extends AbstractObject {
         this.sprite = sprite;
         this.controller = c;
     }
+    /**
+     * Initializes a game object at the given coordinates,
+     * but without a controller.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param tag This object's tag.
+     * @param sprite This object's SpriteFacade.
+     */
 
-    public GameObject(double x, double y, String tag){
+    public GameObject(double x, double y, String tag, SpriteFacade sprite) {
         super(x, y, tag);
+        this.sprite = sprite;
+
     }
 
     /**

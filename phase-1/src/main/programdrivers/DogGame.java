@@ -145,17 +145,37 @@ public class DogGame {
         miniFrame.requestFocus();
     }
 
+    /**
+     * A method which creates the minigame's stage
+     * @return returns the minigame's Stage.
+     */
     private Stage createMinigameStage(){
         // Assume (300, 500)
         Stage minigameStage = new Stage("Minigame");
         // PlatformDogGameObject miniDog = new PlatformDogGameObject();
-        PlatformGameObject bottomPlatform = new PlatformGameObject(0, 10000, 300, 50);
+        BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/platform");
+        SpriteFacade platformSprtie = new SpriteFacade(platFrames, 2);
+        PlatformGameObject bottomPlatform = new PlatformGameObject(0, 10000, 50, 300, platformSprtie);
         minigameStage.addGameObject(bottomPlatform);
-        addRandomPlatforms(minigameStage);
+        addRandomPlatforms(minigameStage, platformSprtie);
+
+        // Change later!
+        DogGameObject dog = createDog();
+        minigameStage.addGameObject(dog);
         return minigameStage;
     }
 
-    private void addRandomPlatforms(Stage minigameStage){
+//    public PlatformGameObject createPlatform(){
+//
+//    }
+
+    /**
+     * A method which takes a minigame stage,
+     * and adds 100 random platforms to it,
+     * which all have a horizontal distance of at most 100.
+     * @param minigameStage the stage that is added to.
+     */
+    private void addRandomPlatforms(Stage minigameStage, SpriteFacade platformSprite){
         Random random = new Random();
         int previousY = 10000;
         for(int i= 0; i< 100; i++){
@@ -168,7 +188,7 @@ public class DogGame {
                 int rY = random.nextInt(jumpHeight) + 51;
                 int newY = previousY - rY;
                 // Length of the platform is 25 x 50
-                newPlatform = new PlatformGameObject(rX, newY, 25, 50);
+                newPlatform = new PlatformGameObject(rX, newY, 50, 25, platformSprite);
 
                 previousY = newY;
 
