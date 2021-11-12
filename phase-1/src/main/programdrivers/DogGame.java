@@ -3,16 +3,7 @@ package programdrivers;
 import adaptors.*;
 import entities.Bank;
 
-import usecases.DogGameObject;
-import usecases.SpriteFacade;
-import usecases.Stage;
-import usecases.TextLabel;
-import usecases.ShopButton;
-import usecases.MinerButton;
-import usecases.HomeButton;
-iimport usecases.PlatformGameObject;
-import usecases.PlatformDogGameObject;
-
+import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
