@@ -120,12 +120,13 @@ public class DogGame {
 
         shop.setLabelColor(null);
         shop.setTextColor(Color.WHITE);
-        MiniGameButton miniButton = new MiniGameButton(new Rectangle(200, 450, 50, 20),
+        MiniGameButton miniButton = new MiniGameButton(new Rectangle(200, 430, 50, 20),
                 "Minigame", "Minigame", this.controller);
         miniButton.setLabelColor(null);
         miniButton.setTextColor(Color.GREEN);
 
         mainStage.addTextLabel(shop);
+        mainStage.addTextLabel(miniButton);
         return mainStage;
     }
 
@@ -161,7 +162,7 @@ public class DogGame {
             PlatformGameObject newPlatform;
 
             // What should the width of each platform be?
-            do {
+            //do {
                 int rX = random.nextInt(276);
                 // Random number between 51 and 151
                 int rY = random.nextInt(jumpHeight) + 51;
@@ -171,9 +172,10 @@ public class DogGame {
 
                 previousY = newY;
 
-            }while(!(minigameStage.placeMeeting(newPlatform, newPlatform.getX(), newPlatform.getY())));
+            //}while(!(minigameStage.placeMeeting(newPlatform, newPlatform.getX(), newPlatform.getY())));
             // do-while is just to make sure that no platforms overlap,
             // but it's probably not necessary
+            // Has to be added first
             minigameStage.addGameObject(newPlatform);
 
 
