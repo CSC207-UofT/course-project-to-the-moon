@@ -1,10 +1,12 @@
 package adaptors;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import entities.Bank;
 import usecases.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -18,6 +20,7 @@ public class DogGameController implements IGameController {
     private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
     private Bank bank;
     private ICamera camera;
+    private ArrayList keysPressedList = new ArrayList(2);
 
     /**
      * Adds a new implementation of IFrameLoader for this controller to use.
@@ -93,9 +96,21 @@ public class DogGameController implements IGameController {
      */
     @Override
     public boolean getKeyPressed(char c) {
-        return true;
-        // TODO: implement making the controller know which keys are pressed
+        if( this.keysPressedList.contains(c)){
+            return true;
+        }
+
+        this.keysPressedList.add(c);
+        return false;
     }
+
+    public void releaseKey(char c){
+        // Remove does nothing if
+        // c is not in the ArrayList
+        this.keysPressedList.remove(c);
+
+    }
+
 
     /**
      * Adds a new stage to this controller.
