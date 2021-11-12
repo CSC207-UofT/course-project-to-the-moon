@@ -7,6 +7,8 @@ import usecases.SpriteFacade;
 import usecases.Stage;
 import usecases.TextLabel;
 import usecases.ShopButton;
+import usecases.MinerButton;
+import usecases.HomeButton;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -123,6 +125,29 @@ public class DogGame {
 
     private Stage createShopStage(){
         Stage shopStage = new Stage("Shop");
+
+        MinerButton Computer = new MinerButton(new Rectangle(100, 50, 100, 100),
+                "Computer", "Computer", this.bank, 50, 10, 5);
+
+        shopStage.addTextLabel(Computer);
+
+        MinerButton Factory = new MinerButton(new Rectangle(100, 200, 100, 100),
+                "Factory", "Factory", this.bank, 500, 100 , 20);
+
+        shopStage.addTextLabel(Factory);
+
+        MinerButton LunarDogCafe = new MinerButton(new Rectangle(100, 350, 100, 100),
+                "Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 50);
+
+        shopStage.addTextLabel(LunarDogCafe);
+
+        HomeButton Home = new HomeButton(new Rectangle(220, 450, 50, 20),
+                "Home", "Home", this.controller);
+        Home.setLabelColor(null);
+        Home.setTextColor(Color.WHITE);
+
+        shopStage.addTextLabel(Home);
+
         return shopStage;
     }
 
