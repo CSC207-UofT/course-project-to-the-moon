@@ -2,12 +2,7 @@ package programdrivers;
 
 import adaptors.*;
 import entities.Bank;
-import usecases.DogGameObject;
-import usecases.SpriteFacade;
-import usecases.Stage;
-import usecases.TextLabel;
-import usecases.ShopButton;
-
+import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,6 +15,7 @@ import java.awt.image.BufferedImage;
  */
 public class DogGame {
     private JFrame mainFrame = null;
+
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
     private final DogGameController controller = new DogGameController();
@@ -28,7 +24,7 @@ public class DogGame {
      * This is the main method. Run this to run the game.
      * @param args Unused.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         DogGame dg = new DogGame();
         dg.start();
     }
@@ -42,7 +38,6 @@ public class DogGame {
         this.initializeMainFrame(WIDTH, HEIGHT);
 
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
-        this.controller.setBank(bank);
 
         // Create the main stage
         Stage mainStage = this.createMainStage();
@@ -51,14 +46,17 @@ public class DogGame {
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
         ICamera camera = new Camera(mainStage, bounds);
 
+        controller.addBank(bank);
         controller.addFrameLoader(frameLoader);
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
         controller.addCamera(camera);
         controller.setActiveStage("Main");
 
+        panel.setFocusable(true);
         panel.addController(controller);
         panel.addCamera(camera);
+        panel.requestFocus();
 
         mainFrame.add(panel);
     }
@@ -78,8 +76,6 @@ public class DogGame {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // TODO: if we decide to implement saving, change the default operation to something else
         mainFrame.setLocationRelativeTo(null);
-        mainFrame.setFocusable(true);
-        mainFrame.requestFocus();
     }
 
     /**
@@ -91,7 +87,7 @@ public class DogGame {
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DogGameObject(0, 0, dogSprite, this.controller, this.bank);
+        return new DogGameObject(50, 100, dogSprite, this.bank);
     }
 
     /**
@@ -105,24 +101,56 @@ public class DogGame {
         mainStage.addGameObject(dog);
 
         // create the coin label
-        TextLabel coinLabel = new TextLabel(new Rectangle(15, 15, 50, 20),
+        TextLabel coinLabel = new CoinLabel(new Rectangle(15, 15, 50, 20),
                 "Coins: 0", "CoinLabel");
         coinLabel.setLabelColor(null);
         coinLabel.setTextColor(Color.WHITE);
-
         mainStage.addTextLabel(coinLabel);
 
-        ShopButton Shop = new ShopButton(new Rectangle(200, 400, 50, 20),
+        ShopButton shop = new ShopButton(new Rectangle(200, 400, 50, 20),
                 "Shop", "Shop", this.controller);
-        Shop.setLabelColor(null);
-        Shop.setTextColor(Color.WHITE);
+        // You can change the coordinates of this button later
 
-        mainStage.addTextLabel(Shop);
+        shop.setLabelColor(null);
+        shop.setTextColor(Color.WHITE);
+        MinigameButton miniButton = new MinigameButton(new Rectangle(200, 430, 60, 20),
+                "Minigame", "Minigame", this.controller);
+        miniButton.setLabelColor(null);
+        miniButton.setTextColor(Color.GREEN);
+
+        mainStage.addTextLabel(shop);
+        mainStage.addTextLabel(miniButton);
         return mainStage;
     }
 
+    // create the shop
     private Stage createShopStage(){
         Stage shopStage = new Stage("Shop");
+
+        // a computer to mine dogecoin automatically
+        MinerButton computer = new MinerButton(new Rectangle(90, 30, 120, 100),
+                "Buy Computer", "Computer", this.bank, 50, 10, 10);
+
+        shopStage.addTextLabel(computer);
+
+        // a factory to mine a bunch of dogecoin
+        MinerButton factory = new MinerButton(new Rectangle(90, 165, 120, 100),
+                "Buy Factory", "Factory", this.bank, 500, 100 , 100);
+
+        shopStage.addTextLabel(factory);
+
+        MinerButton lunarDogCafe = new MinerButton(new Rectangle(90, 300, 120, 100),
+                "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 800);
+
+        shopStage.addTextLabel(lunarDogCafe);
+
+        HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
+                "Return", "Home", this.controller);
+        home.setLabelColor(null);
+        home.setTextColor(Color.WHITE);
+
+        shopStage.addTextLabel(home);
+
         return shopStage;
     }
 

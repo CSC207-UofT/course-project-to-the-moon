@@ -15,11 +15,9 @@ import entities.Transform;
  */
 public class Camera implements ICamera {
     private Stage activeStage = null;
-    private Rectangle bounds = null;
     private Transform transform = null;
-    private Mover mover = null;
-    private GameObject subject = null;
-    // ignore these warnings for now
+    private final int xBounds;
+    private final int yBounds;
 
     /**
      * Initializes a new Camera that focuses on the given stage, at the given coordinates,
@@ -27,7 +25,8 @@ public class Camera implements ICamera {
      */
     public Camera(Stage stage, Rectangle bounds) {
         this.activeStage = stage;
-        this.bounds = bounds;
+        this.xBounds = bounds.width;
+        this.yBounds = bounds.height;
         this.transform = new Transform(bounds.getX(), bounds.getY());
     }
 
@@ -41,12 +40,14 @@ public class Camera implements ICamera {
         ArrayList<Drawable> drawablesSoFar = new ArrayList<>();
         List<GameObject> gameObjList = activeStage.getGameObjects();
 
+        Rectangle bounds = new Rectangle((int) transform.getX(), (int) transform.getY(), xBounds, yBounds);
+
         for (GameObject go : gameObjList) {
             if (go instanceof Drawable) {
                 Rectangle objectSpriteBounds = new Rectangle((int) go.getX(), (int) go.getY(),
                         go.getSprite().getWidth(), go.getSprite().getHeight());
 
-                if (this.bounds.intersects(objectSpriteBounds)) {
+                if (bounds.intersects(objectSpriteBounds)) {
                     drawablesSoFar.add((Drawable) go);
                 }
             }
@@ -63,58 +64,23 @@ public class Camera implements ICamera {
         return this.activeStage.getTextLabels();
     }
 
-    // we might not need this?
-//    /**
-//     * Returns all the Collidable GameObjects on the camera's current stage whose coordinates are within the camera's
-//     * bounds.
-//     * @return All the GameObjects on the camera's current stage whose coordinates are within the camera's bounds.
-//     */
-//    public List<Collidable> getCollidablesInBounds() {
-//        ArrayList<Collidable> collidablesSoFar = new ArrayList<>();
-//        List<GameObject> gameObjList = activeStage.getGameObjects();
-//
-//        for (GameObject go : gameObjList) {
-//            if (go instanceof Collidable) {
-//                Rectangle objectSpriteBounds = new Rectangle((int) go.getX(), (int) go.getY(),
-//                        go.getSprite().getWidth(), go.getSprite().getHeight());
-//
-//                if (this.bounds.intersects(objectSpriteBounds)) {
-//                    collidablesSoFar.add((Collidable) go);
-//                }
-//            }
-//        }
-//        return collidablesSoFar;
-//    }
-
     /**
-     * Sets the GameObjects that this camera should be focusing on.
-     * @param stage The GameObjects to focus on.
+     * Sets the Stage that this camera should be focusing on.
+     * @param stage The Stage to focus on.
      */
     @Override
     public void setStage(Stage stage) {
+        // reset the camera's coords
+        this.transform.moveTo(0, 0);
         this.activeStage = stage;
     }
 
     /**
-     * Sets the subject of this GameObject - this will make the camera automatically follow the subject,
-     * meaning that the subject will be at the centre of the camera's view.
-     * @param subject The GameObject to set the subject as.
+     * Returns this camera's Transform.
+     * @return This camera's Transform.
      */
     @Override
-    public void setSubject(GameObject subject) {
-        this.mover = null; // remove the old mover
-        // TODO: maybe add a cancel method? idk if java's garbage collection will handle it already
-        // TODO: finish implementing this, idk if we'll use it the future so remove it if we don't
-    }
-
-    // getters
-    @Override
-    public int getX() {
-        return (int) this.transform.getX();
-    }
-
-    @Override
-    public int getY() {
-        return (int) this.transform.getY();
+    public Transform getTransform() {
+        return this.transform;
     }
 }

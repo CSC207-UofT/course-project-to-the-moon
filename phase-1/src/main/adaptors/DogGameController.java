@@ -1,11 +1,15 @@
 package adaptors;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import entities.Bank;
 import usecases.*;
 
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * This class represents a controller for the dog game. It processes mouse input.
@@ -14,43 +18,44 @@ import java.util.HashMap;
  */
 public class DogGameController implements IGameController {
     private final HashMap<String, Stage> stages = new HashMap<>();
+    private final ArrayList<Integer> keysPressedList = new ArrayList<>();
     private Stage activeStage = null;
-    private IFrameLoader frameLoader = null; // don't worry about the local var thing, for we might access it later
-    private Bank bank;
-    private ICamera camera;
+    private ICamera camera = null;
+    private IFrameLoader frameLoader = null;
+    private Bank bank = null;
 
     /**
-     * Adds a new implementation of IFrameLoader for this controller to use.
-     * @param fl The implementation of IFrameLoader to add.
+     * Adds a FrameLoader.
+     * @param fl The FrameLoader to add.
      */
     public void addFrameLoader(IFrameLoader fl) {
-        // It takes in an interface, not a concrete class! So it's not a dependency violation!
-        // Modern problems require modern solutions
         this.frameLoader = fl;
+    }
+
+    /**
+     * Adds a bank.
+     * @param bank The bank to add.
+     */
+    public void addBank(Bank bank) {
+        this.bank = bank;
     }
 
     /**
      * Adds the camera system to this controller
      * @param camera The camera to add
      */
+    @Override
     public void addCamera(ICamera camera) {
         this.camera = camera;
     }
 
     /**
-     * Adds the bank system to this controller
-     * @param b The bank system to add
+     * Returns the controller's camera.
+     * @return The controller's camera.
      */
-    public void setBank(Bank b) {
-        this.bank = b;
-    }
-
-    /**
-     * Return the bank.
-     * @return The bank.
-     */
-    public Bank getBank() {
-        return this.bank;
+    @Override
+    public ICamera getCamera() {
+        return this.camera;
     }
 
     /**
@@ -88,13 +93,35 @@ public class DogGameController implements IGameController {
 
     /**
      * Return whether the given key is pressed.
-     * @param c The key's character.
+     * @param c The keycode to check for.
      * @return Whether the key is pressed.
      */
     @Override
-    public boolean getKeyPressed(char c) {
-        return true;
-        // TODO: implement making the controller know which keys are pressed
+    public boolean getKeyPressed(int c) {
+        return this.keysPressedList.contains(c);
+    }
+
+    /**
+     * Processes when a key is pressed.
+     * @param e The KeyEvent to process.
+     */
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (!this.getKeyPressed(e.getKeyCode())) {
+            // if statement so it doesn't get added multiple times
+            this.keysPressedList.add(e.getKeyCode());
+        }
+    }
+
+    /**
+     * Process when a key is released.
+     * @param e The KeyEvent to process.
+     */
+    @Override
+    public void keyReleased(KeyEvent e){
+        // Remove does nothing if the character isn't in the list
+        // needs to be an Integer object, or else it's interpreted as an index
+        this.keysPressedList.remove(Integer.valueOf(e.getKeyCode()));
     }
 
     /**
@@ -112,6 +139,15 @@ public class DogGameController implements IGameController {
      */
     @Override
     public void setActiveStage(String name) {
+        // create the minigame stage everytime the active stage gets set to minigame
+        if (name.equals("Minigame")) {
+            this.addMinigameStage();
+        } else {
+            // remove it whenever the controller switches from the minigame stage
+            // hopefully garbage collection does its thing
+            this.stages.remove("Minigame");
+        }
+
         this.activeStage = this.stages.get(name);
 
         if (camera != null) {
@@ -126,5 +162,89 @@ public class DogGameController implements IGameController {
     @Override
     public Stage getActiveStage() {
         return this.activeStage;
+    }
+
+    /**
+     * Returns a stage given a name.
+     * @return The stage with the given name.
+     */
+    @Override
+    public Stage getStage(String name) {
+        return this.stages.get(name);
+    }
+
+    // TODO: maybe in phase 2, delegate the minigame to its own class?
+
+    /**
+     * A method which creates the minigame's stage.
+     */
+    private void addMinigameStage(){
+        // Assume (300, 500)
+        Stage minigameStage = new Stage("Minigame");
+        this.stages.put("Minigame", minigameStage);
+
+        PlatformDogGameObject miniDog = createMiniDog();
+        minigameStage.addGameObject(miniDog);
+
+        // add the first few platforms
+        addRandomPlatforms(minigameStage);
+    }
+
+    /**
+     * Helper method to create a single default dog.
+     * @return The dog.
+     */
+    private PlatformDogGameObject createMiniDog() {
+        // create the minigame dog object
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog_shrunk");
+        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
+
+        return new PlatformDogGameObject(100, 210, dogSprite, bank,this);
+    }
+
+    /**
+     * A method which takes a minigame stage,
+     * and adds 100 random platforms to it,
+     * which all have a horizontal distance from MIN_PLATFORM_DISTANCE to MAX_PLATFORM_DISTANCE.
+     * @param minigameStage the stage that is added to.
+     */
+    private void addRandomPlatforms(Stage minigameStage){
+        final int MAX_PLATFORM_DISTANCE = 100;
+        final int MIN_PLATFORM_DISTANCE = 40;
+        final int NUM_PLATFORMS = 100;
+
+        Random random = new Random();
+        int previousY = 300;  // the y-coordinate of the previous platform
+
+        BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/platform");
+        SpriteFacade platformSprite = new SpriteFacade(platFrames);
+
+        // the first platform should be under the dog
+        PlatformGameObject firstPlatform = new PlatformGameObject(70, previousY, "Platform", platformSprite);
+        minigameStage.addGameObject(firstPlatform);
+
+        synchronized (minigameStage) {
+            for (int i = 0; i < NUM_PLATFORMS - 2; i++) {
+                PlatformGameObject newPlatform;
+
+                int rX = random.nextInt(220);
+                // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
+                int rY = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;
+                int newY = previousY - rY;
+
+                newPlatform = new PlatformGameObject(rX, newY, "Platform", platformSprite);
+                previousY = newY;
+
+                minigameStage.addGameObject(newPlatform);
+            }
+        }
+
+        BufferedImage[] winningPlatFrames = this.frameLoader.loadFramesFromFolder(
+                "phase-1/src/sprites/winning_platform");
+        SpriteFacade winningPlatformSprite = new SpriteFacade(winningPlatFrames);
+        PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
+                previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
+
+        minigameStage.addGameObject(winningPlatform);
     }
 }

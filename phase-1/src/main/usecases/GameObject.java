@@ -28,6 +28,20 @@ public class GameObject extends AbstractObject {
         this.sprite = sprite;
         this.controller = c;
     }
+    /**
+     * Initializes a game object at the given coordinates,
+     * but without a controller.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param tag This object's tag.
+     * @param sprite This object's SpriteFacade.
+     */
+
+    public GameObject(double x, double y, String tag, SpriteFacade sprite) {
+        super(x, y, tag);
+        this.sprite = sprite;
+
+    }
 
     /**
      * Sets this object's SpriteFacade to use.
@@ -47,14 +61,6 @@ public class GameObject extends AbstractObject {
             this.mover = m;
         }
         this.mover.run(this.getTransform());
-    }
-
-    /**
-     * Returns the Mover that is currently acting on this object.
-     * @return The Mover.
-     */
-    public Mover getMover() {
-        return this.mover;
     }
 
     /**

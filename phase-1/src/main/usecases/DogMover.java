@@ -14,7 +14,7 @@ import java.util.TimerTask;
  * @since 10 October 2021
  */
 public class DogMover implements Mover {
-    private final Sprite dogSprite;
+    private Sprite dogSprite = null;
     // the size of the boundaries
     private final int width;
     private final int height;

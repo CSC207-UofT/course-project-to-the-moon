@@ -1,5 +1,6 @@
 package adaptors;
 
+import entities.Transform;
 import usecases.Drawable;
 import usecases.GameObject;
 import usecases.Stage;
@@ -15,15 +16,9 @@ import java.util.List;
 
 public interface ICamera {
     List<Drawable> getDrawableObjectsInBounds();
-
     List<TextLabel> getTextLabels();
 
     void setStage(Stage stage);
 
-    void setSubject(GameObject subject);
-
-    // getters
-    int getX();
-
-    int getY();
+    Transform getTransform();
 }

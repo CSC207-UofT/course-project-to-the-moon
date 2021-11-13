@@ -10,7 +10,6 @@ import java.util.TimerTask;
  */
 public class Transform {
     double x,y; // coordinates in WORLD POSITION!!!! NOT relative to whatever surface it's drawn on!!!
-    double dx,dy; //velocity of the object
 
     /**
      * Initializes a new Transform object based on the given coordinates.
@@ -40,22 +39,6 @@ public class Transform {
     public void translateBy(double dx, double dy){
         this.x += dx;
         this.y += dy;
-    }
-
-    public double getDx() {
-        return this.dx;
-    }
-
-    public double getDy() {
-        return this.dy;
-    }
-
-    public void setDx(double dx) {
-        this.dx = dx;
-    }
-
-    public void setDy(double dy) {
-        this.dy = dy;
     }
 
     /**
@@ -91,17 +74,12 @@ public class Transform {
         // these represent x and y velocities
         double dx = (x - currX) /  numIterations;
         double dy = (y - currY) / numIterations;
-        this.setDx(dx);
-        this.setDy(dy);
 
         for (int i = 0; i < numIterations; i++) {
             this.translateBy(dx, dy);
 
             Thread.sleep(delay);
         }
-
-        this.setDx(0);
-        this.setDy(0);
     }
 
 }

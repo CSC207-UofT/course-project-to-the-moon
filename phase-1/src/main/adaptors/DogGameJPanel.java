@@ -1,9 +1,12 @@
 package adaptors;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import entities.Transform;
 import usecases.Drawable;
 import usecases.TextLabel;
 
@@ -70,6 +73,23 @@ public class DogGameJPanel extends JPanel{
 
             }
         });
+        super.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                controller.keyPressed(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                controller.keyReleased(e);
+
+            }
+        });
     }
 
     /**
@@ -84,8 +104,12 @@ public class DogGameJPanel extends JPanel{
         DogGameGraphics dg = new DogGameGraphics(g);
 
         //draw objects
+        Transform cameraTransform = camera.getTransform();
+        int cameraX = (int) cameraTransform.getX();
+        int cameraY = (int) cameraTransform.getY();
+
         for (Drawable drawable : this.camera.getDrawableObjectsInBounds()) {
-            drawable.draw(dg, this.camera.getX(), this.camera.getY());
+            drawable.draw(dg, cameraX, cameraY);
         }
 
         // draw the GUI
