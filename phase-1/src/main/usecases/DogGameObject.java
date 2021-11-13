@@ -2,7 +2,6 @@ package usecases;
 
 import adaptors.IGameController;
 import adaptors.IGameGraphics;
-import entities.Bank;
 import entities.Dog;
 
 import java.awt.Color;
@@ -74,11 +73,7 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         int earnedExp = myDog.calculateExpEarned();
 
         this.updateDog(earnedCoin, earnedExp);
-        this.bank.increaseCoins(earnedCoin);
-
-        // update the text label
-        TextLabel coinLabel = this.controller.getActiveStage().getTextLabelWithTag("CoinLabel");
-        coinLabel.setText("Coins: " + this.bank.getCoins());
+        this.bank.updateCoins(earnedCoin);
     }
 
     /**

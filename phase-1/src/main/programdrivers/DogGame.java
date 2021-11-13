@@ -1,8 +1,6 @@
 package programdrivers;
 
 import adaptors.*;
-import entities.Bank;
-
 import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
@@ -107,12 +105,12 @@ public class DogGame {
         mainStage.addGameObject(dog);
 
         // create the coin label
-        TextLabel coinLabel = new TextLabel(new Rectangle(15, 15, 50, 20),
+        TextLabel coinLabel = new CoinLabel(new Rectangle(15, 15, 50, 20),
                 "Coins: 0", "CoinLabel");
         coinLabel.setLabelColor(null);
         coinLabel.setTextColor(Color.WHITE);
-
         mainStage.addTextLabel(coinLabel);
+        this.bank.addObserver((CoinListener) coinLabel);
 
         ShopButton shop = new ShopButton(new Rectangle(200, 400, 50, 20),
                 "Shop", "Shop", this.controller);
