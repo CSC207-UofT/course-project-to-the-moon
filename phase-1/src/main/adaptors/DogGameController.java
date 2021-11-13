@@ -3,7 +3,6 @@ package adaptors;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import entities.Bank;
 import usecases.*;
 
 import java.awt.image.BufferedImage;
