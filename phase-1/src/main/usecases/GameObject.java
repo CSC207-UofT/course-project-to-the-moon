@@ -64,14 +64,6 @@ public class GameObject extends AbstractObject {
     }
 
     /**
-     * Returns the Mover that is currently acting on this object.
-     * @return The Mover.
-     */
-    public Mover getMover() {
-        return this.mover;
-    }
-
-    /**
      * Gets the Sprite for this object.
      * @return The Sprite for this object.
      */

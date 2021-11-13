@@ -8,4 +8,5 @@ import java.awt.Rectangle;
  */
 public interface Collidable {
     Rectangle getHitBox();
+    Rectangle getHitBoxAtCoords(int x, int y);
 }

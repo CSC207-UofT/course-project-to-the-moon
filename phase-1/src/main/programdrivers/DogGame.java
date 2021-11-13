@@ -17,8 +17,6 @@ import java.util.Random;
  */
 public class DogGame {
     private JFrame mainFrame = null;
-    private final int MAX_PLATFORM_DISTANCE = 100;
-    private final int MIN_PLATFORM_DISTANCE = 20;
 
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
@@ -28,7 +26,7 @@ public class DogGame {
      * This is the main method. Run this to run the game.
      * @param args Unused.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         DogGame dg = new DogGame();
         dg.start();
     }
@@ -42,12 +40,10 @@ public class DogGame {
         this.initializeMainFrame(WIDTH, HEIGHT);
 
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
-        this.controller.setBank(bank);
 
         // Create the main stage
         Stage mainStage = this.createMainStage();
         Stage shopStage = this.createShopStage();
-        Stage miniStage = this.createMinigameStage();
 
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
         ICamera camera = new Camera(mainStage, bounds);
@@ -55,12 +51,13 @@ public class DogGame {
         controller.addFrameLoader(frameLoader);
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
-        controller.addStage("Minigame", miniStage);
         controller.addCamera(camera);
         controller.setActiveStage("Main");
 
+        panel.setFocusable(true);
         panel.addController(controller);
         panel.addCamera(camera);
+        panel.requestFocus();
 
         mainFrame.add(panel);
     }
@@ -80,8 +77,6 @@ public class DogGame {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // TODO: if we decide to implement saving, change the default operation to something else
         mainFrame.setLocationRelativeTo(null);
-        mainFrame.setFocusable(true);
-        mainFrame.requestFocus();
     }
 
     /**
@@ -93,7 +88,7 @@ public class DogGame {
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DogGameObject(0, 0, dogSprite, this.controller, this.bank);
+        return new DogGameObject(50, 100, dogSprite, this.controller, this.bank);
     }
 
     /**
@@ -158,65 +153,6 @@ public class DogGame {
         shopStage.addTextLabel(home);
 
         return shopStage;
-    }
-
-    /**
-     * A method which creates the minigame's stage
-     * @return The minigame's Stage.
-     */
-    private Stage createMinigameStage(){
-        // Assume (300, 500)
-        Stage minigameStage = new Stage("Minigame");
-        PlatformDogGameObject miniDog = createMiniDog();
-        minigameStage.addGameObject(miniDog);
-
-        BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/platform");
-        SpriteFacade platformSprite = new SpriteFacade(platFrames);
-
-        // bottom platform is the floor
-        PlatformGameObject bottomPlatform = new PlatformGameObject(0, 420,  platformSprite);
-        minigameStage.addGameObject(bottomPlatform);
-
-        addRandomPlatforms(minigameStage, platformSprite);
-
-        return minigameStage;
-    }
-
-    /**
-     * Helper method to create a single default dog.
-     * @return The dog.
-     */
-    private PlatformDogGameObject createMiniDog() {
-        // create the minigame dog object
-        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog_shrunk");
-        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
-
-        return new PlatformDogGameObject(0, 0, dogSprite, this.controller);
-    }
-
-    /**
-     * A method which takes a minigame stage,
-     * and adds 100 random platforms to it,
-     * which all have a horizontal distance from MIN_PLATFORM_DISTANCE to MAX_PLATFORM_DISTANCE.
-     * @param minigameStage the stage that is added to.
-     */
-    private void addRandomPlatforms(Stage minigameStage, SpriteFacade platformSprite){
-        Random random = new Random();
-        int previousY = 420;  // the y-coordinate of the previous platform
-
-        for(int i = 0; i < 100; i++){
-            PlatformGameObject newPlatform;
-
-            int rX = random.nextInt(200);
-            // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
-            int rY = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;
-            int newY = previousY - rY;
-
-            newPlatform = new PlatformGameObject(rX, newY, platformSprite);
-            previousY = newY;
-
-            minigameStage.addGameObject(newPlatform);
-        }
     }
 
     /**
