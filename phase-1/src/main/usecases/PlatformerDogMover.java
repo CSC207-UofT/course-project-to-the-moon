@@ -2,6 +2,7 @@ package usecases;
 
 import adaptors.ICamera;
 import adaptors.IGameController;
+import entities.Bank;
 import entities.Transform;
 
 import java.awt.event.KeyEvent;
@@ -19,6 +20,7 @@ import java.util.TimerTask;
 public class PlatformerDogMover implements Mover {
     private PlatformDogGameObject dog = null;
     private IGameController controller = null;
+    private Bank bank = null;
     private Stage minigameStage = null;
     private ICamera camera = null;
     private final Timer timer = new Timer();
@@ -35,10 +37,12 @@ public class PlatformerDogMover implements Mover {
     /**
      * Initializes a new PlatformerDogMover to give the player control of the platformer dog.
      * @param dog The PlatformerDogGameObject object to change.
+     * @param bank The bank to update.
      * @param controller The controller to use.
      */
-    public PlatformerDogMover(PlatformDogGameObject dog, IGameController controller) {
+    public PlatformerDogMover(PlatformDogGameObject dog, Bank bank, IGameController controller) {
         this.dog = dog;
+        this.bank = bank;
         this.controller = controller;
         this.camera = controller.getCamera();
         minigameStage = this.controller.getStage("Minigame");
@@ -65,7 +69,6 @@ public class PlatformerDogMover implements Mover {
                 }
 
                 t.translateBy(dx, 0);
-                handleYCollisions(t);
                 updateYPositionAndCamera(t);
 
                 // Flip the sprite if the player is moving right
@@ -107,24 +110,6 @@ public class PlatformerDogMover implements Mover {
         return (onNormalPlatform || onWinningPlatform);
     }
 
-    /**
-     * If it will collide vertically, move it so that it becomes pixel perfect.
-     *
-     * This only detects collision if dy is positive.
-     */
-    private void handleYCollisions(Transform t) {
-        if (dy > 0) {
-            if (minigameStage.placeMeeting(dog, dog.getX(), dog.getY() + dy, "Platform")) {
-                // make it pixel perfect
-                while (!minigameStage.placeMeeting(dog, dog.getX(), dog.getY() + Math.signum(dy), "Platform")) {
-                    t.translateBy(0, Math.signum(dy));
-                }
-
-                dy = 0;
-            }
-        }
-    }
-
     // update y position
     // this method also ends the game if the dog goes too low, or if the dog stands on the winning platform
     private void updateYPositionAndCamera(Transform t) {
@@ -149,9 +134,10 @@ public class PlatformerDogMover implements Mover {
         // end the game if you win
         if (won) {
             controller.setActiveStage("Main");
-            System.out.println("u won the game lmao");
+            int coinsEarned = 50000 + 100 * bank.getDCPS();
+            bank.increaseCoins(coinsEarned);
+            System.out.println("u won " + coinsEarned + " coins!");
             timer.cancel();
-            //TODO: give you coins for winning
         }
     }
 }

@@ -2,6 +2,7 @@ package usecases;
 
 import adaptors.IGameController;
 import adaptors.IGameGraphics;
+import entities.Bank;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,13 +21,14 @@ public class PlatformDogGameObject extends GameObject implements Drawable, Colli
      * @param x The x coordinate.
      * @param y The y coordinate.
      * @param sprite The sprite of the dog.
+     * @param bank The bank to update.
      * @param controller The controller controlling this DogGameObject.
      */
-    public PlatformDogGameObject(int x, int y, SpriteFacade sprite,
+    public PlatformDogGameObject(int x, int y, SpriteFacade sprite, Bank bank,
                          IGameController controller){
         super(x, y, "PlatformerDogGameObject", sprite, controller);
 
-        PlatformerDogMover dogMover = new PlatformerDogMover(this, controller);
+        PlatformerDogMover dogMover = new PlatformerDogMover(this, bank, controller);
         this.addMover(dogMover);
         this.controller = controller;
     }

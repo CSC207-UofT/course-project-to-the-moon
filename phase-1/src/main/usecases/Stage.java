@@ -11,10 +11,9 @@ import java.util.ArrayList;
 */
 
 public class Stage {
-    List<GameObject> gameObjects;
-    List<TextLabel> textLabels;
-    List<ShopButton> textButtons;
-    private String name;
+    private final List<GameObject> gameObjects;
+    private final List<TextLabel> textLabels;
+    private final String name;
 
     /**
      * Initializes a new empty stage.
@@ -49,23 +48,6 @@ public class Stage {
 
     public List<TextLabel> getTextLabels() {
         return this.textLabels;
-    }
-
-    /**
-     * Returns the first TextLabel with the given tag.
-     * @param tag The tag to search for.
-     * @return The TextLabel with the given tag.
-     */
-    public TextLabel getTextLabelWithTag(String tag) {
-        for (TextLabel label : this.textLabels) {
-            if (label.getTag().equals(tag)) {
-                return label;
-            }
-        } return null;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     /**

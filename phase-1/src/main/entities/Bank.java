@@ -17,7 +17,8 @@ public class Bank {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                coins += dcps;
+                increaseCoins(dcps);
+                System.out.println("Current coins: " + coins);
             }
         };
 
@@ -25,10 +26,10 @@ public class Bank {
     }
 
     /**
-     * Changes the amount of coins by the given amount and notifies observers.
+     * Increases the amount of coins by the given amount.
      * @param c The amount of coins to increase it by.
      */
-    public void updateCoins(int c) {
+    public void increaseCoins(int c) {
         this.coins += c;
     }
 
@@ -46,8 +47,13 @@ public class Bank {
      */
     public boolean makePurchase(int cost) {
         if (this.coins >= cost) {
-            this.updateCoins(-cost);
+            this.increaseCoins(-cost);
             return true;
         } return false;
+    }
+
+    // getters
+    public int getDCPS() {
+        return this.dcps;
     }
 }

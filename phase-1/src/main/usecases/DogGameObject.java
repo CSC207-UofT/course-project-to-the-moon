@@ -60,7 +60,7 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         int earnedExp = myDog.calculateExpEarned();
 
         this.updateDog(earnedCoin, earnedExp);
-        this.bank.updateCoins(earnedCoin);
+        this.bank.increaseCoins(earnedCoin);
     }
 
     /**

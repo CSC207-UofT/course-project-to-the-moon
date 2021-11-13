@@ -3,6 +3,7 @@ package adaptors;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import entities.Bank;
 import usecases.*;
 
 import java.awt.image.BufferedImage;
@@ -21,6 +22,7 @@ public class DogGameController implements IGameController {
     private Stage activeStage = null;
     private ICamera camera = null;
     private IFrameLoader frameLoader = null;
+    private Bank bank = null;
 
     /**
      * Adds a FrameLoader.
@@ -28,6 +30,14 @@ public class DogGameController implements IGameController {
      */
     public void addFrameLoader(IFrameLoader fl) {
         this.frameLoader = fl;
+    }
+
+    /**
+     * Adds a bank.
+     * @param bank The bank to add.
+     */
+    public void addBank(Bank bank) {
+        this.bank = bank;
     }
 
     /**
@@ -189,7 +199,7 @@ public class DogGameController implements IGameController {
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog_shrunk");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new PlatformDogGameObject(100, 210, dogSprite, this);
+        return new PlatformDogGameObject(100, 210, dogSprite, bank,this);
     }
 
     /**
@@ -201,7 +211,7 @@ public class DogGameController implements IGameController {
     private void addRandomPlatforms(Stage minigameStage){
         final int MAX_PLATFORM_DISTANCE = 100;
         final int MIN_PLATFORM_DISTANCE = 40;
-        final int NUM_PLATFORMS = 50;
+        final int NUM_PLATFORMS = 100;
 
         Random random = new Random();
         int previousY = 300;  // the y-coordinate of the previous platform
@@ -213,18 +223,20 @@ public class DogGameController implements IGameController {
         PlatformGameObject firstPlatform = new PlatformGameObject(70, previousY, "Platform", platformSprite);
         minigameStage.addGameObject(firstPlatform);
 
-        for(int i = 0; i < NUM_PLATFORMS - 2; i++){
-            PlatformGameObject newPlatform;
+        synchronized (minigameStage) {
+            for (int i = 0; i < NUM_PLATFORMS - 2; i++) {
+                PlatformGameObject newPlatform;
 
-            int rX = random.nextInt(220);
-            // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
-            int rY = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;
-            int newY = previousY - rY;
+                int rX = random.nextInt(220);
+                // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
+                int rY = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;
+                int newY = previousY - rY;
 
-            newPlatform = new PlatformGameObject(rX, newY, "Platform", platformSprite);
-            previousY = newY;
+                newPlatform = new PlatformGameObject(rX, newY, "Platform", platformSprite);
+                previousY = newY;
 
-            minigameStage.addGameObject(newPlatform);
+                minigameStage.addGameObject(newPlatform);
+            }
         }
 
         BufferedImage[] winningPlatFrames = this.frameLoader.loadFramesFromFolder(

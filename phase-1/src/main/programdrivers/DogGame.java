@@ -46,6 +46,7 @@ public class DogGame {
         Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
         ICamera camera = new Camera(mainStage, bounds);
 
+        controller.addBank(bank);
         controller.addFrameLoader(frameLoader);
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
@@ -122,23 +123,24 @@ public class DogGame {
         return mainStage;
     }
 
+    // create the shop
     private Stage createShopStage(){
         Stage shopStage = new Stage("Shop");
 
         // a computer to mine dogecoin automatically
         MinerButton computer = new MinerButton(new Rectangle(90, 30, 120, 100),
-                "Buy Computer", "Computer", this.bank, 50, 10, 5);
+                "Buy Computer", "Computer", this.bank, 50, 10, 10);
 
         shopStage.addTextLabel(computer);
 
         // a factory to mine a bunch of dogecoin
-        MinerButton factory = new MinerButton(new Rectangle(90, 150, 120, 100),
-                "Buy Factory", "Factory", this.bank, 500, 100 , 20);
+        MinerButton factory = new MinerButton(new Rectangle(90, 165, 120, 100),
+                "Buy Factory", "Factory", this.bank, 500, 100 , 100);
 
         shopStage.addTextLabel(factory);
 
         MinerButton lunarDogCafe = new MinerButton(new Rectangle(90, 300, 120, 100),
-                "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 50);
+                "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 800);
 
         shopStage.addTextLabel(lunarDogCafe);
 
