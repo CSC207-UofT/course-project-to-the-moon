@@ -1,7 +1,5 @@
-package usecases;
+package entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,10 +11,8 @@ import java.util.TimerTask;
 public class Bank {
     private int coins;
     private int dcps; //dogecoin per second
-    private CoinListener observer = null;
 
     public Bank() {
-        
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -34,8 +30,6 @@ public class Bank {
      */
     public void updateCoins(int c) {
         this.coins += c;
-
-        this.observer.update(this.coins);
     }
 
     /**
@@ -55,13 +49,5 @@ public class Bank {
             this.updateCoins(-cost);
             return true;
         } return false;
-    }
-
-    public int getCoins(){
-        return this.coins;
-    }
-
-    public void addObserver(CoinListener cl) {
-        this.observer = cl;
     }
 }

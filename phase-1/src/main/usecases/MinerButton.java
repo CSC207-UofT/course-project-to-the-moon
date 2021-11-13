@@ -1,5 +1,7 @@
 package usecases;
 
+import entities.Bank;
+
 import java.awt.*;
 
 /**

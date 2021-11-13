@@ -1,11 +1,11 @@
 package programdrivers;
 
 import adaptors.*;
+import entities.Bank;
 import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 
 /**
@@ -86,7 +86,7 @@ public class DogGame {
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DogGameObject(50, 100, dogSprite, this.controller, this.bank);
+        return new DogGameObject(50, 100, dogSprite, this.bank);
     }
 
     /**
@@ -105,7 +105,6 @@ public class DogGame {
         coinLabel.setLabelColor(null);
         coinLabel.setTextColor(Color.WHITE);
         mainStage.addTextLabel(coinLabel);
-        this.bank.addObserver((CoinListener) coinLabel);
 
         ShopButton shop = new ShopButton(new Rectangle(200, 400, 50, 20),
                 "Shop", "Shop", this.controller);
