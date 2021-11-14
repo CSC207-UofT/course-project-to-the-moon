@@ -5,12 +5,12 @@ import entities.Sprite;
 import java.awt.image.BufferedImage;
 
 /**
- * A "manager" class that represents a collidable game object that the player can see and possibly
+ * A "manager" class that represents a game object that the player can see and possibly
  * interact with.
  * @author Andy Wang, Juntae Park
  * @since 21 October 2021
  */
-public class GameObject extends AbstractObject {
+public abstract class GameObject extends AbstractObject {
     private Mover mover = null;
     private SpriteFacade sprite = null;
     protected IGameController controller = null;
