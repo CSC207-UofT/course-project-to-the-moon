@@ -6,6 +6,11 @@
       <sourceFolder url="file://$MODULE_DIR$/phase-0/src/main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/phase-0/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phase-1/src/main" isTestSource="false" />
+<<<<<<< Updated upstream
+=======
+      <sourceFolder url="file://$MODULE_DIR$/phase-1/src/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/phase-0" />
+>>>>>>> Stashed changes
     </content>
     <orderEntry type="jdk" jdkName="16" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
