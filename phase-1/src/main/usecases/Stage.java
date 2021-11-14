@@ -1,6 +1,7 @@
 package usecases;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @since 30 October 2021
 */
 
-public class Stage {
+public class Stage implements Serializable {
     private final List<GameObject> gameObjects;
     private final List<TextLabel> textLabels;
     private final String name;
@@ -74,5 +75,9 @@ public class Stage {
             }
             return false;
         }
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

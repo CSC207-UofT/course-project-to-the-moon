@@ -242,4 +242,12 @@ public class DogGameController implements IGameController {
 
         minigameStage.addGameObject(winningPlatform);
     }
+
+    public Bank getBank() {
+        return this.bank;
+    }
+
+    public HashMap<String, Stage> getStages() {
+        return this.stages;
+    }
 }

@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import adaptors.DogGameController;
 import adaptors.DogGameGraphics;
@@ -14,6 +16,7 @@ import usecases.Drawable;
 import usecases.TextLabel;
 
 import javax.swing.JPanel;
+
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
@@ -124,4 +127,5 @@ public class DogGameJPanel extends JPanel{
             System.out.println("Delaying between frames went wrong.");
         } 
     }
+
 }

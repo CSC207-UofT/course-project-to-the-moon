@@ -5,8 +5,11 @@ import entities.Bank;
 import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 
 /**
@@ -17,15 +20,16 @@ import java.beans.PropertyChangeListener;
 public class DogGame {
     private JFrame mainFrame = null;
 
-    private final Bank bank = new Bank();
+    private Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
     private final DogGameController controller = new DogGameController();
+    private final GameReadWriter gReadWriter = new GameReadWriter(controller, "phase-1/src/save/savefile.ser");
 
     /**
      * This is the main method. Run this to run the game.
      * @param args Unused.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         DogGame dg = new DogGame();
         dg.start();
     }
@@ -33,7 +37,7 @@ public class DogGame {
     /**
      * Initialize a new dog game and all its frames.
      */
-    public DogGame() {
+    public DogGame() throws IOException, ClassNotFoundException {
         int WIDTH = 300;
         int HEIGHT = 500;
         this.initializeMainFrame(WIDTH, HEIGHT);
@@ -60,6 +64,9 @@ public class DogGame {
         panel.requestFocus();
 
         mainFrame.add(panel);
+
+        //read save file
+        this.readSaveFile();
     }
     // getter method for testing
     // public JFrame getFrame(){ return this.mainFrame;}
@@ -74,9 +81,26 @@ public class DogGame {
 
         mainFrame.setSize(w, h);
         mainFrame.setResizable(false);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // TODO: if we decide to implement saving, change the default operation to something else
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.setLocationRelativeTo(null);
+
+        this.initializeGameSaver();
+    }
+
+    private void initializeGameSaver() {
+        mainFrame.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                gReadWriter.saveGame();
+                System.exit(0);
+            }
+        });
+    }
+
+    private void readSaveFile() throws IOException, ClassNotFoundException {
+        GameState savedState = this.gReadWriter.readFromFile();
+        this.bank.updateCoins((int) savedState.getState().get("Coins"));
+        this.bank.setDCPS((int) savedState.getState().get("DCPS"));
     }
 
     /**

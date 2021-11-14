@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DogGame",
+            "request": "launch",
+            "mainClass": "frameworkanddrivers.DogGame",
+            "projectName": "course-project-to-the-moon_91c21476"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

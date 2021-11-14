@@ -135,7 +135,7 @@ public class PlatformerDogMover implements Mover {
         if (won) {
             controller.setActiveStage("Main");
             int coinsEarned = 50000 + 100 * bank.getDCPS();
-            bank.increaseCoins(coinsEarned);
+            bank.updateCoins(coinsEarned);
             System.out.println("u won " + coinsEarned + " coins!");
             timer.cancel();
         }
