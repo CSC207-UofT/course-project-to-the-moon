@@ -2,7 +2,6 @@ package usecases;
 
 import adaptors.ICamera;
 import adaptors.IGameController;
-import entities.Bank;
 import entities.Transform;
 
 import java.awt.event.KeyEvent;

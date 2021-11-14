@@ -1,6 +1,5 @@
 package adaptors;
 
-import entities.Bank;
 import usecases.*;
 
 import java.awt.image.BufferedImage;

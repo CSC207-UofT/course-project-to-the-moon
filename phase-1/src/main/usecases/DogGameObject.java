@@ -1,7 +1,6 @@
 package usecases;
 
 import adaptors.IGameGraphics;
-import entities.Bank;
 import entities.Dog;
 
 import java.awt.Color;

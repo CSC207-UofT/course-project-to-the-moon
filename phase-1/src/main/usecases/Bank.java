@@ -1,4 +1,4 @@
-package entities;
+package usecases;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

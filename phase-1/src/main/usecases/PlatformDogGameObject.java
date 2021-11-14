@@ -2,7 +2,6 @@ package usecases;
 
 import adaptors.IGameController;
 import adaptors.IGameGraphics;
-import entities.Bank;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

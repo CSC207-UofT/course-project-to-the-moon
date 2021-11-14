@@ -1,7 +1,6 @@
 package frameworkanddrivers;
 
 import adaptors.*;
-import entities.Bank;
 import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
