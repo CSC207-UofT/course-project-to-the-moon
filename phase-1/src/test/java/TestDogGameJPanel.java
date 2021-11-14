@@ -1,6 +1,6 @@
 import adaptors.DogGameController;
 import adaptors.DogGameFrameLoader;
-import entities.Bank;
+import usecases.Bank;
 import frameworkanddrivers.DogGameJPanel;
 import org.junit.After;
 import org.junit.Before;

@@ -1,5 +1,5 @@
 import adaptors.DogGameFrameLoader;
-import entities.Bank;
+import usecases.Bank;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

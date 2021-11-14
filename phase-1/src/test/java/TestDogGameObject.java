@@ -1,6 +1,6 @@
 import adaptors.DogGameFrameLoader;
 import entities.Dog;
-import entities.Bank;
+import usecases.Bank;
 import entities.Sprite;
 import org.junit.After;
 import org.junit.Before;
