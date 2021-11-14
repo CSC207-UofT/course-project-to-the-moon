@@ -1,4 +1,4 @@
-package framework;
+package frameworkanddrivers;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -14,7 +14,6 @@ import usecases.Drawable;
 import usecases.TextLabel;
 
 import javax.swing.JPanel;
-import javax.swing.JButton;
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.

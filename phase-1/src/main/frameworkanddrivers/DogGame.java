@@ -1,8 +1,7 @@
-package programdrivers;
+package frameworkanddrivers;
 
 import adaptors.*;
 import entities.Bank;
-import framework.DogGameJPanel;
 import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
