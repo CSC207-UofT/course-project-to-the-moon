@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * A class that represents the button for the shop.
  * @author Aria Paydari
- * @since 101November 2021
+ * @since 10 November 2021
  */
 public class MinigameButton extends TextButton {
     private IGameController control = null;

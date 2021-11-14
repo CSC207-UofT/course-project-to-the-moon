@@ -1,3 +1,4 @@
+import adaptors.DogGameController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,13 +16,12 @@ import java.awt.*;
 public class TestTextButton {
     private DogGame testGame;
     private TextButton testTextButton;
-    private Rectangle testRectangle;
-    private IGameController testIController;
 
     @Before
     public void begin(){
-        testRectangle = new Rectangle(50, 30, 20, 10);
-        testTextButton = new TextButton(testRectangle, "text", "tag", testIController);
+        DogGameController testController = new DogGameController();
+        Rectangle testRectangle = new Rectangle(50, 30, 20, 10);
+        testTextButton = new TextButton(testRectangle, "text", "tag", testController);
     }
 
     @After
