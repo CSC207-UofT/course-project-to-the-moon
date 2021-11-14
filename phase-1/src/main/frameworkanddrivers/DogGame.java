@@ -96,7 +96,6 @@ public class DogGame {
             }
         });
     }
-
     private void readSaveFile() throws IOException, ClassNotFoundException {
         GameState savedState = this.gReadWriter.readFromFile();
         this.bank.updateCoins((int) savedState.getState().get("Coins"));
