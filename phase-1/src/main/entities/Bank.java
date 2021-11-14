@@ -1,6 +1,7 @@
 package entities;
 
-import java.util.Observable;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -9,9 +10,10 @@ import java.util.TimerTask;
  * @author Andy Wang
  * @since 30 October 2021
  */
-public class Bank extends Observable {
+public class Bank {
     private int coins;
     private int dcps; //dogecoin per second
+    private PropertyChangeSupport observable = new PropertyChangeSupport(this); 
 
     public Bank() {
         Timer timer = new Timer();
@@ -31,9 +33,9 @@ public class Bank extends Observable {
      * @param c The amount of coins to increase it by.
      */
     public void increaseCoins(int c) {
+        int old = this.coins;
         this.coins += c;
-        setChanged();
-        notifyObservers();
+        observable.firePropertyChange("text", old, this.coins);
     }
 
     /**
@@ -58,5 +60,9 @@ public class Bank extends Observable {
     // getters
     public int getDCPS() {
         return this.dcps;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener observer) {
+        observable.addPropertyChangeListener(observer);
     }
 }

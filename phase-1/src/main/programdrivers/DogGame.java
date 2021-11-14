@@ -1,4 +1,4 @@
-//package programdrivers;
+package programdrivers;
 
 import adaptors.*;
 import entities.Bank;
@@ -7,6 +7,7 @@ import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
 
 
 /**
@@ -107,6 +108,7 @@ public class DogGame {
         coinLabel.setLabelColor(null);
         coinLabel.setTextColor(Color.WHITE);
         mainStage.addTextLabel(coinLabel);
+        this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
 
         ShopButton shop = new ShopButton(new Rectangle(200, 400, 50, 20),
                 "Shop", "Shop", this.controller);
