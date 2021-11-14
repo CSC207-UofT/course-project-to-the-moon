@@ -1,6 +1,6 @@
 package usecases;
 
-import entities.Dog;
+
 import entities.Sprite;
 import entities.Transform;
 
@@ -14,7 +14,7 @@ import java.util.TimerTask;
  * @since 10 October 2021
  */
 public class DogMover implements Mover {
-    private Sprite dogSprite = null;
+    private final Sprite dogSprite ;
     // the size of the boundaries
     private final int width;
     private final int height;

@@ -10,11 +10,11 @@ import entities.Transform;
  */
 
 public abstract class AbstractObject {
-    protected Transform transform = null;
+    protected Transform transform ;
     protected SpriteFacade sprite = null;
     protected IGameController controller = null;
 
-    private String tag = null;
+    private final String tag ;
 
     /**
      * Initializes an abstract object at the given coordinates.

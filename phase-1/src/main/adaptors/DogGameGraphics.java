@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
  * @since 23 October 2021
  */
 public class DogGameGraphics implements IGameGraphics {
-    private Graphics2D g = null;
+    private final Graphics2D g ;
 
     /**
      * Initializes a new DogGameGraphics by adapting a default Graphics object.

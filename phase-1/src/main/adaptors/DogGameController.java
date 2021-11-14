@@ -1,8 +1,5 @@
 package adaptors;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
 import entities.Bank;
 import usecases.*;
 
@@ -247,7 +244,4 @@ public class DogGameController implements IGameController {
         return this.bank;
     }
 
-    public HashMap<String, Stage> getStages() {
-        return this.stages;
-    }
 }

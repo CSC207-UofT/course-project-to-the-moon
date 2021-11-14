@@ -14,8 +14,8 @@ import entities.Transform;
  * @since 23 October 2021
  */
 public class Camera implements ICamera {
-    private Stage activeStage = null;
-    private Transform transform = null;
+    private Stage activeStage;
+    private final Transform transform;
     private final int xBounds;
     private final int yBounds;
 

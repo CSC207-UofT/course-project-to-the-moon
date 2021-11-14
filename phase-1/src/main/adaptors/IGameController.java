@@ -2,9 +2,6 @@ package adaptors;
 
 import usecases.Stage;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
 /**
  * An interface that represents a controller.
  * @author Andy Wang

@@ -15,18 +15,18 @@ import java.io.OutputStream;
 import usecases.GameState;
 
 public class GameReadWriter {
-    private DogGameController controller;
+    private final DogGameController controller;
     private final GameState gs = new GameState();
-    private String filepath;
+    private final String filepath;
 
     public GameReadWriter(DogGameController controller, String filepath){
         this.controller = controller;
         this.filepath = filepath;
     }
 
-    public enum SaveResult {
-        SUCCESS, FAILURE
-    }
+    //public enum SaveResult {
+      //  SUCCESS, FAILURE
+    //}
 
     public void saveGame() {
         gs.putBankInfo("DCPS", this.controller.getBank().getDCPS());

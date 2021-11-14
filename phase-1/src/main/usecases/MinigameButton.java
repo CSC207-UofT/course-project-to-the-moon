@@ -10,7 +10,7 @@ import java.awt.*;
  * @since 10 November 2021
  */
 public class MinigameButton extends TextButton {
-    private IGameController control = null;
+    private final IGameController control ;
 
     /**
      * Initializes a button that takes you to the minigame.

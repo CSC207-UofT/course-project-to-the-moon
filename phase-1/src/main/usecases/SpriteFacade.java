@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  * @since 21 October 2021
  */
 public class SpriteFacade {
-    private Sprite sprite = null;
+    private final Sprite sprite ;
     private final SpriteAnimator animator = new SpriteAnimator();
 
     /**
@@ -35,15 +35,16 @@ public class SpriteFacade {
         this.animator.animateSprite(this.sprite, fps);
     }
 
-    /**
+    /*
      * Changes the speed at which the sprite is animated.
      *
      * Preconditions:
      * @param fps The new fps.
-     */
+
     public void changeFPS(int fps) {
         this.animator.setFPS(fps);
     }
+     */
 
     /**
      * Returns the sprite.

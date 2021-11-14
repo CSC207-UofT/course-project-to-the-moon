@@ -1,8 +1,5 @@
 package entities;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * This class holds and edits coordinates.
  * @author Arip Paydari, Juntae Park

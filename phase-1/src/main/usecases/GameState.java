@@ -9,9 +9,7 @@ public class GameState implements Serializable {
     private final Map<String, Object> gameState = new HashMap<>();
 
     public void putStages(HashMap<String, Stage> stages) {
-        for (Map.Entry<String, Stage> set : stages.entrySet()){
-            gameState.put(set.getKey(), set.getValue());   
-        }   
+        gameState.putAll(stages);
     }
 
     public void putBankInfo(String name, int num) {

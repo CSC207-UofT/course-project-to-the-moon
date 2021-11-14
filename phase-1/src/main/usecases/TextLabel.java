@@ -1,6 +1,5 @@
 package usecases;
 
-import adaptors.IGameController;
 import adaptors.IGameGraphics;
 
 import java.awt.*;
