@@ -71,9 +71,9 @@ public class Bank {
         this.dcps = dcps;
     }
 
-    public void setCoin(int c) {
-        this.coins = c;
-    }
+    // public void setCoin(int c) {
+    //    this.coins = c;
+    //}
 
     // depedency inversion!
     public void addPropertyChangeListener(PropertyChangeListener observer) {

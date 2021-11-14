@@ -21,14 +21,19 @@ public class TestController {
     private DogGameController testController;
     private DogGameObject dogObject;
     BufferedImage[] dogFrames;
+    private Bank newBank;
+    private Stage stage;
 
     @Before
     public void begin(){
         testController = new DogGameController();
         loader = new DogGameFrameLoader();
+        newBank = new Bank();
         BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-1/src/sprites/dog");
-        dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),new Bank());
-        testController.addStage("Main", new Stage("Main"));
+        dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),newBank);
+        stage = new Stage("Main");
+        stage.addGameObject(dogObject);
+        testController.addStage("Main", stage);
         testController.setActiveStage("Main");
 
     }
@@ -41,6 +46,24 @@ public class TestController {
         // The first clickable initialized
         assert(testController.getActiveStage() != null);
 
+    }
+
+    @Test
+    public void testMouseClicked(){
+        testController.mouseClicked(10, 10);
+        assert(newBank.getCoin() ==1);
+
+    }
+
+    @Test
+    public void testInitialGetPressed(){
+        assert !testController.getKeyPressed(1);
+    }
+
+    @Test
+    public void testKeyPressed(){
+        testController.keyPressed(2);
+        assert testController.getKeyPressed(2);
     }
 
 //    @Test

@@ -37,13 +37,14 @@ public class SpriteAnimator {
         }
     }
 
-    /**
+    /*
      * Returns the current fps being animated.
      * @return The current fps in seconds.
-     */
-    public int getFPS() {
-        return this.fps;
+
+   public int getFPS() {
+       return this.fps;
     }
+    */
 
     /**
      * Sets the fps being animated.

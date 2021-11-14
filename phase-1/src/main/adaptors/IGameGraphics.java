@@ -9,9 +9,9 @@ import java.awt.Color;
  * @since 23 October 2021
  */
 public interface IGameGraphics {
-    public void drawImage(Image i, int x, int y);
-    public void drawText(String s, int x, int y, Color c);
-    public void fillRect(int x, int y, int w, int h, Color c);
-    public void drawRect(int x, int y, int w, int h, int stroke, Color c);
-    public int[] getTextBounds(String s);
+     void drawImage(Image i, int x, int y);
+     void drawText(String s, int x, int y, Color c);
+     void fillRect(int x, int y, int w, int h, Color c);
+     void drawRect(int x, int y, int w, int h, int stroke, Color c);
+     int[] getTextBounds(String s);
 }

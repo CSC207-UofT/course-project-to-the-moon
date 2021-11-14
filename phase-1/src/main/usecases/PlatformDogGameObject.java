@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
  * @since 11 November 2021
  */
 public class PlatformDogGameObject extends GameObject implements Drawable, Collidable {
-    private IGameController controller = null;
 
     /**
      * Initializes a new DogGameObject at the given coordinates.
@@ -30,7 +29,6 @@ public class PlatformDogGameObject extends GameObject implements Drawable, Colli
 
         PlatformerDogMover dogMover = new PlatformerDogMover(this, bank, controller);
         this.addMover(dogMover);
-        this.controller = controller;
     }
 
     @Override

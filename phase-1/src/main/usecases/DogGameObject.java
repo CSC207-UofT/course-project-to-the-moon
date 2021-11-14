@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  */
 public class DogGameObject extends GameObject implements Clickable, Drawable{
     private final Dog myDog; // the dog that this manager handles
-    private Bank bank = null;
+    private final Bank bank ;
 
     /**
      * Initializes a new DogGameObject at the given coordinates.
@@ -76,7 +76,7 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
 
         g.drawImage(frame, drawnX, drawnY);
 
-        g.drawText("exp: " + Integer.toString(this.myDog.getExp()),
+        g.drawText("exp: " + this.myDog.getExp(),
                 drawnX + 30, drawnY + 85, Color.WHITE);
     }
 

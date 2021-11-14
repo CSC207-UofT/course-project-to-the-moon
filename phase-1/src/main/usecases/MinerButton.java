@@ -12,9 +12,9 @@ import java.awt.*;
 
 public class MinerButton extends TextButton {
     private int cost;
-    private int costIncrease;
-    private int dcps;
-    private Bank bank;
+    private final int costIncrease;
+    private final int dcps;
+    private final Bank bank;
 
     /**
      * Initialize a new miner button.

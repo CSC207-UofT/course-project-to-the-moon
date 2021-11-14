@@ -10,7 +10,7 @@ import java.awt.*;
  * @since 12 November 2021
  */
 public class TextButton extends TextLabel implements Clickable {
-    protected IGameController controller = null;
+    protected IGameController controller;
     /**
      * Initializes a new TextButton.
      * @param r The rectangle representing the bounds and location of this button.

@@ -8,5 +8,5 @@ import java.awt.image.BufferedImage;
  * @since 23 October 2021
  */
 public interface IFrameLoader {
-    public BufferedImage[] loadFramesFromFolder(String folderName);
+     BufferedImage[] loadFramesFromFolder(String folderName);
 }

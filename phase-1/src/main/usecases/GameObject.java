@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public abstract class GameObject extends AbstractObject {
     private Mover mover = null;
-    private SpriteFacade sprite = null;
+    private SpriteFacade sprite ;
     protected IGameController controller = null;
 
     /**

@@ -1,9 +1,6 @@
 package entities;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * This class represents a sprite. It stores its frames as a BufferedImage array.
@@ -11,13 +8,13 @@ import java.util.Arrays;
  * @since 21 October 2021
  */
 public class Sprite {
-    private BufferedImage[] frames; // the frames of the sprite
+    private final BufferedImage[] frames; // the frames of the sprite
     private BufferedImage currentFrame; // the current frame to be drawn
     private boolean flipped = false; // if the sprite is currently flipped (facing right)
     private int currentFrameIndex = 0; // index of the current frame
     // each frame should have the same dimensions
-    private int width = 0;
-    private int height = 0;
+    private final int WIDTH ;
+    private final int HEIGHT ;
 
     /**
      * Initializes a sprite given an array of its frames as BufferedImages.
@@ -26,8 +23,8 @@ public class Sprite {
     public Sprite(BufferedImage[] frames) {
         this.frames = frames;
         this.currentFrame = frames[0];
-        this.width = frames[0].getWidth();
-        this.height = frames[0].getHeight();
+        this.WIDTH = frames[0].getWidth();
+        this.HEIGHT = frames[0].getHeight();
     }
 
     /**
@@ -77,7 +74,7 @@ public class Sprite {
      * @return The width of the current frame in pixels.
      */
     public int getWidth() {
-        return this.width;
+        return this.WIDTH;
     }
 
     /**
@@ -85,6 +82,6 @@ public class Sprite {
      * @return The height of the current frame in pixels.
      */
     public int getHeight() {
-        return this.height;
+        return this.HEIGHT;
     }
 }

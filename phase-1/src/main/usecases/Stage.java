@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class Stage implements Serializable {
     private final List<GameObject> gameObjects;
     private final List<TextLabel> textLabels;
-    private final String name;
 
     /**
      * Initializes a new empty stage.
@@ -23,7 +22,6 @@ public class Stage implements Serializable {
     public Stage(String name) {
         this.gameObjects = new ArrayList<GameObject>();
         this.textLabels = new ArrayList<TextLabel>();
-        this.name = name;
     }
 
     /**
@@ -58,7 +56,7 @@ public class Stage implements Serializable {
      * @param x The x coordinate to check at.
      * @param y The y coordinate to check at.
      * @param tag The tag to search for.
-     * @return
+     * @return Whether it collided with the desired object or not.
      */
     public boolean placeMeeting(Collidable c, double x, double y, String tag) {
         Rectangle hitBox = c.getHitBoxAtCoords((int) x, (int) y);
@@ -77,7 +75,8 @@ public class Stage implements Serializable {
         }
     }
 
-    public String getName() {
+   /* public String getName() {
         return this.name;
     }
+    */
 }

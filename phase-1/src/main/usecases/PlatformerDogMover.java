@@ -18,11 +18,11 @@ import java.util.TimerTask;
  * @since 12 November 2021
  */
 public class PlatformerDogMover implements Mover {
-    private PlatformDogGameObject dog = null;
-    private IGameController controller = null;
-    private Bank bank = null;
-    private Stage minigameStage = null;
-    private ICamera camera = null;
+    private final PlatformDogGameObject dog ;
+    private final IGameController controller ;
+    private final Bank bank;
+    private final Stage minigameStage;
+    private final ICamera camera;
     private final Timer timer = new Timer();
 
     private final int JUMP_SPEED = 13;

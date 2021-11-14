@@ -20,7 +20,7 @@ import java.io.IOException;
 public class DogGame {
     private JFrame mainFrame = null;
 
-    private Bank bank = new Bank();
+    private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
     private final DogGameController controller = new DogGameController();
     private final GameReadWriter gReadWriter = new GameReadWriter(controller, "phase-1/src/save/savefile.ser");

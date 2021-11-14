@@ -2,7 +2,6 @@ package adaptors;
 
 import entities.Transform;
 import usecases.Drawable;
-import usecases.GameObject;
 import usecases.Stage;
 import usecases.TextLabel;
 

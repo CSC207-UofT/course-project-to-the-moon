@@ -8,5 +8,5 @@ import adaptors.IGameGraphics;
  * @since 13 October 2021
 */
 public interface Drawable {
-     public void draw(IGameGraphics g, int x, int y);
+      void draw(IGameGraphics g, int x, int y);
 }
