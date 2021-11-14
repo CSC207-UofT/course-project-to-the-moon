@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,7 +9,7 @@ import java.util.TimerTask;
  * @author Andy Wang
  * @since 30 October 2021
  */
-public class Bank {
+public class Bank extends Observable {
     private int coins;
     private int dcps; //dogecoin per second
 
@@ -31,6 +32,8 @@ public class Bank {
      */
     public void increaseCoins(int c) {
         this.coins += c;
+        setChanged();
+        notifyObservers();
     }
 
     /**
