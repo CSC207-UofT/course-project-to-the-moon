@@ -13,7 +13,7 @@ import java.util.TimerTask;
 public class Bank {
     private int coins;
     private int dcps; //dogecoin per second
-    private PropertyChangeSupport observable = new PropertyChangeSupport(this); 
+    private final PropertyChangeSupport observable = new PropertyChangeSupport(this);
 
     public Bank() {
         Timer timer = new Timer();
@@ -21,7 +21,6 @@ public class Bank {
             @Override
             public void run() {
                 increaseCoins(dcps);
-                System.out.println("Current coins: " + coins);
             }
         };
 
@@ -62,6 +61,7 @@ public class Bank {
         return this.dcps;
     }
 
+    // depedency inversion!
     public void addPropertyChangeListener(PropertyChangeListener observer) {
         observable.addPropertyChangeListener(observer);
     }
