@@ -55,4 +55,14 @@ public class TestCamera {
          assert (list.get(0) instanceof DogGameObject  && list.get(1) instanceof PlatformGameObject);
 
     }
+
+    @Test
+    public void testInitialTextLabels(){
+        assert camera.getTextLabels().size() ==0;
+    }
+
+    @Test
+    public void testGetTransform(){
+        assert camera.getTransform().getX() == 0 && camera.getTransform().getY() == 0;
+    }
 }
