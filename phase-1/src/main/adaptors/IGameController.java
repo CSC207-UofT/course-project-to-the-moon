@@ -14,11 +14,11 @@ public interface IGameController {
     void addCamera(ICamera c);
     ICamera getCamera();
 
-    void mouseClicked(MouseEvent e);
-    void keyPressed(KeyEvent e);
-    void keyReleased(KeyEvent e);
+    void mouseClicked(int x, int y);
+    void keyPressed(int code);
+    void keyReleased(int code);
 
-    boolean getKeyPressed(int c);
+    boolean getKeyPressed(int code);
 
     void addStage(String type, Stage s);
     void setActiveStage(String type);
