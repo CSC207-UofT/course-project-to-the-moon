@@ -1,8 +1,8 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import programdrivers.DogGame;
-import usescases.TextButton;
+import frameworkanddrivers.DogGame;
+import usecases.TextButton;
 import adaptors.IGameController;
 
 import java.awt.*;
@@ -14,10 +14,7 @@ import java.awt.*;
  */
 public class TestTextButton {
     private DogGame testGame;
-    private DogManager manager;
-    private Dog testDog;
-    private DogGameController controller;
-    private TextButtoon testTextButton;
+    private TextButton testTextButton;
     private Rectangle testRectangle;
     private IGameController testIController;
 
