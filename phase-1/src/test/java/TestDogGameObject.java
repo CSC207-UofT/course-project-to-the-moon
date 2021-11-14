@@ -24,7 +24,6 @@ public class TestDogGameObject {
     private SpriteFascade testSpriteFacade;
 
 
-
     @Before
     public void begin(){
         testGame= new DogGame();
@@ -39,13 +38,15 @@ public class TestDogGameObject {
 
 
     @Test
-    public void testIsClicked(){
+    public void testIsClickedPass(){
+        // test isClicked() worked.
         int x = 100;
         int y = 100;
         assert (testDogGameObject.isClicked(x, y));
     }
     @Test
     public void testIsClickedFailX(){
+        // test isClicked() failed if x is out of range.
         int x = 200;
         int y = 100;
         assert (!testDogGameObject.isClicked(x, y));
@@ -53,6 +54,7 @@ public class TestDogGameObject {
 
     @Test
     public void testIsClickedFailY(){
+        // test isClicked() failed if y is out of range.
         int x = 100;
         int y = 200;
         assert (!testDogGameObject.isClicked(x, y));
@@ -60,6 +62,7 @@ public class TestDogGameObject {
 
     @Test
     public void testIsClickedFailXY(){
+        // test isClicked() failed if both x and y are out of range.
         int x = 200;
         int y = 0;
         assert (!testDogGameObject.isClicked(x, y));
@@ -67,8 +70,11 @@ public class TestDogGameObject {
 
     @Test
     public void testOnClick(){
+        // test onClick() methods work
+        // set coins and exp
         testDog.setCoins(10);
         testDog.setExp(20);
+        // calls onClick() method
         testDogGameObject.onClick();
         assert (testDog.getCoins() == 11);
     }

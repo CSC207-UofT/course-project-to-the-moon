@@ -44,7 +44,7 @@ public class TestController {
 
     @Test
     public void testCreateMiniDog(){
-        // test minidog is created
+        // test minidog is created properly.
         PlatformDogGameObject platform = testController.createMiniDog();
         assert (platform.getX() == 100 && platform.getY() == 210);
     }
