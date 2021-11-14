@@ -60,16 +60,14 @@ public class DogGameController implements IGameController {
 
     /**
      * Processes a mouse click on the screen.
-     * @param e The given MouseEvent.
+     * @param x The x-coordinate of the click.
+     * @param y The y-coordinate of the click.
      */
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(int x, int y) {
         // loop through game objects in the stage
         for (GameObject go : this.activeStage.getGameObjects()) {
             if (go instanceof Clickable) {
-                int x = e.getX();
-                int y = e.getY();
-
                 // check if the mouse is on the object
                 if (((Clickable) go).isClicked(x, y)) {
                     ((Clickable) go).onClick();
@@ -80,9 +78,6 @@ public class DogGameController implements IGameController {
         // loop through text and ui elements in the stage
         for (TextLabel tl : this.activeStage.getTextLabels()) {
             if (tl instanceof Clickable) {
-                int x = e.getX();
-                int y = e.getY();
-
                 // check if the mouse is on the object
                 if (((Clickable) tl).isClicked(x, y)) {
                     ((Clickable) tl).onClick();
@@ -103,25 +98,25 @@ public class DogGameController implements IGameController {
 
     /**
      * Processes when a key is pressed.
-     * @param e The KeyEvent to process.
+     * @param code The keycode to process.
      */
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (!this.getKeyPressed(e.getKeyCode())) {
+    public void keyPressed(int code) {
+        if (!this.getKeyPressed(code)) {
             // if statement so it doesn't get added multiple times
-            this.keysPressedList.add(e.getKeyCode());
+            this.keysPressedList.add(code);
         }
     }
 
     /**
      * Process when a key is released.
-     * @param e The KeyEvent to process.
+     * @param code The keycode to process.
      */
     @Override
-    public void keyReleased(KeyEvent e){
+    public void keyReleased(int code){
         // Remove does nothing if the character isn't in the list
         // needs to be an Integer object, or else it's interpreted as an index
-        this.keysPressedList.remove(Integer.valueOf(e.getKeyCode()));
+        this.keysPressedList.remove(Integer.valueOf(code));
     }
 
     /**

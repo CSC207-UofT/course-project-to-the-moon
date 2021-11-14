@@ -1,4 +1,4 @@
-package adaptors;
+package frameworkanddrivers;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -6,12 +6,14 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import adaptors.DogGameController;
+import adaptors.DogGameGraphics;
+import adaptors.ICamera;
 import entities.Transform;
 import usecases.Drawable;
 import usecases.TextLabel;
 
 import javax.swing.JPanel;
-import javax.swing.JButton;
 
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
@@ -49,7 +51,7 @@ public class DogGameJPanel extends JPanel{
         super.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                controller.mouseClicked(e);
+                controller.mouseClicked(e.getX(), e.getY());
             }
 
             // all of these are unneeded lol
@@ -81,13 +83,12 @@ public class DogGameJPanel extends JPanel{
 
             @Override
             public void keyPressed(KeyEvent e) {
-                controller.keyPressed(e);
+                controller.keyPressed(e.getKeyCode());
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                controller.keyReleased(e);
-
+                controller.keyReleased(e.getKeyCode());
             }
         });
     }
