@@ -1,4 +1,4 @@
-package entities;
+package usecases;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -20,7 +20,7 @@ public class Bank {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                increaseCoins(dcps);
+                updateCoins(dcps);
             }
         };
 
@@ -31,7 +31,7 @@ public class Bank {
      * Increases the amount of coins by the given amount.
      * @param c The amount of coins to increase it by.
      */
-    public void increaseCoins(int c) {
+    public void updateCoins(int c) {
         int old = this.coins;
         this.coins += c;
         observable.firePropertyChange("text", old, this.coins);
@@ -51,7 +51,7 @@ public class Bank {
      */
     public boolean makePurchase(int cost) {
         if (this.coins >= cost) {
-            this.increaseCoins(-cost);
+            this.updateCoins(-cost);
             return true;
         } return false;
     }
@@ -61,8 +61,24 @@ public class Bank {
         return this.dcps;
     }
 
+    public int getCoin() {
+        return this.coins;
+    }
+
+    // setters
+
+    public void setDCPS(int dcps) {
+        this.dcps = dcps;
+    }
+
+    // public void setCoin(int c) {
+    //    this.coins = c;
+    //}
+
     // depedency inversion!
     public void addPropertyChangeListener(PropertyChangeListener observer) {
         observable.addPropertyChangeListener(observer);
     }
+
+    
 }
