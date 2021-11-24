@@ -133,7 +133,12 @@ public class DogGameController implements IGameController {
         // create the minigame stage everytime the active stage gets set to minigame
         if (name.equals("Minigame")) {
             this.addMinigameStage();
-        } else {
+        }
+        else if(name.equals("Dino")){
+            this.addDinoStage();
+
+        }
+        else {
             // remove it whenever the controller switches from the minigame stage
             // hopefully garbage collection does its thing
             this.stages.remove("Minigame");
@@ -180,6 +185,17 @@ public class DogGameController implements IGameController {
         // add the first few platforms
         addRandomPlatforms(minigameStage);
     }
+    private void addDinoStage(){
+        // Assume (300, 500)
+        Stage dinoStage = new Stage("Dino");
+        this.stages.put("Dino", dinoStage);
+
+        DinoDogGameObject miniDog = createDinoDog();
+        dinoStage.addGameObject(miniDog);
+
+        // add the first few platforms
+        addHorizontalPlatforms(dinoStage);
+    }
 
     /**
      * Helper method to create a single default dog.
@@ -192,6 +208,17 @@ public class DogGameController implements IGameController {
 
         return new PlatformDogGameObject(100, 210, dogSprite, bank,this);
     }
+    /**
+     * Helper method to create a single default dino dog.
+     * @return The dino dog.
+     */
+    private DinoDogGameObject createDinoDog() {
+        // create the minigame dog object
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog_shrunk");
+        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
+
+        return new DinoDogGameObject(100, 210, dogSprite, bank,this);
+    }
 
     /**
      * A method which takes a minigame stage,
@@ -199,6 +226,48 @@ public class DogGameController implements IGameController {
      * which all have a horizontal distance from MIN_PLATFORM_DISTANCE to MAX_PLATFORM_DISTANCE.
      * @param minigameStage the stage that is added to.
      */
+    private void addHorizontalPlatforms(Stage minigameStage){
+        final int MAX_PLATFORM_DISTANCE = 270;
+        final int MIN_PLATFORM_DISTANCE = 220;
+        final int NUM_PLATFORMS = 100;
+
+        Random random = new Random();
+        int previousY = 300;  // the Y-coordinate of the previous platform
+        int previousX = 70;  // the Y-coordinate of the previous platform
+
+
+        BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/horizontal_platform");
+        SpriteFacade platformSprite = new SpriteFacade(platFrames);
+
+        // the first platform should be under the dog
+        PlatformGameObject firstPlatform = new PlatformGameObject(previousX, previousY, "Platform", platformSprite);
+        minigameStage.addGameObject(firstPlatform);
+
+        synchronized (minigameStage) {
+            for (int i = 0; i < NUM_PLATFORMS - 2; i++) {
+                PlatformGameObject newPlatform;
+
+                int rX = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;;
+                // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
+                int rY = random.nextInt(180) +30;
+                int newX = previousX + rX;
+                // start is 300 y
+
+                newPlatform = new PlatformGameObject(newX, rY, "Platform", platformSprite);
+                previousX = newX;
+
+                minigameStage.addGameObject(newPlatform);
+            }
+        }
+
+        BufferedImage[] winningPlatFrames = this.frameLoader.loadFramesFromFolder(
+                "phase-1/src/sprites/winning_platform");
+        SpriteFacade winningPlatformSprite = new SpriteFacade(winningPlatFrames);
+        PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
+                previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
+
+        minigameStage.addGameObject(winningPlatform);
+    }
     private void addRandomPlatforms(Stage minigameStage){
         final int MAX_PLATFORM_DISTANCE = 100;
         final int MIN_PLATFORM_DISTANCE = 40;
