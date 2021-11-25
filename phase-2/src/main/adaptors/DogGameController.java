@@ -203,7 +203,7 @@ public class DogGameController implements IGameController {
      */
     private PlatformDogGameObject createMiniDog() {
         // create the minigame dog object
-        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog_shrunk");
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_shrunk");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
         return new PlatformDogGameObject(100, 210, dogSprite, bank,this);
@@ -214,10 +214,33 @@ public class DogGameController implements IGameController {
      */
     private DinoDogGameObject createDinoDog() {
         // create the minigame dog object
-        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog_shrunk");
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
         return new DinoDogGameObject(100, 210, dogSprite, bank,this);
+    }
+
+    /**
+     * A method which changes the sprite.
+     */
+    @Override
+    public void setDinoSprite(DinoDogGameObject dino, boolean ducked){
+        SpriteFacade dogSprite;
+        if(ducked){
+            BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_duck");
+             dogSprite = new SpriteFacade(dogFrames, 2);
+
+
+        }
+        else{
+            BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
+             dogSprite = new SpriteFacade(dogFrames, 2);
+
+        }
+
+
+        dino.setSprite(dogSprite);
+
     }
 
     /**
@@ -239,9 +262,7 @@ public class DogGameController implements IGameController {
         BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/horizontal_platform");
         SpriteFacade platformSprite = new SpriteFacade(platFrames);
 
-        // the first platform should be under the dog
-        PlatformGameObject firstPlatform = new PlatformGameObject(previousX, previousY, "Platform", platformSprite);
-        minigameStage.addGameObject(firstPlatform);
+
 
         synchronized (minigameStage) {
             for (int i = 0; i < NUM_PLATFORMS - 2; i++) {
@@ -249,7 +270,7 @@ public class DogGameController implements IGameController {
 
                 int rX = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;;
                 // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
-                int rY = random.nextInt(180) +30;
+                int rY = random.nextInt(50) +160;
                 int newX = previousX + rX;
                 // start is 300 y
 

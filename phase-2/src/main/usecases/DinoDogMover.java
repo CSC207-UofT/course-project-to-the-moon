@@ -9,12 +9,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * This class controls the PlatformerDogObject, with gravity.
+ * This class controls the DinoDogObject, with gravity.
  *
- * Use the left and right keys to move.
+ * Use the space bar to jump,
+ * and the down key to duck.
  *
  * @author Aria Paydari
- * @since 24 November 2021
+ * @since 23 November 2021
  */
 public class DinoDogMover implements Mover {
     private final DinoDogGameObject dog ;
@@ -24,10 +25,11 @@ public class DinoDogMover implements Mover {
     private final ICamera camera;
     private final Timer timer = new Timer();
 
-    private final int JUMP_SPEED = -20;
-    private final int RUN_SPEED = 2;
+    private final int JUMP_SPEED = -12;
+    private final int RUN_SPEED = 4;
     private final float GRAVITY = .8F;
     private boolean jumped =false;
+    private boolean ducked = false;
     private float dy = 0;
 
 
@@ -41,7 +43,6 @@ public class DinoDogMover implements Mover {
      * @param controller The controller to use.
      */
     public DinoDogMover(DinoDogGameObject dog, Bank bank, IGameController controller) {
-        dog.getSprite().flip();
         this.dog = dog;
         this.bank = bank;
         this.controller = controller;
@@ -58,17 +59,46 @@ public class DinoDogMover implements Mover {
             @Override
             public void run() {
                 // Initial is (70, 200)
+                // Checks if it's in the air
+                // And the jump hasn't been initiated.
                 if(getSpace() && !jumped){
                     dy = JUMP_SPEED;
                     jumped = true;
                 }
+                // This case is when the dog is in the air
+                // And it's being brought down by gravity
                 else if (t.getY() < 200){
                     dy += GRAVITY;
                 }
                 else{
-                    dy=0;
+
                     jumped = false;
+                    if (getDown()){
+                        if(!ducked){
+
+
+                            dy = 10;
+                            ducked = true;
+                            controller.setDinoSprite(dog, true);
+                        }
+                        else{
+                            dy=0;
+                        }
+
+                        // dog.setSprite();
+                    }
+                    else{
+                        if(ducked){
+                            t.translateBy(0, -10);
+                            controller.setDinoSprite(dog, false);
+
+                        }
+                        dy=0;
+
+                        ducked = false;
+                    }
                 }
+
                 t.translateBy(RUN_SPEED, dy);
                 updateXPositionAndCamera(t);
 
@@ -81,15 +111,16 @@ public class DinoDogMover implements Mover {
         timer.scheduleAtFixedRate(moverTask, 10, 25);
     }
 
-    // return 1 if left is pressed, 0 otherwise
+    // returns whether space is being pressed.
     private boolean getSpace() {
         return controller.getKeyPressed(KeyEvent.VK_SPACE);
     }
-
-    // return 1 if right is pressed, 0 otherwise
-    private boolean getDownDegree() {
-        return controller.getKeyPressed(KeyEvent.VK_RIGHT);
+    // returns whether the down key is being pressed.
+    private boolean getDown() {
+        return controller.getKeyPressed(KeyEvent.VK_DOWN);
     }
+
+
 
 
     private boolean hitPlatform() {
