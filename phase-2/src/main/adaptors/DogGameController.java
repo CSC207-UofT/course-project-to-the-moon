@@ -19,6 +19,7 @@ public class DogGameController implements IGameController {
     private ICamera camera = null;
     private IFrameLoader frameLoader = null;
     private Bank bank = null;
+    private int lastPlatform_y;
 
     /**
      * Adds a FrameLoader.
@@ -177,6 +178,18 @@ public class DogGameController implements IGameController {
     private void addMinigameStage(){
         // Assume (300, 500)
         Stage minigameStage = new Stage("Minigame");
+
+        // Add background sprite.
+        // “R/Pixelart - Space Background.” Reddit, https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background/.
+        BufferedImage[] bgFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/minigame_bg");
+        int bg_y = 0;
+        for (int i=0; i<30; i++) {
+            SpriteFacade bgSprite = new SpriteFacade(bgFrames, 2);
+            PlatformGameObject bgObject = new PlatformGameObject(0, bg_y, "Background", bgSprite);
+            minigameStage.addGameObject(bgObject);
+            bg_y -= 640;
+        }
+
         this.stages.put("Minigame", minigameStage);
 
         PlatformDogGameObject miniDog = createMiniDog();
@@ -184,6 +197,13 @@ public class DogGameController implements IGameController {
 
         // add the first few platforms
         addRandomPlatforms(minigameStage);
+
+        // Add moon at the top
+        // “Full Moon Stock Image. Image of Astronaut, Satelite, Orbit - 22403.” Dreamstime, 10 Sept. 2004, https://www.dreamstime.com/stock-photos-full-moon-image22403.
+        BufferedImage[] moonFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/moon");
+        SpriteFacade moonSprite = new SpriteFacade(moonFrames, 2);
+        PlatformGameObject moonObject = new PlatformGameObject(100, this.lastPlatform_y - 180, "Moon", moonSprite);
+        minigameStage.addGameObject(moonObject);
     }
     private void addDinoStage(){
         // Assume (300, 500)
@@ -326,6 +346,7 @@ public class DogGameController implements IGameController {
         PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
                 previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
 
+        this.lastPlatform_y = previousY - MAX_PLATFORM_DISTANCE;
         minigameStage.addGameObject(winningPlatform);
     }
 
