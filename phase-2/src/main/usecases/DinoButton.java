@@ -5,9 +5,9 @@ import adaptors.IGameController;
 import java.awt.*;
 
 /**
- * A class that represents the button for the shop.
+ * A class that represents the button for the Dino game.
  * @author Aria Paydari
- * @since 10 November 2021
+ * @since 22 November 2021
  */
 public class DinoButton extends TextButton {
     private final IGameController control ;
@@ -25,7 +25,7 @@ public class DinoButton extends TextButton {
         this.control = control;
 
         this.setStrokeWidth(2);
-        this.setStrokeColor(Color.RED);
+        this.setStrokeColor(Color.BLUE);
     }
 
     @Override

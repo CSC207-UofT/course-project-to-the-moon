@@ -144,7 +144,7 @@ public class DogGame {
         DinoButton dinoButton = new DinoButton(new Rectangle(200, 370, 60, 20),
                 "Dino", "Dino", this.controller);
         dinoButton.setLabelColor(null);
-        dinoButton.setTextColor(Color.RED);
+        dinoButton.setTextColor(Color.BLUE);
 
         mainStage.addTextLabel(shop);
         mainStage.addTextLabel(miniButton);

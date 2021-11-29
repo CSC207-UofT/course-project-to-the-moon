@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  * A class which manages a single dog object
  * Within the minigame.
  * @author Aria Paydari
- * @since 11 November 2021
+ * @since 23 November 2021
  */
 public class DinoDogGameObject extends GameObject implements Drawable, Collidable {
 
