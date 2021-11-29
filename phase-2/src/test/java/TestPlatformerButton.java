@@ -2,7 +2,7 @@ import adaptors.DogGameFrameLoader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import usecases.MinigameButton;
+import usecases.PlatformerButton;
 import usecases.Stage;
 import adaptors.DogGameController;
 import adaptors.Camera;
@@ -20,8 +20,8 @@ import java.util.Objects;
  * @since 13 November 2021
  */
 
-public class TestMinigameButton {
-    private MinigameButton testMinigameButton;
+public class TestPlatformerButton {
+    private PlatformerButton testPlatformerButton;
     private Stage stage;
     private Rectangle rectangle;
     private DogGameController controller;
@@ -42,7 +42,7 @@ public class TestMinigameButton {
         controller.addBank(bank);
         controller.addCamera(camera);
         controller.setActiveStage("Main");
-        testMinigameButton = new MinigameButton(rectangle, "text", "tag", controller);
+        testPlatformerButton = new PlatformerButton(rectangle, "text", "tag", controller);
 
     }
 
@@ -52,7 +52,7 @@ public class TestMinigameButton {
     @Test
     public void testChangeStage(){
         // check stage changed or not
-        testMinigameButton.onClick();
+        testPlatformerButton.onClick();
         assert (stage != controller.getActiveStage());
     }
 

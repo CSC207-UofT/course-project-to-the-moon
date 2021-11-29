@@ -131,9 +131,9 @@ public class DogGameController implements IGameController {
      */
     @Override
     public void setActiveStage(String name) {
-        // create the minigame stage everytime the active stage gets set to minigame
-        if (name.equals("Minigame")) {
-            this.addMinigameStage();
+        // create the platformer stage everytime the active stage gets set to platformer
+        if (name.equals("Platformer")) {
+            this.addPlatformerStage();
         }
         else if(name.equals("Dino")){
             this.addDinoStage();
@@ -142,7 +142,7 @@ public class DogGameController implements IGameController {
         else {
             // remove it whenever the controller switches from the minigame stage
             // hopefully garbage collection does its thing
-            this.stages.remove("Minigame");
+            this.stages.remove("Platformer");
         }
 
         this.activeStage = this.stages.get(name);
@@ -175,9 +175,9 @@ public class DogGameController implements IGameController {
     /**
      * A method which creates the minigame's stage.
      */
-    private void addMinigameStage(){
+    private void addPlatformerStage(){
         // Assume (300, 500)
-        Stage minigameStage = new Stage("Minigame");
+        Stage platformerStage = new Stage("Platformer");
 
         // Add background sprite.
         // “R/Pixelart - Space Background.” Reddit, https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background/.
@@ -186,24 +186,24 @@ public class DogGameController implements IGameController {
         for (int i=0; i<30; i++) {
             SpriteFacade bgSprite = new SpriteFacade(bgFrames, 2);
             PlatformGameObject bgObject = new PlatformGameObject(0, bg_y, "Background", bgSprite);
-            minigameStage.addGameObject(bgObject);
+            platformerStage.addGameObject(bgObject);
             bg_y -= 640;
         }
 
-        this.stages.put("Minigame", minigameStage);
+        this.stages.put("Platformer", platformerStage);
 
         PlatformDogGameObject miniDog = createMiniDog();
-        minigameStage.addGameObject(miniDog);
+        platformerStage.addGameObject(miniDog);
 
         // add the first few platforms
-        addRandomPlatforms(minigameStage);
+        addRandomPlatforms(platformerStage);
 
         // Add moon at the top
         // “Full Moon Stock Image. Image of Astronaut, Satelite, Orbit - 22403.” Dreamstime, 10 Sept. 2004, https://www.dreamstime.com/stock-photos-full-moon-image22403.
         BufferedImage[] moonFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/moon");
         SpriteFacade moonSprite = new SpriteFacade(moonFrames, 2);
         PlatformGameObject moonObject = new PlatformGameObject(100, this.lastPlatform_y - 180, "Moon", moonSprite);
-        minigameStage.addGameObject(moonObject);
+        platformerStage.addGameObject(moonObject);
     }
     private void addDinoStage(){
         // Assume (300, 500)
@@ -267,9 +267,9 @@ public class DogGameController implements IGameController {
      * A method which takes a minigame stage,
      * and adds 100 random platforms to it,
      * which all have a horizontal distance from MIN_PLATFORM_DISTANCE to MAX_PLATFORM_DISTANCE.
-     * @param minigameStage the stage that is added to.
+     * @param platformerStage the stage that is added to.
      */
-    private void addHorizontalPlatforms(Stage minigameStage){
+    private void addHorizontalPlatforms(Stage platformerStage){
         final int MAX_PLATFORM_DISTANCE = 270;
         final int MIN_PLATFORM_DISTANCE = 220;
         final int NUM_PLATFORMS = 100;
@@ -284,11 +284,11 @@ public class DogGameController implements IGameController {
 
 
 
-        synchronized (minigameStage) {
+        synchronized (platformerStage) {
             for (int i = 0; i < NUM_PLATFORMS - 2; i++) {
                 PlatformGameObject newPlatform;
 
-                int rX = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;;
+                int rX = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;
                 // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
                 int rY = random.nextInt(50) +160;
                 int newX = previousX + rX;
@@ -297,7 +297,7 @@ public class DogGameController implements IGameController {
                 newPlatform = new PlatformGameObject(newX, rY, "Platform", platformSprite);
                 previousX = newX;
 
-                minigameStage.addGameObject(newPlatform);
+                platformerStage.addGameObject(newPlatform);
             }
         }
 
@@ -307,9 +307,9 @@ public class DogGameController implements IGameController {
         PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
                 previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
 
-        minigameStage.addGameObject(winningPlatform);
+        platformerStage.addGameObject(winningPlatform);
     }
-    private void addRandomPlatforms(Stage minigameStage){
+    private void addRandomPlatforms(Stage platformerStage){
         final int MAX_PLATFORM_DISTANCE = 100;
         final int MIN_PLATFORM_DISTANCE = 40;
         final int NUM_PLATFORMS = 100;
@@ -322,9 +322,9 @@ public class DogGameController implements IGameController {
 
         // the first platform should be under the dog
         PlatformGameObject firstPlatform = new PlatformGameObject(70, previousY, "Platform", platformSprite);
-        minigameStage.addGameObject(firstPlatform);
+        platformerStage.addGameObject(firstPlatform);
 
-        synchronized (minigameStage) {
+        synchronized (platformerStage) {
             for (int i = 0; i < NUM_PLATFORMS - 2; i++) {
                 PlatformGameObject newPlatform;
 
@@ -336,7 +336,7 @@ public class DogGameController implements IGameController {
                 newPlatform = new PlatformGameObject(rX, newY, "Platform", platformSprite);
                 previousY = newY;
 
-                minigameStage.addGameObject(newPlatform);
+                platformerStage.addGameObject(newPlatform);
             }
         }
 
@@ -347,7 +347,7 @@ public class DogGameController implements IGameController {
                 previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
 
         this.lastPlatform_y = previousY - MAX_PLATFORM_DISTANCE;
-        minigameStage.addGameObject(winningPlatform);
+        platformerStage.addGameObject(winningPlatform);
     }
 
     public Bank getBank() {

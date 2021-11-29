@@ -9,7 +9,7 @@ import java.awt.*;
  * @author Aria Paydari
  * @since 10 November 2021
  */
-public class MinigameButton extends TextButton {
+public class PlatformerButton extends TextButton {
     private final IGameController control ;
 
     /**
@@ -20,7 +20,7 @@ public class MinigameButton extends TextButton {
      * @param tag  The tag of this button.
      * @param control The controller controlling this button.
      */
-    public MinigameButton(Rectangle r, String text, String tag, IGameController control) {
+    public PlatformerButton(Rectangle r, String text, String tag, IGameController control) {
         super(r, text, tag, control);
         this.control = control;
 
@@ -30,6 +30,6 @@ public class MinigameButton extends TextButton {
 
     @Override
     public void onClick() {
-        control.setActiveStage("Minigame");
+        control.setActiveStage("Platformer");
     }
 }
