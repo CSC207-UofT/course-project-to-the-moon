@@ -44,7 +44,7 @@ public class PlatformerDogMover implements Mover {
         this.bank = bank;
         this.controller = controller;
         this.camera = controller.getCamera();
-        minigameStage = this.controller.getStage("Minigame");
+        minigameStage = this.controller.getStage("Platformer");
     }
 
     /**
