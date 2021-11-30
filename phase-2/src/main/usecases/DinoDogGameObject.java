@@ -20,13 +20,14 @@ public class DinoDogGameObject extends GameObject implements Drawable, Collidabl
      * @param y The y coordinate.
      * @param sprite The sprite of the dog.
      * @param bank The bank to update.
+     * @param stage The minigame stage.
      * @param controller The controller controlling this DogGameObject.
      */
-    public DinoDogGameObject(int x, int y, SpriteFacade sprite, Bank bank,
+    public DinoDogGameObject(int x, int y, SpriteFacade sprite, Bank bank, Stage stage,
                                  IGameController controller){
         super(x, y, "DinoDogGameObject", sprite, controller);
 
-        DinoDogMover dogMover = new DinoDogMover(this, bank, controller);
+        DinoDogMover dogMover = new DinoDogMover(this, bank, stage, controller);
         this.addMover(dogMover);
     }
 

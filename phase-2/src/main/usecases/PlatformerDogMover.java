@@ -37,14 +37,15 @@ public class PlatformerDogMover implements Mover {
      * Initializes a new PlatformerDogMover to give the player control of the platformer dog.
      * @param dog The PlatformerDogGameObject object to change.
      * @param bank The bank to update.
+     * @param platformerStage The stage to use.
      * @param controller The controller to use.
      */
-    public PlatformerDogMover(PlatformDogGameObject dog, Bank bank, IGameController controller) {
+    public PlatformerDogMover(PlatformDogGameObject dog, Bank bank, Stage platformerStage, IGameController controller) {
         this.dog = dog;
         this.bank = bank;
         this.controller = controller;
         this.camera = controller.getCamera();
-        minigameStage = this.controller.getStage("Platformer");
+        minigameStage = platformerStage;
     }
 
     /**

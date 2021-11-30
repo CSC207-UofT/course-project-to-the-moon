@@ -32,22 +32,21 @@ public class DinoDogMover implements Mover {
     private boolean ducked = false;
     private float dy = 0;
 
-
-
     private boolean won;
 
     /**
      * Initializes a new PlatformerDogMover to give the player control of the platformer dog.
      * @param dog The PlatformerDogGameObject object to change.
      * @param bank The bank to update.
+     * @param stage The stage to use.
      * @param controller The controller to use.
      */
-    public DinoDogMover(DinoDogGameObject dog, Bank bank, IGameController controller) {
+    public DinoDogMover(DinoDogGameObject dog, Bank bank, Stage stage, IGameController controller) {
         this.dog = dog;
         this.bank = bank;
         this.controller = controller;
         this.camera = controller.getCamera();
-        dinoStage = this.controller.getStage("Dino");
+        dinoStage = stage;
     }
 
     /**

@@ -191,7 +191,7 @@ public class DogGameController implements IGameController {
 
         this.stages.put("Platformer", minigameStage);
 
-        PlatformDogGameObject miniDog = createPlatformDog();
+        PlatformDogGameObject miniDog = createPlatformDog(minigameStage);
         minigameStage.addGameObject(miniDog);
 
         // add the first few platforms
@@ -210,7 +210,7 @@ public class DogGameController implements IGameController {
         Stage dinoStage = new Stage("Dino");
         this.stages.put("Dino", dinoStage);
 
-        DinoDogGameObject miniDog = createDinoDog();
+        DinoDogGameObject miniDog = createDinoDog(dinoStage);
         dinoStage.addGameObject(miniDog);
 
         // add the first few platforms
@@ -219,25 +219,27 @@ public class DogGameController implements IGameController {
 
     /**
      * Helper method to create a dog for the platformer minigame.
+     * @param stage The stage to use.
      * @return The dog.
      */
-    private PlatformDogGameObject createPlatformDog() {
+    private PlatformDogGameObject createPlatformDog(Stage stage) {
         // create the platformer dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_shrunk");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new PlatformDogGameObject(100, 210, dogSprite, bank,this);
+        return new PlatformDogGameObject(100, 210, dogSprite, bank,stage, this);
     }
     /**
      * Helper method to create a dog for the dino minigame.
+     * @param stage The stage to use.
      * @return The dino dog.
      */
-    private DinoDogGameObject createDinoDog() {
+    private DinoDogGameObject createDinoDog(Stage stage) {
         // create the minigame dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DinoDogGameObject(100, 210, dogSprite, bank,this);
+        return new DinoDogGameObject(100, 210, dogSprite, bank,stage, this);
     }
 
     /**
