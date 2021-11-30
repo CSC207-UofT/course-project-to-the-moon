@@ -132,7 +132,7 @@ public class DogGame {
         coinLabel.setTextColor(Color.WHITE);
         mainStage.addTextLabel(coinLabel);
         this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
-
+      
         ShopButton shop = new ShopButton(new Rectangle(190, 400, 80, 20),
                 "Shop", "Shop", this.controller);
         // You can change the coordinates of this button later

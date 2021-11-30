@@ -143,6 +143,7 @@ public class DogGameController implements IGameController {
             // remove it whenever the controller switches from the minigame stage
             // hopefully garbage collection does its thing
             this.stages.remove("Platformer");
+            this.stages.remove("Dino");
         }
 
         this.activeStage = this.stages.get(name);
@@ -170,15 +171,12 @@ public class DogGameController implements IGameController {
         return this.stages.get(name);
     }
 
-    // TODO: maybe in phase 2, delegate the minigame to its own class?
-
     /**
-     * A method which creates the minigame's stage.
+     * A method which creates the platformer stage.
      */
     private void addPlatformerStage(){
         // Assume (300, 500)
         Stage platformerStage = new Stage("Platformer");
-
         // Add background sprite.
         // “R/Pixelart - Space Background.” Reddit, https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background/.
         BufferedImage[] bgFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/minigame_bg");
@@ -189,7 +187,7 @@ public class DogGameController implements IGameController {
             platformerStage.addGameObject(bgObject);
             bg_y -= 640;
         }
-
+      
         this.stages.put("Platformer", platformerStage);
 
         PlatformDogGameObject miniDog = createMiniDog();
@@ -205,6 +203,7 @@ public class DogGameController implements IGameController {
         PlatformGameObject moonObject = new PlatformGameObject(100, this.lastPlatform_y - 180, "Moon", moonSprite);
         platformerStage.addGameObject(moonObject);
     }
+  
     private void addDinoStage(){
         // Assume (300, 500)
         Stage dinoStage = new Stage("Dino");
@@ -218,18 +217,18 @@ public class DogGameController implements IGameController {
     }
 
     /**
-     * Helper method to create a single default dog.
+     * Helper method to create a dog for the platformer minigame.
      * @return The dog.
      */
-    private PlatformDogGameObject createMiniDog() {
-        // create the minigame dog object
+    private PlatformDogGameObject createPlatformDog() {
+        // create the platformer dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_shrunk");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
         return new PlatformDogGameObject(100, 210, dogSprite, bank,this);
     }
     /**
-     * Helper method to create a single default dino dog.
+     * Helper method to create a dog for the dino minigame.
      * @return The dino dog.
      */
     private DinoDogGameObject createDinoDog() {
@@ -249,18 +248,13 @@ public class DogGameController implements IGameController {
         if(ducked){
             BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_duck");
              dogSprite = new SpriteFacade(dogFrames, 2);
-
-
         }
         else{
             BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
              dogSprite = new SpriteFacade(dogFrames, 2);
-
         }
 
-
         dino.setSprite(dogSprite);
-
     }
 
     /**
@@ -278,10 +272,8 @@ public class DogGameController implements IGameController {
         int previousY = 300;  // the Y-coordinate of the previous platform
         int previousX = 70;  // the Y-coordinate of the previous platform
 
-
         BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/horizontal_platform");
         SpriteFacade platformSprite = new SpriteFacade(platFrames);
-
 
 
         synchronized (platformerStage) {

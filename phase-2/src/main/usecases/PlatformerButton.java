@@ -13,7 +13,7 @@ public class PlatformerButton extends TextButton {
     private final IGameController control ;
 
     /**
-     * Initializes a button that takes you to the minigame.
+     * Initializes a button that takes you to the platformer minigame.
      *
      * @param r    The rectangle representing the bounds and location of this button.
      * @param text The text to display.
@@ -25,7 +25,7 @@ public class PlatformerButton extends TextButton {
         this.control = control;
 
         this.setStrokeWidth(2);
-        this.setStrokeColor(Color.GREEN);
+        this.setTextColor(Color.GREEN);
     }
 
     @Override
