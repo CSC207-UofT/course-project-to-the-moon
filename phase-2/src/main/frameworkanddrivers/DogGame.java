@@ -80,7 +80,7 @@ public class DogGame {
 
         mainFrame.setSize(w, h);
         mainFrame.setResizable(false);
-        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLocationRelativeTo(null);
 
         //this.initializeGameSaver();
