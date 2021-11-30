@@ -20,7 +20,7 @@ public class PlatformerDogMover implements Mover {
     private final PlatformDogGameObject dog ;
     private final IGameController controller ;
     private final Bank bank;
-    private final Stage minigameStage;
+    private final Stage platformerStage;
     private final ICamera camera;
     private final Timer timer = new Timer();
 
@@ -44,7 +44,7 @@ public class PlatformerDogMover implements Mover {
         this.bank = bank;
         this.controller = controller;
         this.camera = controller.getCamera();
-        minigameStage = this.controller.getStage("Platformer");
+        platformerStage = this.controller.getStage("Platformer");
     }
 
     /**
@@ -98,9 +98,9 @@ public class PlatformerDogMover implements Mover {
 
     // return if the dog is standing on a platform
     private boolean onPlatform() {
-        boolean onNormalPlatform = (minigameStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
+        boolean onNormalPlatform = (platformerStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
                 "Platform") && dy > 0);
-        boolean onWinningPlatform = (minigameStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
+        boolean onWinningPlatform = (platformerStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
                 "WinningPlatform") && dy > 0);
 
         if (onWinningPlatform) {
