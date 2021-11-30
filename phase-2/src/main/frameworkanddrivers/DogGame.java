@@ -131,20 +131,14 @@ public class DogGame {
         mainStage.addTextLabel(coinLabel);
         this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
 
-        ShopButton shop = new ShopButton(new Rectangle(200, 400, 50, 20),
+        ShopButton shop = new ShopButton(new Rectangle(200, 370, 50, 20),
                 "Shop", "Shop", this.controller);
         // You can change the coordinates of this button later
 
-        shop.setLabelColor(null);
-        shop.setTextColor(Color.WHITE);
-        MinigameButton miniButton = new MinigameButton(new Rectangle(200, 430, 60, 20),
-                "Minigame", "Minigame", this.controller);
-        miniButton.setLabelColor(null);
-        miniButton.setTextColor(Color.GREEN);
-        DinoButton dinoButton = new DinoButton(new Rectangle(200, 370, 60, 20),
-                "Dino", "Dino", this.controller);
-        dinoButton.setLabelColor(null);
-        dinoButton.setTextColor(Color.RED);
+        PlatformerButton miniButton = new PlatformerButton(new Rectangle(200, 400, 60, 20),
+                "Platformer", "PlatformerButton", this.controller);
+        DinoButton dinoButton = new DinoButton(new Rectangle(200, 430, 60, 20),
+                "Dino", "DinoButton", this.controller);
 
         mainStage.addTextLabel(shop);
         mainStage.addTextLabel(miniButton);

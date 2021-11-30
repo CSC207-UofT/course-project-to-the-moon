@@ -25,7 +25,8 @@ public class DinoButton extends TextButton {
         this.control = control;
 
         this.setStrokeWidth(2);
-        this.setStrokeColor(Color.RED);
+        this.setStrokeColor(Color.GREEN);
+        this.setTextColor(Color.GREEN);
     }
 
     @Override

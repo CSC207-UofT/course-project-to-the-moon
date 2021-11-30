@@ -25,6 +25,8 @@ public class ShopButton extends TextButton {
 
         this.setStrokeWidth(2);
         this.setStrokeColor(Color.WHITE);
+        this.setLabelColor(null);
+        this.setTextColor(Color.WHITE);
     }
 
     @Override
