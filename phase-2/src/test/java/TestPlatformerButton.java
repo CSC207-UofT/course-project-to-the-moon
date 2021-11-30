@@ -7,12 +7,6 @@ import usecases.Stage;
 import adaptors.DogGameController;
 import adaptors.Camera;
 import usecases.Bank;
-import adaptors.DogGameFrameLoader;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Objects;
-=======
 
 import java.awt.*;
 

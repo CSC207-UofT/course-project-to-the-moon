@@ -235,7 +235,7 @@ public class DogGameController implements IGameController {
      * @return The dino dog.
      */
     private DinoDogGameObject createDinoDog(Stage stage) {
-        // create the minigame dog object
+        // create the dino dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
@@ -243,7 +243,7 @@ public class DogGameController implements IGameController {
     }
 
     /**
-     * A method which changes the sprite.
+     * A method which changes the sprite. Move this to DinoDogMover later.
      */
     @Override
     public void setDinoSprite(DinoDogGameObject dino, boolean ducked){
