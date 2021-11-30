@@ -131,7 +131,7 @@ public class DogGameController implements IGameController {
      */
     @Override
     public void setActiveStage(String name) {
-        // create the minigame stage everytime the active stage gets set to minigame
+        // create the platformer stage everytime the active stage gets set to platformer
         if (name.equals("Platformer")) {
             this.addPlatformerStage();
         }
@@ -176,8 +176,7 @@ public class DogGameController implements IGameController {
      */
     private void addPlatformerStage(){
         // Assume (300, 500)
-        Stage minigameStage = new Stage("Platformer");
-
+        Stage platformerStage = new Stage("Platformer");
         // Add background sprite.
         // “R/Pixelart - Space Background.” Reddit, https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background/.
         BufferedImage[] bgFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/minigame_bg");
@@ -185,32 +184,32 @@ public class DogGameController implements IGameController {
         for (int i=0; i<30; i++) {
             SpriteFacade bgSprite = new SpriteFacade(bgFrames, 2);
             PlatformGameObject bgObject = new PlatformGameObject(0, bg_y, "Background", bgSprite);
-            minigameStage.addGameObject(bgObject);
+            platformerStage.addGameObject(bgObject);
             bg_y -= 640;
         }
+      
+        this.stages.put("Platformer", platformerStage);
 
-        this.stages.put("Platformer", minigameStage);
-
-        PlatformDogGameObject miniDog = createPlatformDog();
-        minigameStage.addGameObject(miniDog);
+        PlatformDogGameObject miniDog = createPlatformDog(platformerStage);
+        platformerStage.addGameObject(miniDog);
 
         // add the first few platforms
-        addRandomPlatforms(minigameStage);
+        addRandomPlatforms(platformerStage);
 
         // Add moon at the top
         // “Full Moon Stock Image. Image of Astronaut, Satelite, Orbit - 22403.” Dreamstime, 10 Sept. 2004, https://www.dreamstime.com/stock-photos-full-moon-image22403.
         BufferedImage[] moonFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/moon");
         SpriteFacade moonSprite = new SpriteFacade(moonFrames, 2);
-        PlatformGameObject moonObject = new PlatformGameObject(100, this.lastPlatform_y - 180,
-                "Moon", moonSprite);
-        minigameStage.addGameObject(moonObject);
+        PlatformGameObject moonObject = new PlatformGameObject(100, this.lastPlatform_y - 180, "Moon", moonSprite);
+        platformerStage.addGameObject(moonObject);
     }
+  
     private void addDinoStage(){
         // Assume (300, 500)
         Stage dinoStage = new Stage("Dino");
         this.stages.put("Dino", dinoStage);
 
-        DinoDogGameObject miniDog = createDinoDog();
+        DinoDogGameObject miniDog = createDinoDog(dinoStage);
         dinoStage.addGameObject(miniDog);
 
         // add the first few platforms
@@ -219,25 +218,27 @@ public class DogGameController implements IGameController {
 
     /**
      * Helper method to create a dog for the platformer minigame.
+     * @param stage The stage to use.
      * @return The dog.
      */
-    private PlatformDogGameObject createPlatformDog() {
+    private PlatformDogGameObject createPlatformDog(Stage stage) {
         // create the platformer dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_shrunk");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new PlatformDogGameObject(100, 210, dogSprite, bank,this);
+        return new PlatformDogGameObject(100, 210, dogSprite, bank, stage, this);
     }
     /**
      * Helper method to create a dog for the dino minigame.
+     * @param stage The stage to use.
      * @return The dino dog.
      */
-    private DinoDogGameObject createDinoDog() {
+    private DinoDogGameObject createDinoDog(Stage stage) {
         // create the minigame dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DinoDogGameObject(100, 210, dogSprite, bank,this);
+        return new DinoDogGameObject(100, 210, dogSprite, bank, stage, this);
     }
 
     /**
@@ -262,9 +263,9 @@ public class DogGameController implements IGameController {
      * A method which takes a minigame stage,
      * and adds 100 random platforms to it,
      * which all have a horizontal distance from MIN_PLATFORM_DISTANCE to MAX_PLATFORM_DISTANCE.
-     * @param minigameStage the stage that is added to.
+     * @param platformerStage the stage that is added to.
      */
-    private void addHorizontalPlatforms(Stage minigameStage){
+    private void addHorizontalPlatforms(Stage platformerStage){
         final int MAX_PLATFORM_DISTANCE = 270;
         final int MIN_PLATFORM_DISTANCE = 220;
         final int NUM_PLATFORMS = 100;
@@ -276,11 +277,12 @@ public class DogGameController implements IGameController {
         BufferedImage[] platFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/horizontal_platform");
         SpriteFacade platformSprite = new SpriteFacade(platFrames);
 
-        synchronized (minigameStage) {
+
+        synchronized (platformerStage) {
             for (int i = 0; i < NUM_PLATFORMS - 2; i++) {
                 PlatformGameObject newPlatform;
 
-                int rX = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;;
+                int rX = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;
                 // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
                 int rY = random.nextInt(50) +160;
                 int newX = previousX + rX;
@@ -289,7 +291,7 @@ public class DogGameController implements IGameController {
                 newPlatform = new PlatformGameObject(newX, rY, "Platform", platformSprite);
                 previousX = newX;
 
-                minigameStage.addGameObject(newPlatform);
+                platformerStage.addGameObject(newPlatform);
             }
         }
 
@@ -299,9 +301,9 @@ public class DogGameController implements IGameController {
         PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
                 previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
 
-        minigameStage.addGameObject(winningPlatform);
+        platformerStage.addGameObject(winningPlatform);
     }
-    private void addRandomPlatforms(Stage minigameStage){
+    private void addRandomPlatforms(Stage platformerStage){
         final int MAX_PLATFORM_DISTANCE = 100;
         final int MIN_PLATFORM_DISTANCE = 40;
         final int NUM_PLATFORMS = 100;
@@ -314,9 +316,9 @@ public class DogGameController implements IGameController {
 
         // the first platform should be under the dog
         PlatformGameObject firstPlatform = new PlatformGameObject(70, previousY, "Platform", platformSprite);
-        minigameStage.addGameObject(firstPlatform);
+        platformerStage.addGameObject(firstPlatform);
 
-        synchronized (minigameStage) {
+        synchronized (platformerStage) {
             for (int i = 0; i < NUM_PLATFORMS - 2; i++) {
                 PlatformGameObject newPlatform;
 
@@ -328,7 +330,7 @@ public class DogGameController implements IGameController {
                 newPlatform = new PlatformGameObject(rX, newY, "Platform", platformSprite);
                 previousY = newY;
 
-                minigameStage.addGameObject(newPlatform);
+                platformerStage.addGameObject(newPlatform);
             }
         }
 
@@ -339,7 +341,7 @@ public class DogGameController implements IGameController {
                 previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
 
         this.lastPlatform_y = previousY - MAX_PLATFORM_DISTANCE;
-        minigameStage.addGameObject(winningPlatform);
+        platformerStage.addGameObject(winningPlatform);
     }
 
     public Bank getBank() {

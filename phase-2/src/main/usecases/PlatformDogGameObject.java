@@ -20,13 +20,14 @@ public class PlatformDogGameObject extends GameObject implements Drawable, Colli
      * @param y The y coordinate.
      * @param sprite The sprite of the dog.
      * @param bank The bank to update.
+     * @param platformingStage The platforming stage.
      * @param controller The controller controlling this DogGameObject.
      */
-    public PlatformDogGameObject(int x, int y, SpriteFacade sprite, Bank bank,
+    public PlatformDogGameObject(int x, int y, SpriteFacade sprite, Bank bank, Stage platformingStage,
                          IGameController controller){
         super(x, y, "PlatformerDogGameObject", sprite, controller);
 
-        PlatformerDogMover dogMover = new PlatformerDogMover(this, bank, controller);
+        PlatformerDogMover dogMover = new PlatformerDogMover(this, bank, platformingStage, controller);
         this.addMover(dogMover);
     }
 

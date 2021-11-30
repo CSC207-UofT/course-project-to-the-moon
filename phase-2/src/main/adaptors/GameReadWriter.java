@@ -17,6 +17,11 @@ import usecases.GameState;
 /**
  * A class to read and write data. In phase 2 we'll separate this into two classes
  * to obey single responsibility.
+ *
+ *
+ *
+ *
+ * THIS WILL BE REWRITTEN LATER
  * @author Juntae
  * @since 13 November 2021
  */
