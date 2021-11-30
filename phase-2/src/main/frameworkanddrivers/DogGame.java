@@ -22,7 +22,7 @@ public class DogGame {
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
     private final DogGameController controller = new DogGameController();
-    private final GameReadWriter gReadWriter = new GameReadWriter(controller, "phase-1/src/save/savefile.ser");
+   // private final GameReadWriter gReadWriter = new GameReadWriter(controller, "phase-1/src/save/savefile.ser");
 
     /**
      * This is the main method. Run this to run the game.
@@ -67,10 +67,8 @@ public class DogGame {
         mainFrame.add(panel);
 
         //read save file
-        this.readSaveFile();
+        //this.readSaveFile();
     }
-    // getter method for testing
-    // public JFrame getFrame(){ return this.mainFrame;}
 
     /**
      * Initializes the main JFrame on which everything is drawn. Does not add a JPanel yet.
@@ -85,23 +83,23 @@ public class DogGame {
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.setLocationRelativeTo(null);
 
-        this.initializeGameSaver();
+        //this.initializeGameSaver();
     }
 
-    private void initializeGameSaver() {
-        mainFrame.addWindowListener(new WindowAdapter(){
-            @Override
-            public void windowClosing(WindowEvent e) {
-                gReadWriter.saveGame();
-                System.exit(0);
-            }
-        });
-    }
-    private void readSaveFile() throws IOException, ClassNotFoundException {
-        GameState savedState = this.gReadWriter.readFromFile();
-        this.bank.updateCoins((int) savedState.getState().get("Coins"));
-        this.bank.setDCPS((int) savedState.getState().get("DCPS"));
-    }
+//    private void initializeGameSaver() {
+//        mainFrame.addWindowListener(new WindowAdapter(){
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//                gReadWriter.saveGame();
+//                System.exit(0);
+//            }
+//        });
+//    }
+//    private void readSaveFile() throws IOException, ClassNotFoundException {
+//        GameState savedState = this.gReadWriter.readFromFile();
+//        this.bank.updateCoins((int) savedState.getState().get("Coins"));
+//        this.bank.setDCPS((int) savedState.getState().get("DCPS"));
+//    }
 
     /**
      * Helper method to create a single default dog.
