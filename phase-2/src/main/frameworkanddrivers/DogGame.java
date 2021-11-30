@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  * This class represents a dog game instance, making all the JFrames necessary to run it.
- * @author Andy Wang
+ * @author Andy Wang, Fatimeh Hassan
  * @since 9 October 2021
  */
 public class DogGame {

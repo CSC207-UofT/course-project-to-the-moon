@@ -12,9 +12,6 @@ import adaptors.DogGameFrameLoader;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
-=======
-
-import java.awt.*;
 
 /**
 

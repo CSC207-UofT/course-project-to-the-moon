@@ -190,7 +190,7 @@ public class DogGameController implements IGameController {
       
         this.stages.put("Platformer", platformerStage);
 
-        PlatformDogGameObject miniDog = createMiniDog();
+        PlatformDogGameObject miniDog = createPlatformDog();
         platformerStage.addGameObject(miniDog);
 
         // add the first few platforms
