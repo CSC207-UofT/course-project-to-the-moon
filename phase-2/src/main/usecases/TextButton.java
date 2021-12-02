@@ -3,6 +3,7 @@ package usecases;
 import adaptors.IGameController;
 
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * A class representing a text button.
@@ -34,7 +35,7 @@ public class TextButton extends TextLabel implements Clickable {
     }
 
     @Override
-    public void onClick() {
+    public void onClick()  throws IOException, ClassNotFoundException {
 
     }
 }

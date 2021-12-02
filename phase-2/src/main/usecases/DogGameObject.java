@@ -32,6 +32,10 @@ public class DogGameObject extends GameObject implements Clickable, Drawable{
         this.addMover(dogMover);
     }
 
+    public Dog getDog() {
+        return this.myDog;
+    }
+
     /**
      * Checks if the coordinates of the mouse click
      * are on the Dog's sprite.

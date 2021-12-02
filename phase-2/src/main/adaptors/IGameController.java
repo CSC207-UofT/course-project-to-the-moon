@@ -1,5 +1,7 @@
 package adaptors;
 
+import java.io.IOException;
+
 import usecases.DinoDogGameObject;
 import usecases.Stage;
 
@@ -12,15 +14,18 @@ public interface IGameController {
     void addCamera(ICamera c);
     ICamera getCamera();
 
-    void mouseClicked(int x, int y);
+    void mouseClicked(int x, int y)  throws IOException,ClassNotFoundException;
     void keyPressed(int code);
     void keyReleased(int code);
 
     boolean getKeyPressed(int code);
-     void setDinoSprite(DinoDogGameObject dino, boolean ducked);
+    void setDinoSprite(DinoDogGameObject dino, boolean ducked);
 
     void addStage(String type, Stage s);
     void setActiveStage(String type);
     Stage getActiveStage();
     Stage getStage(String name);
+
+    void loadFromFile() throws IOException, ClassNotFoundException;
+    void createNewFile() throws IOException;
 }
