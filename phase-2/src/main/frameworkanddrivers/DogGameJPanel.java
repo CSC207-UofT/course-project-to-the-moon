@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import adaptors.DogGameController;
 import adaptors.DogGameGraphics;
@@ -48,11 +49,17 @@ public class DogGameJPanel extends JPanel{
      * Adds a dog game controller to this presenter.
      * @param controller The controller to add.
      */
-    public void addController(DogGameController controller) {
+    public void addController(DogGameController controller){
         super.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                controller.mouseClicked(e.getX(), e.getY());
+                try {
+                    controller.mouseClicked(e.getX(), e.getY());
+                } catch (ClassNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e2) {
+                    e2.printStackTrace();
+                }
             }
 
             // all of these are unneeded lol
