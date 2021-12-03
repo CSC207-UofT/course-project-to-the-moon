@@ -192,13 +192,13 @@ public class DogGame {
 
         //the button to purchase the factory dogecoin miner
         MinerButton factory = new MinerButton(new Rectangle(90, 165, 130, 100),
-                "Buy Factory", "Factory", this.bank, 500, 100 , 100);
+                "Buy Factory", "Factory", this.bank, 5000, 1000 , 50);
 
         shopStage.addTextLabel(factory);
 
         //the button to purchase the lunar dog cafe dogecoin miner
         MinerButton lunarDogCafe = new MinerButton(new Rectangle(90, 300, 130, 100),
-                "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 800);
+                "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 10000, 5000, 100);
 
         shopStage.addTextLabel(lunarDogCafe);
 
@@ -235,7 +235,6 @@ public class DogGame {
                 "Dino", "Dino", this.controller);
 
         minigameSelectionStage.addTextLabel(dinoButton);
-
 
         HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
                 "Return", "Home", this.controller);
