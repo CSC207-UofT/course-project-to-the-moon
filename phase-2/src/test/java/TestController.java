@@ -10,6 +10,7 @@ import usecases.Stage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * This is the test class.
@@ -50,7 +51,13 @@ public class TestController {
 
     @Test
     public void testMouseClicked(){
-        testController.mouseClicked(10, 10);
+        try {
+            testController.mouseClicked(10, 10);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         assert(newBank.getCoin() ==1);
 
     }
