@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
 
+import entities.GameState;
 import usecases.*;
 
 
@@ -27,7 +28,7 @@ public class GameReadWriter {
     private Bank bank;
     private DogGameObject dogObj;
 
-    private final GameState gs = new GameState();
+    private GameState gs = new GameState();
 
     /**
      * Initialize a new GameReadWrite.
@@ -43,6 +44,10 @@ public class GameReadWriter {
 
     public void addDog(DogGameObject dgo) {
         this.dogObj = dgo;
+    }
+
+    public GameState getGameState(){
+        return this.gs;
     }
 
     /**
@@ -104,11 +109,11 @@ public class GameReadWriter {
         InputStream file = new FileInputStream(this.filepath);
         InputStream buffer = new BufferedInputStream(file);
         ObjectInput input = new ObjectInputStream(buffer);
-
-        GameState saveFile = (GameState) input.readObject();
+        
+        this.gs = (GameState) input.readObject();
         input.close();
 
-        this.bank.updateCoins((int) saveFile.getState().get("Coins"));
-        this.bank.setDCPS((int) saveFile.getState().get("DCPS"));
+        this.bank.updateCoins((int) gs.getState().get("Coins"));
+        this.bank.setDCPS((int) gs.getState().get("DCPS"));
     }
 }
