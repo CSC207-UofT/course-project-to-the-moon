@@ -82,7 +82,7 @@ public class DinoDogMover implements Mover {
 
                             dy = 10;
                             ducked = true;
-                            loader.setDinoSprite(dog, true);
+                            dog.switchSprite(true);
                         }
                         else{
                             dy=0;
@@ -93,7 +93,7 @@ public class DinoDogMover implements Mover {
                     else{
                         if(ducked){
                             t.translateBy(0, -10);
-                            loader.setDinoSprite(dog, false);
+                            dog.switchSprite(false);
 
                         }
                         dy=0;

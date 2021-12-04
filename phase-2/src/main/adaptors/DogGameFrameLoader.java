@@ -63,23 +63,5 @@ public class DogGameFrameLoader implements IFrameLoader {
         return frameFiles;
     }
 
-    /**
-     * A method which changes the sprite.
-     */
-    @Override
-    public void setDinoSprite(DinoDogGameObject dino, boolean ducked){
-        SpriteFacade dogSprite;
-        String directory;
-        if(ducked){
-            directory = "phase-2/src/sprites/dog_duck";
-        }
-        else{
-            directory = "phase-2/src/sprites/mini_dog";
 
-        }
-        BufferedImage[] dogFrames = this.loadFramesFromFolder(directory);
-        dogSprite = new SpriteFacade(dogFrames, 2);
-
-        dino.setSprite(dogSprite);
-    }
 }
