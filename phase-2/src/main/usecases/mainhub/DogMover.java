@@ -1,8 +1,9 @@
-package usecases;
+package usecases.mainhub;
 
 
 import entities.Sprite;
 import entities.Transform;
+import usecases.interfaces.Mover;
 
 import java.util.Random;
 import java.util.Timer;

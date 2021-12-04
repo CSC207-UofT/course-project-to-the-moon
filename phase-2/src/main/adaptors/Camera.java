@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Transform;
+import usecases.interfaces.Drawable;
+import usecases.object.GameObject;
+import usecases.object.TextLabel;
 
 /**
  * A presenter class that acts like a camera/viewport; whatever objects are seen on it are captured.

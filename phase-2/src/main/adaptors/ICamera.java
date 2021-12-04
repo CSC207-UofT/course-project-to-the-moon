@@ -1,9 +1,9 @@
 package adaptors;
 
 import entities.Transform;
-import usecases.Drawable;
+import usecases.interfaces.Drawable;
 import usecases.Stage;
-import usecases.TextLabel;
+import usecases.object.TextLabel;
 
 import java.util.List;
 

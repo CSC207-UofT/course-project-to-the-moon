@@ -1,4 +1,6 @@
-package usecases;
+package usecases.mainhub;
+import usecases.object.TextLabel;
+
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

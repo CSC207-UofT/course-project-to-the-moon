@@ -1,5 +1,7 @@
-package usecases;
+package usecases.mainhub;
 import adaptors.IGameController;
+import usecases.object.TextButton;
+
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

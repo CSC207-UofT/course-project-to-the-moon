@@ -1,9 +1,9 @@
-package usecases;
+package usecases.mainhub;
+
+import usecases.Bank;
+import usecases.object.TextButton;
 
 import java.awt.*;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 

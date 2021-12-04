@@ -1,13 +1,14 @@
 package adaptors;
 
 import usecases.*;
+import usecases.interfaces.Clickable;
+import usecases.object.GameObject;
+import usecases.object.TextLabel;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * This class represents a controller for the dog game. It processes mouse input.
@@ -122,11 +123,9 @@ public class DogGameController implements IGameController {
      * Processes a mouse click on the screen.
      * @param x The x-coordinate of the click.
      * @param y The y-coordinate of the click.
-     * @throws IOException
-     * @throws ClassNotFoundException
      */
     @Override
-    public void mouseClicked(int x, int y) throws IOException,ClassNotFoundException {
+    public void mouseClicked(int x, int y) {
         // loop through game objects in the stage
         for (GameObject go : this.activeStage.getGameObjects()) {
             if (go instanceof Clickable) {

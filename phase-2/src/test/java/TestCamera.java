@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import usecases.*;
+import usecases.mainhub.DogGameObject;
+import usecases.platformerminigame.PlatformGameObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

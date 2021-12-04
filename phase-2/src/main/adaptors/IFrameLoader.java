@@ -1,7 +1,5 @@
 package adaptors;
 
-import usecases.DinoDogGameObject;
-
 import java.awt.image.BufferedImage;
 
 /**

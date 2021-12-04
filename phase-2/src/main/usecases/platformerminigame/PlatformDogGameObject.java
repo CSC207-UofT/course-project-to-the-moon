@@ -1,7 +1,11 @@
-package usecases;
+package usecases.platformerminigame;
 
 import adaptors.IGameController;
 import adaptors.IGameGraphics;
+import usecases.*;
+import usecases.interfaces.Collidable;
+import usecases.interfaces.Drawable;
+import usecases.object.GameObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,7 +28,7 @@ public class PlatformDogGameObject extends GameObject implements Drawable, Colli
      * @param controller The controller controlling this DogGameObject.
      */
     public PlatformDogGameObject(int x, int y, SpriteFacade sprite, Bank bank, Stage platformingStage,
-                         IGameController controller){
+                                 IGameController controller){
         super(x, y, "PlatformerDogGameObject", sprite, controller);
 
         PlatformerDogMover dogMover = new PlatformerDogMover(this, bank, platformingStage, controller);

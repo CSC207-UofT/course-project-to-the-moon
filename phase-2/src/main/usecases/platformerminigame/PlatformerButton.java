@@ -1,6 +1,7 @@
-package usecases;
+package usecases.platformerminigame;
 
 import adaptors.IGameController;
+import usecases.object.TextButton;
 
 import java.awt.*;
 

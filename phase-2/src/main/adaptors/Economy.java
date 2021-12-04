@@ -9,7 +9,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import usecases.MinerButton;
+import usecases.mainhub.MinerButton;
 
 public class Economy implements PropertyChangeListener {
     private ArrayList<MinerButton> items;

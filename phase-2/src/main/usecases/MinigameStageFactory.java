@@ -1,9 +1,13 @@
-package adaptors;
+package usecases;
 
-import usecases.*;
+import adaptors.IFrameLoader;
+import adaptors.IGameController;
+import usecases.dinominigame.DinoDogGameObject;
+import usecases.platformerminigame.PlatformDogGameObject;
+import usecases.platformerminigame.PlatformGameObject;
 
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -97,11 +101,18 @@ public class MinigameStageFactory {
      * @return The dino dog.
      */
     private DinoDogGameObject createDinoDog(Stage stage, IFrameLoader frameLoader, Bank bank) {
-        // create the minigame dog object
+        // create the dino dog object
         BufferedImage[] dogFrames = frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DinoDogGameObject(100, 210, dogSprite, bank, stage, this.controller, frameLoader);
+        BufferedImage[] duckingFrames = frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_duck");
+        SpriteFacade duckingDog = new SpriteFacade(duckingFrames, 2);
+
+        ArrayList<SpriteFacade> dogSprites = new ArrayList<>();
+        dogSprites.add(dogSprite);
+        dogSprites.add(duckingDog);
+
+        return new DinoDogGameObject(100, 210, dogSprites, bank, stage, this.controller, frameLoader);
     }
 
     /**

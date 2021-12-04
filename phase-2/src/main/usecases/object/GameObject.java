@@ -1,7 +1,10 @@
-package usecases;
+package usecases.object;
 
 import adaptors.IGameController;
 import entities.Sprite;
+import usecases.SpriteFacade;
+import usecases.interfaces.Mover;
+
 import java.awt.image.BufferedImage;
 
 /**

@@ -1,7 +1,8 @@
-package usecases;
+package usecases.object;
 
 import adaptors.IGameController;
 import entities.Transform;
+import usecases.SpriteFacade;
 
 /**
  * Represents any 'object' in the program that can be displayed on screen.

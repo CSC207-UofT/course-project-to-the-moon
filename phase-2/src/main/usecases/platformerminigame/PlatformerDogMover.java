@@ -1,8 +1,11 @@
-package usecases;
+package usecases.platformerminigame;
 
 import adaptors.ICamera;
 import adaptors.IGameController;
 import entities.Transform;
+import usecases.Bank;
+import usecases.interfaces.Mover;
+import usecases.Stage;
 
 import java.awt.event.KeyEvent;
 import java.util.Timer;
@@ -99,15 +102,17 @@ public class PlatformerDogMover implements Mover {
 
     // return if the dog is standing on a platform
     private boolean onPlatform() {
-        boolean onNormalPlatform = (minigameStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
-                "Platform") && dy > 0);
-        boolean onWinningPlatform = (minigameStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
-                "WinningPlatform") && dy > 0);
+        synchronized (minigameStage) {
+            boolean onNormalPlatform = (minigameStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
+                    "Platform") && dy > 0);
+            boolean onWinningPlatform = (minigameStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
+                    "WinningPlatform") && dy > 0);
 
-        if (onWinningPlatform) {
-            won = true;
+            if (onWinningPlatform) {
+                won = true;
+            }
+            return (onNormalPlatform || onWinningPlatform);
         }
-        return (onNormalPlatform || onWinningPlatform);
     }
 
     // update y position

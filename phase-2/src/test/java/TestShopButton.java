@@ -2,16 +2,13 @@ import adaptors.DogGameFrameLoader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import usecases.ShopButton;
+import usecases.mainhub.ShopButton;
 import usecases.Stage;
 import adaptors.DogGameController;
 import adaptors.Camera;
 import usecases.Bank;
-import adaptors.DogGameFrameLoader;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 /**
 

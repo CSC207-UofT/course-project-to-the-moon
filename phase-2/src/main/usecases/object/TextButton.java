@@ -1,9 +1,9 @@
-package usecases;
+package usecases.object;
 
 import adaptors.IGameController;
+import usecases.interfaces.Clickable;
 
 import java.awt.*;
-import java.io.IOException;
 
 /**
  * A class representing a text button.
@@ -35,7 +35,5 @@ public class TextButton extends TextLabel implements Clickable {
     }
 
     @Override
-    public void onClick()  throws IOException, ClassNotFoundException {
-
-    }
+    public void onClick() {} //empty, overridden in child classes
 }

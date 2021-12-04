@@ -1,8 +1,5 @@
 package adaptors;
 
-import usecases.DinoDogGameObject;
-import usecases.SpriteFacade;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;

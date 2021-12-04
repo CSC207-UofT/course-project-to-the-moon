@@ -1,6 +1,10 @@
-package usecases;
+package usecases.platformerminigame;
 
 import adaptors.IGameGraphics;
+import usecases.interfaces.Collidable;
+import usecases.interfaces.Drawable;
+import usecases.object.GameObject;
+import usecases.SpriteFacade;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

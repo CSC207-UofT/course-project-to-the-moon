@@ -5,7 +5,7 @@ import frameworkanddrivers.DogGameJPanel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import usecases.DogGameObject;
+import usecases.mainhub.DogGameObject;
 import usecases.SpriteFacade;
 import usecases.Stage;
 

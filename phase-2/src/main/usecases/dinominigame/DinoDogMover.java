@@ -1,9 +1,12 @@
-package usecases;
+package usecases.dinominigame;
 
 import adaptors.ICamera;
 import adaptors.IFrameLoader;
 import adaptors.IGameController;
 import entities.Transform;
+import usecases.Bank;
+import usecases.interfaces.Mover;
+import usecases.Stage;
 
 import java.awt.event.KeyEvent;
 import java.util.Timer;

@@ -2,7 +2,7 @@ import adaptors.DogGameFrameLoader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import usecases.PlatformerButton;
+import usecases.platformerminigame.PlatformerButton;
 import usecases.Stage;
 import adaptors.DogGameController;
 import adaptors.Camera;

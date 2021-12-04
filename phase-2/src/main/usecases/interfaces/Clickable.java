@@ -1,4 +1,4 @@
-package usecases;
+package usecases.interfaces;
 
 import java.io.IOException;
 
@@ -10,5 +10,5 @@ import java.io.IOException;
 
 public interface Clickable {
      boolean isClicked(int mouseX, int mouseY);
-     void onClick() throws IOException, ClassNotFoundException;
+     void onClick();
 }

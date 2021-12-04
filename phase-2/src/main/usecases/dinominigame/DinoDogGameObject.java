@@ -1,8 +1,12 @@
-package usecases;
+package usecases.dinominigame;
 
 import adaptors.IFrameLoader;
 import adaptors.IGameController;
 import adaptors.IGameGraphics;
+import usecases.*;
+import usecases.interfaces.Collidable;
+import usecases.interfaces.Drawable;
+import usecases.object.GameObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

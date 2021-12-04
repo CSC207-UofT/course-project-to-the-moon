@@ -1,4 +1,4 @@
-package usecases;
+package usecases.interfaces;
 import java.awt.Rectangle;
 
 /**

@@ -2,7 +2,6 @@ package adaptors;
 
 import java.io.IOException;
 
-import usecases.DinoDogGameObject;
 import usecases.Stage;
 
 /**

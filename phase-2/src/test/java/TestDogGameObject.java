@@ -1,15 +1,13 @@
 import adaptors.DogGameFrameLoader;
-import entities.Dog;
 import usecases.Bank;
 import entities.Sprite;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import usecases.DogGameObject;
-import usecases.DogMover;
+import usecases.mainhub.DogGameObject;
+import usecases.mainhub.DogMover;
 import usecases.SpriteFacade;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**

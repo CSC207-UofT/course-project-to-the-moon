@@ -5,14 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 
 import adaptors.DogGameController;
 import adaptors.DogGameGraphics;
 import adaptors.ICamera;
 import entities.Transform;
-import usecases.Drawable;
-import usecases.TextLabel;
+import usecases.interfaces.Drawable;
+import usecases.object.TextLabel;
 
 import javax.swing.JPanel;
 
@@ -53,13 +52,7 @@ public class DogGameJPanel extends JPanel{
         super.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                try {
-                    controller.mouseClicked(e.getX(), e.getY());
-                } catch (ClassNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e2) {
-                    e2.printStackTrace();
-                }
+                controller.mouseClicked(e.getX(), e.getY());
             }
 
             // all of these are unneeded lol

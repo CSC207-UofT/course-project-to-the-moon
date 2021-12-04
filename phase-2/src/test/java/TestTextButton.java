@@ -3,8 +3,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import frameworkanddrivers.DogGame;
-import usecases.TextButton;
-import adaptors.IGameController;
+import usecases.object.TextButton;
 
 import java.awt.*;
 

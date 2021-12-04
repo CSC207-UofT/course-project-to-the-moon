@@ -1,6 +1,10 @@
 package adaptors;
 
 import usecases.*;
+import usecases.dinominigame.DinoButton;
+import usecases.mainhub.*;
+import usecases.object.TextLabel;
+import usecases.platformerminigame.PlatformerButton;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -4,13 +4,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import adaptors.DogGameController;
-import usecases.DogGameObject;
+import usecases.mainhub.DogGameObject;
 import usecases.SpriteFacade;
 import usecases.Stage;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * This is the test class.
@@ -51,13 +49,7 @@ public class TestController {
 
     @Test
     public void testMouseClicked(){
-        try {
-            testController.mouseClicked(10, 10);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        testController.mouseClicked(10, 10);
         assert(newBank.getCoin() ==1);
 
     }

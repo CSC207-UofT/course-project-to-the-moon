@@ -1,5 +1,9 @@
 package usecases;
 
+import usecases.interfaces.Collidable;
+import usecases.object.GameObject;
+import usecases.object.TextLabel;
+
 import java.awt.*;
 import java.io.Serializable;
 import java.util.List;

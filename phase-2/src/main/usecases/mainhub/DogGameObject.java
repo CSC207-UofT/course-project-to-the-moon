@@ -1,7 +1,12 @@
-package usecases;
+package usecases.mainhub;
 
 import adaptors.IGameGraphics;
 import entities.Dog;
+import usecases.Bank;
+import usecases.object.GameObject;
+import usecases.SpriteFacade;
+import usecases.interfaces.Clickable;
+import usecases.interfaces.Drawable;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -12,7 +17,7 @@ import java.awt.image.BufferedImage;
  * @author Aria Paydari
  * @since 22 October 2021
  */
-public class DogGameObject extends GameObject implements Clickable, Drawable{
+public class DogGameObject extends GameObject implements Clickable, Drawable {
     private final Dog myDog; // the dog that this manager handles
     private final Bank bank ;
 

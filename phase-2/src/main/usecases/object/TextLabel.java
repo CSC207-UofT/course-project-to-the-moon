@@ -1,6 +1,7 @@
-package usecases;
+package usecases.object;
 
 import adaptors.IGameGraphics;
+import usecases.interfaces.Drawable;
 
 import java.awt.*;
 
