@@ -1,9 +1,5 @@
 package adaptors;
 
-import adaptors.DogGameController;
-import adaptors.DogGameFrameLoader;
-import adaptors.ICamera;
-import entities.*;
 import usecases.*;
 
 import java.awt.*;
@@ -21,10 +17,11 @@ public class ControllerBuilder {
     private final IFrameLoader frameLoader;
 
     /**
-     * Initializes a new ControllerBuilder using the given IFrameLoader.
+     * Initializes a new ControllerBuilder using the given IFrameLoader and camera bounds.
      * @param fl The IFrameLoader to use.
+     * @param bounds The camera bounds.
      */
-    public ControllerBuilder(IFrameLoader fl) {
+    public ControllerBuilder(IFrameLoader fl, Rectangle bounds) {
         this.frameLoader = fl;
         controller = new DogGameController();
         controller.addFrameLoader(fl);
@@ -32,15 +29,19 @@ public class ControllerBuilder {
         Stage mainStage = createMainStage();
         Stage shopStage = createShopStage();
         Stage minigameStage = createMinigameSelectionStage();
+        Stage startStage = createStartStage();
 
-        ICamera camera = new Camera(mainStage, new Rectangle(0, 0, 300, 500));
+        ICamera camera = new Camera(mainStage, bounds);
 
         controller.addBank(this.bank);
+
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
         controller.addStage("MinigameSelection", minigameStage);
+        controller.addStage("Start", startStage);
+
         controller.addCamera(camera);
-        controller.setActiveStage("Main");
+        controller.setActiveStage("Start");
     }
 
     /**
@@ -167,5 +168,24 @@ public class ControllerBuilder {
         minigameSelectionStage.addTextLabel(home);
 
         return minigameSelectionStage;
+    }
+
+    /**
+     * Creates the Start stage.
+     * @return The start stage.
+     */
+    private Stage createStartStage() {
+        Stage startStage = new Stage("Start");
+
+        NewGameButton newGame = new NewGameButton(new Rectangle(100, 100, 100, 40),
+                "New Game", "NewGame", this.controller);
+
+        LoadGameButton loadGame = new LoadGameButton(new Rectangle(100, 250, 100, 40),
+                "Load Game", "LoadGame", this.controller);
+
+        startStage.addTextLabel(newGame);
+        startStage.addTextLabel(loadGame);
+
+        return startStage;
     }
 }

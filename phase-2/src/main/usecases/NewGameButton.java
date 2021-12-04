@@ -12,8 +12,8 @@ public class NewGameButton extends TextButton {
      * @param tag  The tag of this label.
      * @param control The controller controlling this button.
      */
-    public NewGameButton(Rectangle r, String text, String tag, IGameController controller, String filepath) {
-        super(r, text, tag, controller);
+    public NewGameButton(Rectangle r, String text, String tag, IGameController control) {
+        super(r, text, tag, control);
         this.setStrokeWidth(2);
         this.setStrokeColor(Color.WHITE);
         this.setLabelColor(null);
