@@ -3,6 +3,7 @@ package adaptors;
 import usecases.*;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,14 +37,6 @@ public class DogGameController implements IGameController {
     }
 
     /**
-     * Gets the save file path.
-     * @return The save file path.
-     */
-    public String getSaveFilePath(){
-        return this.saveFilePath;
-    }
-
-    /**
      * Adds a gameReadWriter
      * @param grw
      */
@@ -60,14 +53,24 @@ public class DogGameController implements IGameController {
      * Loads the gamestate from the past ser file
      */
     @Override
-    public void loadFromFile() {
+    public boolean loadFromFile() {
         try {
-            this.readWriter.readFromFile();
+            File savefile = new File(saveFilePath);
+
+            if(!savefile.exists()){
+                return false;
+            }
+            else {
+                this.readWriter.readFromFile();
+                this.setActiveStage("Main");
+                return true;
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     /**

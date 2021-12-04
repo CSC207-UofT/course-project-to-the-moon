@@ -25,7 +25,7 @@ public interface IGameController {
     void setActiveStage(String type);
     Stage getActiveStage();
 
-    void loadFromFile();
+    boolean loadFromFile();
     void createNewFile();
     GameReadWriter getReadWriter();
 }

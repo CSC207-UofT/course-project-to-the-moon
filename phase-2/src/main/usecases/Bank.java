@@ -21,6 +21,7 @@ public class Bank {
             @Override
             public void run() {
                 updateCoins(dcps);
+                System.out.println("Coins: " + coins + "\n");
             }
         };
 

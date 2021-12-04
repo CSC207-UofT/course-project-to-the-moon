@@ -217,7 +217,7 @@ public class ControllerBuilder {
                 "New Game", "NewGame", this.controller);
 
         LoadGameButton loadGame = new LoadGameButton(new Rectangle(100, 250, 100, 40),
-                "Load Game", "LoadGame", this.controller, this.controller.getSaveFilePath());
+                "Load Game", "LoadGame", this.controller);
 
         loadGame.addPropertyChangeListener((PropertyChangeListener) this.controller.getEcon());
         startStage.addTextLabel(newGame);
