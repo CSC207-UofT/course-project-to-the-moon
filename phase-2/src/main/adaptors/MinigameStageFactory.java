@@ -12,21 +12,24 @@ import java.util.Random;
  * @since 4 December 2021
  */
 public class MinigameStageFactory {
-    private final HashMap<String, Stage> stages;
     private int lastPlatform_y;
     private final IGameController controller;
 
-    public MinigameStageFactory(HashMap<String, Stage> stage, int lastPlatform_y,
-                                IGameController controller){
-        this.stages = stage;
-        this.lastPlatform_y = lastPlatform_y;
+    /**
+     * Initialize a new Minigame Stage Factory
+     * @param controller The controller to use (dependency inversion).
+     */
+    public MinigameStageFactory(IGameController controller){
         this.controller = controller;
     }
 
     /**
      * A method which creates the platformer stage.
+     * @param frameLoader The frame loader to use.
+     * @param bank The bank to use.
+     * @return The platformer stage.
      */
-    public void addPlatformerStage(IFrameLoader frameLoader, Bank bank) {
+    public Stage createPlatformerStage(IFrameLoader frameLoader, Bank bank) {
         // Assume (300, 500)
         Stage platformerStage = new Stage("Platformer");
         // Add background sprite.
@@ -40,8 +43,6 @@ public class MinigameStageFactory {
             bg_y -= 640;
         }
 
-        this.stages.put("Platformer", platformerStage);
-
         PlatformDogGameObject miniDog = createPlatformDog(platformerStage, frameLoader, bank);
         platformerStage.addGameObject(miniDog);
 
@@ -49,23 +50,33 @@ public class MinigameStageFactory {
         addRandomPlatforms(platformerStage, frameLoader);
 
         // Add moon at the top
-        // “Full Moon Stock Image. Image of Astronaut, Satelite, Orbit - 22403.” Dreamstime, 10 Sept. 2004, https://www.dreamstime.com/stock-photos-full-moon-image22403.
+        // “Full Moon Stock Image. Image of Astronaut, Satelite, Orbit - 22403.”
+        // Dreamstime, 10 Sept. 2004, https://www.dreamstime.com/stock-photos-full-moon-image22403.
         BufferedImage[] moonFrames = frameLoader.loadFramesFromFolder("phase-2/src/sprites/moon");
         SpriteFacade moonSprite = new SpriteFacade(moonFrames, 2);
         PlatformGameObject moonObject = new PlatformGameObject(100, this.lastPlatform_y - 180, "Moon", moonSprite);
         platformerStage.addGameObject(moonObject);
+
+        return platformerStage;
     }
 
-    public void addDinoStage(IFrameLoader frameLoader, Bank bank){
+    /**
+     * Create a dino minigame stage, like the Google Chrome dino minigame.
+     * @param frameLoader The frame loader to use.
+     * @param bank The bank to use.
+     * @return The dini minigame stage.
+     */
+    public Stage createDinoStage(IFrameLoader frameLoader, Bank bank){
         // Assume (300, 500)
         Stage dinoStage = new Stage("Dino");
-        this.stages.put("Dino", dinoStage);
 
         DinoDogGameObject miniDog = createDinoDog(dinoStage, frameLoader, bank);
         dinoStage.addGameObject(miniDog);
 
         // add the first few platforms
         addHorizontalPlatforms(dinoStage, frameLoader);
+
+        return dinoStage;
     }
 
     /**
@@ -90,7 +101,7 @@ public class MinigameStageFactory {
         BufferedImage[] dogFrames = frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DinoDogGameObject(100, 210, dogSprite, bank, stage, this.controller);
+        return new DinoDogGameObject(100, 210, dogSprite, bank, stage, this.controller, frameLoader);
     }
 
     /**

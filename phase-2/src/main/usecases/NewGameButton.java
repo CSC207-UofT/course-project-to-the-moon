@@ -21,7 +21,6 @@ public class NewGameButton extends TextButton {
 
     @Override 
     public void onClick() {
-        //if savefile doesnt exist, create a blank one
         super.controller.createNewFile();
         super.controller.setActiveStage("Main");
     }

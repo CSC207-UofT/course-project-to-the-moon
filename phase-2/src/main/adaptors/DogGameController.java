@@ -24,8 +24,8 @@ public class DogGameController implements IGameController {
     private ICamera camera = null;
     private IFrameLoader frameLoader = null;
     private Bank bank = null;
-    private int lastPlatform_y;
     private GameReadWriter readWriter;
+    private final MinigameStageFactory factory = new MinigameStageFactory(this);
 
     public void initializeEcon(){
         this.econ = new Economy();
@@ -65,11 +65,10 @@ public class DogGameController implements IGameController {
                 this.setActiveStage("Main");
                 return true;
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -100,9 +99,6 @@ public class DogGameController implements IGameController {
     public void addBank(Bank bank) {
         this.bank = bank;
     }
-
-    private final MinigameStageFactory factory = new MinigameStageFactory(stages, lastPlatform_y,
-            this);
 
     /**
      * Adds the camera system to this controller
@@ -203,11 +199,12 @@ public class DogGameController implements IGameController {
     public void setActiveStage(String name) {
         // create the platformer stage everytime the active stage gets set to platformer
         if (name.equals("Platformer")) {
-            factory.addPlatformerStage(frameLoader, bank);
+            Stage platformerStage = factory.createPlatformerStage(frameLoader, bank);
+            this.addStage("Platformer", platformerStage);
         }
         else if(name.equals("Dino")){
-            factory.addDinoStage(frameLoader, bank);
-
+            Stage dinoStage = factory.createDinoStage(frameLoader, bank);
+            this.addStage("Dino", dinoStage);
         }
         else {
             // remove it whenever the controller switches from the minigame stage
@@ -230,26 +227,6 @@ public class DogGameController implements IGameController {
     @Override
     public Stage getActiveStage() {
         return this.activeStage;
-    }
-
-
-
-    /**
-     * A method which changes the sprite.
-     */
-    @Override
-    public void setDinoSprite(DinoDogGameObject dino, boolean ducked){
-        SpriteFacade dogSprite;
-        if(ducked){
-            BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_duck");
-             dogSprite = new SpriteFacade(dogFrames, 2);
-        }
-        else{
-            BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
-             dogSprite = new SpriteFacade(dogFrames, 2);
-        }
-
-        dino.setSprite(dogSprite);
     }
 
     public Bank getBank() {
