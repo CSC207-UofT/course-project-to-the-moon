@@ -35,7 +35,7 @@ public class DogGame {
     /**
      * Initialize a new dog game and all its frames.
      */
-    public DogGame() throws IOException, ClassNotFoundException {
+    public DogGame() throws IOException {
         int WIDTH = 300;
         int HEIGHT = 500;
         this.initializeMainFrame(WIDTH, HEIGHT);
