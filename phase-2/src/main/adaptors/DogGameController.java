@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  * This class represents a controller for the dog game. It processes mouse input.
- * @author Andy Wang, edited by Juntae
+ * @author Andy Wang, edited by Juntae, edited by Praket
  * @since 9 October 2021
  */
 public class DogGameController implements IGameController {
@@ -26,8 +26,6 @@ public class DogGameController implements IGameController {
     private Bank bank = null;
     private int lastPlatform_y;
     private GameReadWriter readWriter;
-    private MinigameStageFactory factory = new MinigameStageFactory(frameLoader, stages, lastPlatform_y, bank,
-            this);
 
     public void initializeEcon(){
         this.econ = new Economy();
@@ -102,6 +100,9 @@ public class DogGameController implements IGameController {
     public void addBank(Bank bank) {
         this.bank = bank;
     }
+
+    private final MinigameStageFactory factory = new MinigameStageFactory(stages, lastPlatform_y,
+            this);
 
     /**
      * Adds the camera system to this controller
@@ -202,10 +203,10 @@ public class DogGameController implements IGameController {
     public void setActiveStage(String name) {
         // create the platformer stage everytime the active stage gets set to platformer
         if (name.equals("Platformer")) {
-            factory.addPlatformerStage();
+            factory.addPlatformerStage(frameLoader, bank);
         }
         else if(name.equals("Dino")){
-            factory.addDinoStage();
+            factory.addDinoStage(frameLoader, bank);
 
         }
         else {
