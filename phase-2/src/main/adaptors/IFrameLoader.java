@@ -1,5 +1,7 @@
 package adaptors;
 
+import usecases.DinoDogGameObject;
+
 import java.awt.image.BufferedImage;
 
 /**
@@ -9,4 +11,5 @@ import java.awt.image.BufferedImage;
  */
 public interface IFrameLoader {
      BufferedImage[] loadFramesFromFolder(String folderName);
+      void setDinoSprite(DinoDogGameObject dino, boolean ducked);
 }

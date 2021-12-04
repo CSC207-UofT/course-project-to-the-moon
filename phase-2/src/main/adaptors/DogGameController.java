@@ -295,26 +295,10 @@ public class DogGameController implements IGameController {
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DinoDogGameObject(100, 210, dogSprite, bank, stage, this);
+        return new DinoDogGameObject(100, 210, dogSprite, bank, stage, this, this.frameLoader);
     }
 
-    /**
-     * A method which changes the sprite.
-     */
-    @Override
-    public void setDinoSprite(DinoDogGameObject dino, boolean ducked){
-        SpriteFacade dogSprite;
-        if(ducked){
-            BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_duck");
-             dogSprite = new SpriteFacade(dogFrames, 2);
-        }
-        else{
-            BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
-             dogSprite = new SpriteFacade(dogFrames, 2);
-        }
 
-        dino.setSprite(dogSprite);
-    }
 
     /**
      * A method which takes a minigame stage,

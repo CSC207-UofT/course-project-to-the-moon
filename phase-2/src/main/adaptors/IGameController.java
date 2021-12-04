@@ -19,7 +19,6 @@ public interface IGameController {
     void keyReleased(int code);
 
     boolean getKeyPressed(int code);
-    void setDinoSprite(DinoDogGameObject dino, boolean ducked);
 
     void addStage(String type, Stage s);
     void setActiveStage(String type);

@@ -1,5 +1,6 @@
 package usecases;
 
+import adaptors.IFrameLoader;
 import adaptors.IGameController;
 import adaptors.IGameGraphics;
 
@@ -24,10 +25,10 @@ public class DinoDogGameObject extends GameObject implements Drawable, Collidabl
      * @param controller The controller controlling this DogGameObject.
      */
     public DinoDogGameObject(int x, int y, SpriteFacade sprite, Bank bank, Stage stage,
-                                 IGameController controller){
+                             IGameController controller, IFrameLoader loader){
         super(x, y, "DinoDogGameObject", sprite, controller);
 
-        DinoDogMover dogMover = new DinoDogMover(this, bank, stage, controller);
+        DinoDogMover dogMover = new DinoDogMover(this, bank, stage, controller, loader);
         this.addMover(dogMover);
     }
 

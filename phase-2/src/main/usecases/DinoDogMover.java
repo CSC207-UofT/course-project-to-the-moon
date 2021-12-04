@@ -1,6 +1,7 @@
 package usecases;
 
 import adaptors.ICamera;
+import adaptors.IFrameLoader;
 import adaptors.IGameController;
 import entities.Transform;
 
@@ -20,6 +21,7 @@ import java.util.TimerTask;
 public class DinoDogMover implements Mover {
     private final DinoDogGameObject dog ;
     private final IGameController controller ;
+    private final IFrameLoader loader;
     private final Bank bank;
     private final Stage dinoStage;
     private final ICamera camera;
@@ -41,11 +43,13 @@ public class DinoDogMover implements Mover {
      * @param stage The stage to use.
      * @param controller The controller to use.
      */
-    public DinoDogMover(DinoDogGameObject dog, Bank bank, Stage stage, IGameController controller) {
+    public DinoDogMover(DinoDogGameObject dog, Bank bank, Stage stage, IGameController controller,
+                        IFrameLoader loader) {
         this.dog = dog;
         this.bank = bank;
         this.controller = controller;
         this.camera = controller.getCamera();
+        this.loader = loader;
         dinoStage = stage;
     }
 
@@ -78,7 +82,7 @@ public class DinoDogMover implements Mover {
 
                             dy = 10;
                             ducked = true;
-                            controller.setDinoSprite(dog, true);
+                            loader.setDinoSprite(dog, true);
                         }
                         else{
                             dy=0;
@@ -89,7 +93,7 @@ public class DinoDogMover implements Mover {
                     else{
                         if(ducked){
                             t.translateBy(0, -10);
-                            controller.setDinoSprite(dog, false);
+                            loader.setDinoSprite(dog, false);
 
                         }
                         dy=0;
