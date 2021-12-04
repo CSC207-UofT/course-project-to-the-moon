@@ -10,18 +10,52 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 
+/**
+ * A class using the Builder pattern to build a DogGameController.
+ * @author Praket, Andy
+ * @since Dec 2 2021
+ */
 public class ControllerBuilder {
-    private Stage mainStage;
-    private Stage shopStage;
-    private ICamera camera;
-    private final DogGameController controller = new DogGameController();
-    private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
     private final Bank bank = new Bank();
+    private final DogGameController controller;
+    private final IFrameLoader frameLoader;
+
+    /**
+     * Initializes a new ControllerBuilder using the given IFrameLoader.
+     * @param fl The IFrameLoader to use.
+     */
+    public ControllerBuilder(IFrameLoader fl) {
+        this.frameLoader = fl;
+        controller = new DogGameController();
+        controller.addFrameLoader(fl);
+
+        Stage mainStage = createMainStage();
+        Stage shopStage = createShopStage();
+        Stage minigameStage = createMinigameSelectionStage();
+
+        ICamera camera = new Camera(mainStage, new Rectangle(0, 0, 300, 500));
+
+        controller.addBank(this.bank);
+        controller.addStage("Main", mainStage);
+        controller.addStage("Shop", shopStage);
+        controller.addStage("MinigameSelection", minigameStage);
+        controller.addCamera(camera);
+        controller.setActiveStage("Main");
+    }
+
+    /**
+     * Return the controller built by this builder.
+     * @return The DogGameController built by this builder.
+     */
+    public DogGameController getController(){
+        return controller;
+    }
+
     /**
      * Helper method to create a single default dog.
      * @return The dog.
      */
-    public DogGameObject createDog() {
+    private DogGameObject createDog() {
         // create the default dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
@@ -33,7 +67,7 @@ public class ControllerBuilder {
      * Creates the Main stage.
      * @return The main stage.
      */
-    public Stage createMainStage() {
+    private Stage createMainStage() {
         Stage mainStage = new Stage("Main");
 
         DogGameObject dog = createDog();
@@ -61,7 +95,7 @@ public class ControllerBuilder {
     }
 
     // create the shop
-    public Stage createShopStage(){
+    private Stage createShopStage(){
         Stage shopStage = new Stage("Shop");
 
         // create the coin label
@@ -100,11 +134,38 @@ public class ControllerBuilder {
         return shopStage;
     }
 
-    public ICamera createCamera(){
-        return this.controller.getCamera();
-    }
+    // create the minigame selection stage
+    private Stage createMinigameSelectionStage(){
+        Stage minigameSelectionStage = new Stage("MinigameSelectionStage");
 
-    public DogGameController getController(){
-        return controller;
+        // create the coin label
+        TextLabel coinLabel = new CoinLabel(new Rectangle(25, 15, 50, 20),
+                "Coins: 0", "CoinLabel");
+        coinLabel.setLabelColor(null);
+        coinLabel.setTextColor(Color.WHITE);
+        minigameSelectionStage.addTextLabel(coinLabel);
+        this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
+
+        //create a button that leads to the platformer/doodle jump minigame
+        PlatformerButton platformerButton = new PlatformerButton(new Rectangle(100, 100, 100, 100),
+                "Platformer", "Platformer", this.controller);
+
+        minigameSelectionStage.addTextLabel(platformerButton);
+
+        //create a button that leads to the dino minigame
+        DinoButton dinoButton = new DinoButton(new Rectangle(100, 250, 100, 100),
+                "Dino", "Dino", this.controller);
+
+        minigameSelectionStage.addTextLabel(dinoButton);
+
+
+        HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
+                "Return", "Home", this.controller);
+        home.setLabelColor(null);
+        home.setTextColor(Color.WHITE);
+
+        minigameSelectionStage.addTextLabel(home);
+
+        return minigameSelectionStage;
     }
 }

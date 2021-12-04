@@ -29,6 +29,6 @@ public class MinigameSelectionButton extends TextButton {
 
     @Override
     public void onClick() {
-        control.setActiveStage("MinigameSelectionStage");
+        control.setActiveStage("MinigameSelection");
     }
 }
