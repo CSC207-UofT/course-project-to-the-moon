@@ -31,7 +31,6 @@ public class GameReadWriter {
 
     /**
      * Initialize a new GameReadWrite.
-     * @param controller The controller to save.
      * @param filepath The filepath to save to.
      */
     public GameReadWriter(String filepath) throws IOException{
