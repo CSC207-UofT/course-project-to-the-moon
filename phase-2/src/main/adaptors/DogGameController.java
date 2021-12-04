@@ -294,8 +294,13 @@ public class DogGameController implements IGameController {
         // create the minigame dog object
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/mini_dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
+        BufferedImage[] duckDogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog_duck");
+        SpriteFacade duckDogSprite = new SpriteFacade(duckDogFrames, 2);
+        ArrayList list= new ArrayList<SpriteFacade>();
+        list.add(dogSprite);
+        list.add(duckDogSprite);
 
-        return new DinoDogGameObject(100, 210, dogSprite, bank, stage, this, this.frameLoader);
+        return new DinoDogGameObject(100, 210, list, bank, stage, this, this.frameLoader);
     }
 
 
