@@ -1,7 +1,12 @@
 {
     "java.project.sourcePaths": [
-        "phase-1/src/main/programdrivers",
-        "phase-0/src/main",
-        "phase-1/src/main"
+        "phase-2/src/main/frameworkanddrivers",
+        "phase-2/src/main",
+        "phase-1/src/main",
+        "phase-0/src/main"
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Library/Java/Extensions/json-20210307.jar"
     ]
 }

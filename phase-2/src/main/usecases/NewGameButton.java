@@ -1,7 +1,6 @@
 package usecases;
 import adaptors.IGameController;
 import java.awt.*;
-import java.io.IOException;
 
 public class NewGameButton extends TextButton {
     /**
@@ -21,7 +20,7 @@ public class NewGameButton extends TextButton {
     }   
 
     @Override 
-    public void onClick() throws IOException, ClassNotFoundException {
+    public void onClick() {
         //if savefile doesnt exist, create a blank one
         super.controller.createNewFile();
         super.controller.setActiveStage("Main");

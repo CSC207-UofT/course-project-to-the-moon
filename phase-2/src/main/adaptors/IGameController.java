@@ -26,6 +26,7 @@ public interface IGameController {
     Stage getActiveStage();
     Stage getStage(String name);
 
-    void loadFromFile() throws IOException, ClassNotFoundException;
-    void createNewFile() throws IOException;
+    void loadFromFile();
+    void createNewFile();
+    GameReadWriter getReadWriter();
 }

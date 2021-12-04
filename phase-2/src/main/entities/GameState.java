@@ -1,4 +1,4 @@
-package adaptors;
+package entities;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -1,6 +1,7 @@
 package frameworkanddrivers;
 
 import adaptors.*;
+import entities.GameState;
 import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class DogGame {
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
     private final DogGameController controller = new DogGameController();
-    private final GameReadWriter gReadWriter = new GameReadWriter(controller, "phase-1/src/save/savefile.ser");
+    private final GameReadWriter gReadWriter = new GameReadWriter("phase-1/src/save/savefile.ser");
 
     /**
      * This is the main method. Run this to run the game.
@@ -40,6 +41,7 @@ public class DogGame {
         int WIDTH = 300;
         int HEIGHT = 500;
         this.initializeMainFrame(WIDTH, HEIGHT);
+        this.initializeGameSaver();
 
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
 
@@ -83,14 +85,17 @@ public class DogGame {
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.setLocationRelativeTo(null);
 
-        this.initializeGameSaver();
     }
 
-    private void initializeGameSaver() {
+    private void initializeGameSaver() throws IOException{
         mainFrame.addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent e) {
-                gReadWriter.saveGame();
+                try {
+                    gReadWriter.saveGame(false);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 System.exit(0);
             }
         });

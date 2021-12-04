@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  * A class to represent a Dogecoin miner button.
@@ -13,9 +15,11 @@ import java.util.concurrent.TimeUnit;
 
 public class MinerButton extends TextButton {
     private int cost;
+    private int mCost;
     private final int costIncrease;
     private final int dcps;
     private final Bank bank;
+    private final PropertyChangeSupport observable = new PropertyChangeSupport(this);
 
     /**
      * Initialize a new miner button.
@@ -34,6 +38,7 @@ public class MinerButton extends TextButton {
         this.cost = cost;
         this.costIncrease = costIncrease;
         this.dcps = dcps;
+        this.mCost = this.cost * 10;
 
         this.setStrokeWidth(2);
         this.setStrokeColor(Color.WHITE);
@@ -42,6 +47,23 @@ public class MinerButton extends TextButton {
     @Override
     public void setText(String text) {
         super.setText(text);
+    }
+
+    public void setCost(int newCost){
+        this.cost = newCost;
+        observable.firePropertyChange("cost changed", 0, this.cost);
+    }
+
+    public int getCost(){
+        return this.cost;
+    }
+
+    public int getMaxCost(){
+        return this.mCost;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener observer) {
+        observable.addPropertyChangeListener(observer);
     }
 
     @Override

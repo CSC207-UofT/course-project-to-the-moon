@@ -16,11 +16,12 @@ import java.io.IOException;
  * @since 9 October 2021
  */
 public class DogGame {
+    private final String saveFilePath = "phase-2/src/save/savefile.ser";
+
     private JFrame mainFrame = null;
 
     private final Bank bank = new Bank();
-    private final String saveFilePath = "phase-2/src/save/savefile.ser";
-    private final GameReadWriter gReadWriter = new GameReadWriter(this.saveFilePath);
+    private final GameReadWriter gReadWriter = new GameReadWriter(saveFilePath);
     private final DogGameController controller;
 
     /**
@@ -42,7 +43,7 @@ public class DogGame {
 
         DogGameFrameLoader frameLoader = new DogGameFrameLoader();
         Rectangle cameraBounds = new Rectangle(0, 0, WIDTH, HEIGHT);
-        ControllerBuilder builder = new ControllerBuilder(frameLoader, cameraBounds);
+        ControllerBuilder builder = new ControllerBuilder(frameLoader, cameraBounds, gReadWriter);
 
         this.controller = builder.getController();
 

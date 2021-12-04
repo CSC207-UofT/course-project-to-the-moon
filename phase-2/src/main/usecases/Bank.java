@@ -65,15 +65,10 @@ public class Bank {
         return this.coins;
     }
 
-    // setters
-
     public void setDCPS(int dcps) {
         this.dcps = dcps;
     }
 
-    // public void setCoin(int c) {
-    //    this.coins = c;
-    //}
 
     // depedency inversion!
     public void addPropertyChangeListener(PropertyChangeListener observer) {

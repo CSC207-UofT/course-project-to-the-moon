@@ -15,16 +15,21 @@ public class ControllerBuilder {
     private final Bank bank = new Bank();
     private final DogGameController controller;
     private final IFrameLoader frameLoader;
+    private final GameReadWriter gReadWriter;
 
     /**
      * Initializes a new ControllerBuilder using the given IFrameLoader and camera bounds.
      * @param fl The IFrameLoader to use.
      * @param bounds The camera bounds.
      */
-    public ControllerBuilder(IFrameLoader fl, Rectangle bounds) {
+    public ControllerBuilder(IFrameLoader fl, Rectangle bounds, GameReadWriter gReadWriter) {
         this.frameLoader = fl;
         controller = new DogGameController();
         controller.addFrameLoader(fl);
+
+        this.gReadWriter = gReadWriter;
+        controller.addReadWriter(gReadWriter);
+        controller.initializeEcon();
 
         Stage mainStage = createMainStage();
         Stage shopStage = createShopStage();
@@ -73,6 +78,7 @@ public class ControllerBuilder {
 
         DogGameObject dog = createDog();
         mainStage.addGameObject(dog);
+        getController().getReadWriter().addDog(dog);
 
         // create the coin label
         TextLabel coinLabel = new CoinLabel(new Rectangle(25, 15, 50, 20),
@@ -112,18 +118,48 @@ public class ControllerBuilder {
                 "Buy Computer", "Computer", this.bank, 50, 10, 10);
 
         shopStage.addTextLabel(computer);
+        controller.getEcon().addItem(computer);
+
+        // cost label for the computer
+        TextLabel compLabel = new ObserverLabel(new Rectangle(130, 90, 50, 20),
+                "Price: "+computer.getCost(), "ItemLabel");
+        
+        compLabel.setLabelColor(null);
+        compLabel.setTextColor(Color.WHITE);
+        shopStage.addTextLabel(compLabel);
+        computer.addPropertyChangeListener((PropertyChangeListener) compLabel);
 
         //the button to purchase the factory dogecoin miner
         MinerButton factory = new MinerButton(new Rectangle(90, 165, 130, 100),
                 "Buy Factory", "Factory", this.bank, 500, 100 , 100);
 
         shopStage.addTextLabel(factory);
+        controller.getEcon().addItem(factory);
+
+        // cost label for the factory
+        TextLabel facLabel = new ObserverLabel(new Rectangle(130, 225, 50, 20),
+                "Price: "+computer.getCost(), "ItemLabel");
+        
+        facLabel.setLabelColor(null);
+        facLabel.setTextColor(Color.WHITE);
+        shopStage.addTextLabel(facLabel);
+        factory.addPropertyChangeListener((PropertyChangeListener) facLabel);
 
         //the button to purchase the lunar dog cafe dogecoin miner
         MinerButton lunarDogCafe = new MinerButton(new Rectangle(90, 300, 130, 100),
                 "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 800);
 
         shopStage.addTextLabel(lunarDogCafe);
+        controller.getEcon().addItem(lunarDogCafe);
+
+        // cost label for the cafe
+        TextLabel cafeLabel = new ObserverLabel(new Rectangle(130, 360, 50, 20),
+                "Price: "+computer.getCost(), "ItemLabel");
+        
+        cafeLabel.setLabelColor(null);
+        cafeLabel.setTextColor(Color.WHITE);
+        shopStage.addTextLabel(cafeLabel);
+        lunarDogCafe.addPropertyChangeListener((PropertyChangeListener) cafeLabel);
 
         HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
                 "Return", "Home", this.controller);
@@ -181,8 +217,9 @@ public class ControllerBuilder {
                 "New Game", "NewGame", this.controller);
 
         LoadGameButton loadGame = new LoadGameButton(new Rectangle(100, 250, 100, 40),
-                "Load Game", "LoadGame", this.controller);
+                "Load Game", "LoadGame", this.controller, this.controller.getSaveFilePath());
 
+        loadGame.addPropertyChangeListener((PropertyChangeListener) this.controller.getEcon());
         startStage.addTextLabel(newGame);
         startStage.addTextLabel(loadGame);
 
