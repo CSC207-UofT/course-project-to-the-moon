@@ -45,6 +45,9 @@ public class DogGame {
         ControllerBuilder builder = new ControllerBuilder(frameLoader, cameraBounds, gReadWriter);
 
         this.controller = builder.getController();
+        this.controller.addReadWriter(this.gReadWriter);
+        
+        this.gReadWriter.addBank(this.bank);
 
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
         panel.setFocusable(true);
@@ -54,7 +57,7 @@ public class DogGame {
 
         mainFrame.add(panel);
 
-        this.initializeGameSaver();
+        this.runGameSaver();
     }
 
     /**
@@ -71,11 +74,8 @@ public class DogGame {
         mainFrame.setLocationRelativeTo(null);
     }
 
-    // initializes the game saver class
-    private void initializeGameSaver() throws IOException {
-        this.controller.addReadWriter(this.gReadWriter);
-        this.gReadWriter.addBank(this.bank);
-
+    // Listens for game ending and saves the game
+    private void runGameSaver() throws IOException {
         mainFrame.addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent e) {
