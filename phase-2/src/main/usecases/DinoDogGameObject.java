@@ -6,6 +6,7 @@ import adaptors.IGameGraphics;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * A class which manages a single dog object
@@ -14,20 +15,22 @@ import java.awt.image.BufferedImage;
  * @since 23 November 2021
  */
 public class DinoDogGameObject extends GameObject implements Drawable, Collidable {
+    ArrayList<SpriteFacade> spriteList;
 
     /**
      * Initializes a new DogGameObject at the given coordinates.
      * @param x The x coordinate.
      * @param y The y coordinate.
-     * @param sprite The sprite of the dog.
+     * @param spriteList The Arraylist containing the two sprites of the dog.
      * @param bank The bank to update.
      * @param stage The minigame stage.
      * @param controller The controller controlling this DogGameObject.
      */
-    public DinoDogGameObject(int x, int y, SpriteFacade sprite, Bank bank, Stage stage,
+    public DinoDogGameObject(int x, int y, ArrayList<SpriteFacade> spriteList, Bank bank, Stage stage,
                              IGameController controller, IFrameLoader loader){
-        super(x, y, "DinoDogGameObject", sprite, controller);
+        super(x, y, "DinoDogGameObject", spriteList.get(0), controller);
 
+        this.spriteList =spriteList;
         DinoDogMover dogMover = new DinoDogMover(this, bank, stage, controller, loader);
         this.addMover(dogMover);
     }
@@ -67,6 +70,11 @@ public class DinoDogGameObject extends GameObject implements Drawable, Collidabl
         return new Rectangle(x, y + 5 * (this.getHeight() / 6),
                 this.getWidth(), this.getHeight() / 6);
         // for the platforming dog, we only care about the lower part of it
+    }
+
+    public void switchSprite(boolean ducked){
+        int val = ducked? 1 : 0;
+        super.setSprite(this.spriteList.get(val));
     }
 
 }
