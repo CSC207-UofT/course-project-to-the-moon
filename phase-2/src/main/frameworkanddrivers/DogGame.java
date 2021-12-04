@@ -19,7 +19,6 @@ public class DogGame {
     private final String saveFilePath = "phase-2/src/save/savefile.ser";
 
     private JFrame mainFrame = null;
-    private final Bank bank = new Bank();
     private final GameReadWriter gReadWriter = new GameReadWriter(saveFilePath);
     private final DogGameController controller;
 
@@ -46,8 +45,6 @@ public class DogGame {
 
         this.controller = builder.getController();
         this.controller.addReadWriter(this.gReadWriter);
-        
-        this.gReadWriter.addBank(this.bank);
 
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
         panel.setFocusable(true);

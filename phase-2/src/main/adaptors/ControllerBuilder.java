@@ -39,6 +39,7 @@ public class ControllerBuilder {
         ICamera camera = new Camera(mainStage, bounds);
 
         controller.addBank(this.bank);
+        this.gReadWriter.addBank(this.bank);
 
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
