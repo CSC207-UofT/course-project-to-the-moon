@@ -24,7 +24,6 @@ public interface IGameController {
     void addStage(String type, Stage s);
     void setActiveStage(String type);
     Stage getActiveStage();
-    Stage getStage(String name);
 
     void loadFromFile();
     void createNewFile();

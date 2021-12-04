@@ -81,7 +81,7 @@ public class ControllerBuilder {
         getController().getReadWriter().addDog(dog);
 
         // create the coin label
-        TextLabel coinLabel = new CoinLabel(new Rectangle(25, 15, 50, 20),
+        TextLabel coinLabel = new ObserverLabel(new Rectangle(25, 15, 50, 20),
                 "Coins: 0", "CoinLabel");
         coinLabel.setLabelColor(null);
         coinLabel.setTextColor(Color.WHITE);
@@ -106,7 +106,7 @@ public class ControllerBuilder {
         Stage shopStage = new Stage("Shop");
 
         // create the coin label
-        TextLabel coinLabel = new CoinLabel(new Rectangle(25, 15, 50, 20),
+        TextLabel coinLabel = new ObserverLabel(new Rectangle(25, 15, 50, 20),
                 "Coins: 0", "CoinLabel");
         coinLabel.setLabelColor(null);
         coinLabel.setTextColor(Color.WHITE);
@@ -176,7 +176,7 @@ public class ControllerBuilder {
         Stage minigameSelectionStage = new Stage("MinigameSelectionStage");
 
         // create the coin label
-        TextLabel coinLabel = new CoinLabel(new Rectangle(25, 15, 50, 20),
+        TextLabel coinLabel = new ObserverLabel(new Rectangle(25, 15, 50, 20),
                 "Coins: 0", "CoinLabel");
         coinLabel.setLabelColor(null);
         coinLabel.setTextColor(Color.WHITE);

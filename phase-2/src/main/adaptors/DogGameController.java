@@ -36,8 +36,8 @@ public class DogGameController implements IGameController {
     }
 
     /**
-     * Adds a gameReadWriter
-     * @param grw
+     * Gets the save file path.
+     * @return The save file path.
      */
     public String getSaveFilePath(){
         return this.saveFilePath;
@@ -223,15 +223,6 @@ public class DogGameController implements IGameController {
     @Override
     public Stage getActiveStage() {
         return this.activeStage;
-    }
-
-    /**
-     * Returns a stage given a name.
-     * @return The stage with the given name.
-     */
-    @Override
-    public Stage getStage(String name) {
-        return this.stages.get(name);
     }
 
     /**
