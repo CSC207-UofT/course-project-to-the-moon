@@ -14,14 +14,34 @@ import java.util.Random;
  * @since 9 October 2021
  */
 public class DogGameController implements IGameController {
+    private final String saveFilePath = "phase-2/src/save/savefile.ser";
+
     private final HashMap<String, Stage> stages = new HashMap<>();
     private final ArrayList<Integer> keysPressedList = new ArrayList<>();
+    private Economy econ;
     private Stage activeStage = null;
     private ICamera camera = null;
     private IFrameLoader frameLoader = null;
     private Bank bank = null;
     private int lastPlatform_y;
     private GameReadWriter readWriter;
+
+    public void initializeEcon(){
+        this.econ = new Economy();
+        econ.addReadWriter(this.readWriter);
+    }
+
+    public Economy getEcon(){
+        return this.econ;
+    }
+
+    /**
+     * Adds a gameReadWriter
+     * @param grw
+     */
+    public String getSaveFilePath(){
+        return this.saveFilePath;
+    }
 
     /**
      * Adds a gameReadWriter
@@ -31,20 +51,35 @@ public class DogGameController implements IGameController {
         this.readWriter = grw;
     }
 
-    /**
-     * Loads the gamestate from the past ser file
-     */
     @Override
-    public void loadFromFile() throws IOException, ClassNotFoundException {
-        this.readWriter.readFromFile();
+    public GameReadWriter getReadWriter() {
+        return this.readWriter;
     }
 
     /**
      * Loads the gamestate from the past ser file
      */
     @Override
-    public void createNewFile() throws IOException{
-        this.readWriter.saveGame(true);
+    public void loadFromFile() {
+        try {
+            this.readWriter.readFromFile();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads the gamestate from the past ser file
+     */
+    @Override
+    public void createNewFile() {
+        try {
+            this.readWriter.saveGame(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -19,5 +19,8 @@ public class GameState implements Serializable {
     public Map<String, Object> getState() {
         return this.gameState;
     }
+
+    public void save(String string, int coins) {
+    }
     
 }

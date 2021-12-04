@@ -10,7 +10,7 @@ import java.awt.*;
  * @since 29 October 2021
  */
 public class TextLabel extends AbstractObject implements Drawable {
-    protected String text;
+    public String text;
     protected Rectangle rectangle;
 
     private Color labelColor = null;

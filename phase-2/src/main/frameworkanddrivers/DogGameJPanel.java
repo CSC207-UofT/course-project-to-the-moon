@@ -1,4 +1,4 @@
-package frameworkanddrivers;
+//package frameworkanddrivers;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,12 +16,12 @@ import usecases.TextLabel;
 
 import javax.swing.JPanel;
 
-
 /**
  * This class represents a presenter for the dog game, responsible for drawing everything.
  * @author Andy Wang, Juntae Park
  * @since 9 October 2021
  */
+
 public class DogGameJPanel extends JPanel{
     private final int width;
     private final int height;
