@@ -3,6 +3,7 @@ package adaptors;
 import usecases.*;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -20,6 +21,31 @@ public class DogGameController implements IGameController {
     private IFrameLoader frameLoader = null;
     private Bank bank = null;
     private int lastPlatform_y;
+    private GameReadWriter readWriter;
+
+    /**
+     * Adds a gameReadWriter
+     * @param grw
+     */
+    public void addReadWriter(GameReadWriter grw){
+        this.readWriter = grw;
+    }
+
+    /**
+     * Loads the gamestate from the past ser file
+     */
+    @Override
+    public void loadFromFile() throws IOException, ClassNotFoundException {
+        this.readWriter.readFromFile();
+    }
+
+    /**
+     * Loads the gamestate from the past ser file
+     */
+    @Override
+    public void createNewFile() throws IOException{
+        this.readWriter.saveGame(true);
+    }
 
     /**
      * Adds a FrameLoader.
@@ -59,9 +85,11 @@ public class DogGameController implements IGameController {
      * Processes a mouse click on the screen.
      * @param x The x-coordinate of the click.
      * @param y The y-coordinate of the click.
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Override
-    public void mouseClicked(int x, int y) {
+    public void mouseClicked(int x, int y) throws IOException,ClassNotFoundException {
         // loop through game objects in the stage
         for (GameObject go : this.activeStage.getGameObjects()) {
             if (go instanceof Clickable) {

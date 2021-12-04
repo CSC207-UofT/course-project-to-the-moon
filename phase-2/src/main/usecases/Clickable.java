@@ -1,5 +1,7 @@
 package usecases;
 
+import java.io.IOException;
+
 /**
  * This interface is to be implemented on all clickable entities
  * @author Juntae Park
@@ -8,5 +10,5 @@ package usecases;
 
 public interface Clickable {
      boolean isClicked(int mouseX, int mouseY);
-     void onClick();
+     void onClick() throws IOException, ClassNotFoundException;
 }

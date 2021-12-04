@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -22,7 +23,8 @@ public class DogGame {
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
     private final ControllerBuilder builder = new ControllerBuilder(frameLoader);
-    // private final GameReadWriter gReadWriter = new GameReadWriter(controller, "phase-1/src/save/savefile.ser");
+    private final String saveFilePath = "phase-2/src/save/savefile.ser";
+    private final GameReadWriter gReadWriter = new GameReadWriter(this.saveFilePath);
 
     /**
      * This is the main method. Run this to run the game.
@@ -40,8 +42,11 @@ public class DogGame {
         int WIDTH = 300;
         int HEIGHT = 500;
         this.initializeMainFrame(WIDTH, HEIGHT);
+        this.initializeGameSaver();
 
         DogGameController controller = builder.getController();
+        //controller.addStage("StartStage", startStage);
+        //controller.setActiveStage("StartStage");
 
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
         panel.setFocusable(true);
@@ -50,9 +55,6 @@ public class DogGame {
         panel.requestFocus();
 
         mainFrame.add(panel);
-
-        //read save file
-        //this.readSaveFile();
     }
 
     /**
@@ -67,24 +69,48 @@ public class DogGame {
         mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLocationRelativeTo(null);
-
-        //this.initializeGameSaver();
     }
 
-//    private void initializeGameSaver() {
-//        mainFrame.addWindowListener(new WindowAdapter(){
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                gReadWriter.saveGame();
-//                System.exit(0);
-//            }
-//        });
-//    }
-//    private void readSaveFile() throws IOException, ClassNotFoundException {
-//        GameState savedState = this.gReadWriter.readFromFile();
-//        this.bank.updateCoins((int) savedState.getState().get("Coins"));
-//        this.bank.setDCPS((int) savedState.getState().get("DCPS"));
-//    }
+    private void initializeGameSaver() throws IOException {
+
+        this.controller.addReadWriter(this.gReadWriter);
+        this.gReadWriter.addBank(this.bank);
+
+        mainFrame.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                File savefile = new File(saveFilePath);
+                
+                try {
+                    if(savefile.exists()) { gReadWriter.saveGame(false); }
+
+                } catch (IOException er) {
+                    System.out.println(er.getMessage());
+                }
+
+                System.exit(0);
+            }
+        });
+    }
+
+    /**
+     * Creates the Start stage.
+     * @return The start stage.
+     */
+    private Stage createStartStage() {
+        Stage startStage = new Stage("Start");
+      
+        NewGameButton newGame = new NewGameButton(new Rectangle(100, 100, 100, 40),
+                "New Game", "NewGame", this.controller, this.saveFilePath);
+
+        LoadGameButton loadGame = new LoadGameButton(new Rectangle(100, 250, 100, 40),
+        "Load Game", "LoadGame", this.controller, this.saveFilePath);
+
+        startStage.addTextLabel(newGame);
+        startStage.addTextLabel(loadGame);
+
+        return startStage;
+    }
 
     /**
      * Starts the dog game.
