@@ -22,10 +22,9 @@ public class DogGame {
 
     private final Bank bank = new Bank();
     private final DogGameFrameLoader frameLoader = new DogGameFrameLoader();
-    private final DogGameController controller = new DogGameController();
-
+    private final ControllerBuilder builder = new ControllerBuilder(frameLoader);
     private final String saveFilePath = "phase-2/src/save/savefile.ser";
-    GameReadWriter gReadWriter = new GameReadWriter(this.saveFilePath);
+    private final GameReadWriter gReadWriter = new GameReadWriter(this.saveFilePath);
 
     /**
      * This is the main method. Run this to run the game.
@@ -45,29 +44,14 @@ public class DogGame {
         this.initializeMainFrame(WIDTH, HEIGHT);
         this.initializeGameSaver();
 
+        DogGameController controller = builder.getController();
+        //controller.addStage("StartStage", startStage);
+        //controller.setActiveStage("StartStage");
+
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
-
-        // Create the game stages
-        Stage mainStage = this.createMainStage();
-        Stage shopStage = this.createShopStage();
-        Stage minigameSelectionStage = this.createMinigameSelectionStage();
-        Stage startStage = this.createStartStage();
-
-        Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
-        ICamera camera = new Camera(mainStage, bounds);
-
-        controller.addBank(bank);
-        controller.addFrameLoader(frameLoader);
-        controller.addStage("StartStage", startStage);
-        controller.addStage("Main", mainStage);
-        controller.addStage("Shop", shopStage);
-        controller.addStage("MinigameSelectionStage", minigameSelectionStage);
-        controller.addCamera(camera);
-        controller.setActiveStage("StartStage");
-
         panel.setFocusable(true);
         panel.addController(controller);
-        panel.addCamera(camera);
+        panel.addCamera(controller.getCamera());
         panel.requestFocus();
 
         mainFrame.add(panel);
@@ -108,18 +92,6 @@ public class DogGame {
             }
         });
     }
-    
-    /**
-     * Helper method to create a single default dog.
-     * @return The dog.
-     */
-    private DogGameObject createDog() {
-        // create the default dog object
-        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
-        SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
-
-        return new DogGameObject(50, 100, dogSprite, this.bank);
-    }
 
     /**
      * Creates the Start stage.
@@ -138,112 +110,6 @@ public class DogGame {
         startStage.addTextLabel(loadGame);
 
         return startStage;
-    }
-
-    /**
-     * Creates the Main stage.
-     * @return The main stage.
-     */
-    private Stage createMainStage() {
-        Stage mainStage = new Stage("Main");
-
-        DogGameObject dog = createDog();
-        mainStage.addGameObject(dog);
-        gReadWriter.addDog(dog);
-
-        // create the coin label
-        TextLabel coinLabel = new CoinLabel(new Rectangle(25, 15, 50, 20),
-                "Coins: 0", "CoinLabel");
-        coinLabel.setLabelColor(null);
-        coinLabel.setTextColor(Color.WHITE);
-        mainStage.addTextLabel(coinLabel);
-        this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
-      
-        ShopButton shop = new ShopButton(new Rectangle(190, 400, 80, 20),
-                "Shop", "Shop", this.controller);
-        // You can change the coordinates of this button later
-
-        MinigameSelectionButton minigameSelection = new MinigameSelectionButton(new Rectangle(190, 430,
-                80, 20),
-                "Minigames", "MinigameSelection", this.controller);
-
-        mainStage.addTextLabel(shop);
-        mainStage.addTextLabel(minigameSelection);
-        return mainStage;
-    }
-
-    // create the shop
-    private Stage createShopStage(){
-        Stage shopStage = new Stage("Shop");
-
-        // create the coin label
-        TextLabel coinLabel = new CoinLabel(new Rectangle(25, 15, 50, 20),
-                "Coins: 0", "CoinLabel");
-        coinLabel.setLabelColor(null);
-        coinLabel.setTextColor(Color.WHITE);
-        shopStage.addTextLabel(coinLabel);
-        this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
-
-        // the button to purchase the computer dogecoin miner
-        MinerButton computer = new MinerButton(new Rectangle(90, 30, 130, 100),
-                "Buy Computer", "Computer", this.bank, 50, 10, 10);
-
-        shopStage.addTextLabel(computer);
-
-        //the button to purchase the factory dogecoin miner
-        MinerButton factory = new MinerButton(new Rectangle(90, 165, 130, 100),
-                "Buy Factory", "Factory", this.bank, 5000, 1000 , 50);
-
-        shopStage.addTextLabel(factory);
-
-        //the button to purchase the lunar dog cafe dogecoin miner
-        MinerButton lunarDogCafe = new MinerButton(new Rectangle(90, 300, 130, 100),
-                "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 10000, 5000, 100);
-
-        shopStage.addTextLabel(lunarDogCafe);
-
-        HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
-                "Return", "Home", this.controller);
-        home.setLabelColor(null);
-        home.setTextColor(Color.WHITE);
-
-        shopStage.addTextLabel(home);
-
-        return shopStage;
-    }
-
-    // create the minigame selection stage
-    private Stage createMinigameSelectionStage(){
-        Stage minigameSelectionStage = new Stage("MinigameSelectionStage");
-
-        // create the coin label
-        TextLabel coinLabel = new CoinLabel(new Rectangle(25, 15, 50, 20),
-                "Coins: 0", "CoinLabel");
-        coinLabel.setLabelColor(null);
-        coinLabel.setTextColor(Color.WHITE);
-        minigameSelectionStage.addTextLabel(coinLabel);
-        this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
-
-        //create a button that leads to the platformer/doodle jump minigame
-        PlatformerButton platformerButton = new PlatformerButton(new Rectangle(100, 100, 100, 100),
-                "Platformer", "Platformer", this.controller);
-
-        minigameSelectionStage.addTextLabel(platformerButton);
-
-        //create a button that leads to the dino minigame
-        DinoButton dinoButton = new DinoButton(new Rectangle(100, 250, 100, 100),
-                "Dino", "Dino", this.controller);
-
-        minigameSelectionStage.addTextLabel(dinoButton);
-
-        HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
-                "Return", "Home", this.controller);
-        home.setLabelColor(null);
-        home.setTextColor(Color.WHITE);
-
-        minigameSelectionStage.addTextLabel(home);
-
-        return minigameSelectionStage;
     }
 
     /**
