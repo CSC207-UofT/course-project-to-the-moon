@@ -128,15 +128,17 @@ public class DinoDogMover implements Mover {
 
     private boolean hitPlatform() {
 
-        boolean hitNormalPlatform = dinoStage.placeMeeting(dog, dog.getX() + 1, dog.getY(),
-                "Platform") ;
-        boolean onWinningPlatform = (dinoStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
-                "WinningPlatform") && dy > 0);
+        synchronized (dinoStage) {
+            boolean hitNormalPlatform = dinoStage.placeMeeting(dog, dog.getX() + 1, dog.getY(),
+                    "Platform");
+            boolean onWinningPlatform = (dinoStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
+                    "WinningPlatform") && dy > 0);
 
-        if (onWinningPlatform) {
-            won = true;
+            if (onWinningPlatform) {
+                won = true;
+            }
+            return (hitNormalPlatform || onWinningPlatform);
         }
-        return (hitNormalPlatform || onWinningPlatform);
     }
 
 
