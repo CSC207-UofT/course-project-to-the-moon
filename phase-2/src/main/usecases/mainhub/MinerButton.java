@@ -44,7 +44,8 @@ public class MinerButton extends TextButton {
         this.mCost = this.cost * 10;
 
         this.setStrokeWidth(2);
-        this.setStrokeColor(Color.WHITE);
+        this.setTextColor(Color.WHITE);
+        this.setStrokeColor(Color.CYAN);
     }
 
     /**
@@ -79,7 +80,7 @@ public class MinerButton extends TextButton {
 
     @Override
     public void onClick() {
-        if (bank.makePurchase(cost)) {
+        if (bank.makePurchase(cost) && !this.text.equals("Purchased!")) {
             bank.increaseDCPS(dcps);
             this.cost += costIncrease;
 
@@ -93,7 +94,7 @@ public class MinerButton extends TextButton {
                             setText(name);
                         }
                     },
-                    2000
+                    1000
             );
 
             if (this.controller != null) {

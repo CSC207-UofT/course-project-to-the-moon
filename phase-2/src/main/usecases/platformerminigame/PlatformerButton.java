@@ -27,7 +27,7 @@ public class PlatformerButton extends TextButton {
 
         this.setStrokeWidth(2);
         this.setStrokeColor(Color.GREEN);
-        this.setTextColor(Color.GREEN);
+        this.setTextColor(Color.WHITE);
     }
 
     @Override
