@@ -1,5 +1,6 @@
 package usecases.mainhub;
 
+import adaptors.IGameController;
 import usecases.Bank;
 import usecases.object.TextButton;
 
@@ -20,6 +21,7 @@ public class MinerButton extends TextButton {
     private final int dcps;
     private final Bank bank;
     private final PropertyChangeSupport observable = new PropertyChangeSupport(this);
+    private IGameController controller;
 
     /**
      * Initialize a new miner button.
@@ -32,7 +34,8 @@ public class MinerButton extends TextButton {
      * @param costIncrease How much the cost increases per purchase.
      * @param dcps         The dogecoin per second that this miner gives.
      */
-    public MinerButton(Rectangle r, String text, String tag, Bank bank, int cost, int costIncrease, int dcps) {
+    public MinerButton(Rectangle r, String text, String tag, Bank bank,
+                       int cost, int costIncrease, int dcps) {
         super(r, text, tag, null);
         this.bank = bank;
         this.cost = cost;
@@ -42,6 +45,14 @@ public class MinerButton extends TextButton {
 
         this.setStrokeWidth(2);
         this.setStrokeColor(Color.WHITE);
+    }
+
+    /**
+     * Adds a controller that controls this button.
+     * @param c The controller to add.
+     */
+    public void addController(IGameController c) {
+        this.controller = c;
     }
 
     @Override
@@ -84,6 +95,10 @@ public class MinerButton extends TextButton {
                     },
                     2000
             );
+
+            if (this.controller != null) {
+                this.controller.playSound("cash.wav", 0);
+            }
         }
     }
 }

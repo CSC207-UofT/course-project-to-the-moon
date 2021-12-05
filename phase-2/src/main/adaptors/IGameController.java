@@ -26,4 +26,6 @@ public interface IGameController {
     boolean loadFromFile();
     void createNewFile();
     GameReadWriter getReadWriter();
+
+    void playSound(String name, int loopCount);
 }

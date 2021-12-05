@@ -29,7 +29,7 @@ public class TestController {
         loader = new DogGameFrameLoader();
         newBank = new Bank();
         BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-1/src/sprites/dog");
-        dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),newBank);
+        dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),newBank, testController);
         stage = new Stage("Main");
         stage.addGameObject(dogObject);
         testController.addStage("Main", stage);

@@ -24,7 +24,7 @@ public class TestDogGameJPanel {
         testController = new DogGameController();
         loader = new DogGameFrameLoader();
         BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-1/src/sprites/dog");
-        dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),new Bank());
+        dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),new Bank(), null);
         testController.addStage("Main", new Stage("Main"));
         testController.setActiveStage("Main");
         panel = new DogGameJPanel(100, 100);

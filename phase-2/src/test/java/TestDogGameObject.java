@@ -29,7 +29,7 @@ public class TestDogGameObject {
         BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-1/src/sprites/dog");
         testBank = new Bank();
         testSpriteFacade = new SpriteFacade(dogFrames);
-        testDogGameObject = new DogGameObject(5, 4, testSpriteFacade, testBank);
+        testDogGameObject = new DogGameObject(5, 4, testSpriteFacade, testBank, null);
         testDogMover = new DogMover(new Sprite(dogFrames), 10, 20);
     }
 

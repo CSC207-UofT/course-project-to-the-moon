@@ -30,7 +30,7 @@ public class DinoDogMover implements Mover {
     private final ICamera camera;
     private final Timer timer = new Timer();
 
-    private final int JUMP_SPEED = -12;
+    private final int JUMP_SPEED = 12;
     private final int RUN_SPEED = 4;
     private final float GRAVITY = .8F;
     private boolean jumped =false;
@@ -68,8 +68,9 @@ public class DinoDogMover implements Mover {
                 // Checks if it's in the air
                 // And the jump hasn't been initiated.
                 if(getSpace() && !jumped){
-                    dy = JUMP_SPEED;
+                    dy = -JUMP_SPEED;
                     jumped = true;
+                    controller.playSound("jump.wav", 0);
                 }
                 // This case is when the dog is in the air
                 // And it's being brought down by gravity
@@ -162,6 +163,7 @@ public class DinoDogMover implements Mover {
 
         // end the game if you win
         if (won) {
+            controller.playSound("win.wav", 0);
             controller.setActiveStage("Main");
             int coinsEarned = 50000 + 100 * bank.getDCPS();
             bank.updateCoins(coinsEarned);
@@ -170,6 +172,7 @@ public class DinoDogMover implements Mover {
         }
         // Ends game if you hit a platform
         else if (hitPlatform()){
+            controller.playSound("loss.wav", 0);
             controller.setActiveStage("Main");
             System.out.println("u lost the game lmao");
             timer.cancel();

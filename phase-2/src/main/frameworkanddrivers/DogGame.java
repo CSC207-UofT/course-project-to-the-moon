@@ -20,6 +20,7 @@ public class DogGame {
 
     private JFrame mainFrame = null;
     private final GameReadWriter gReadWriter = new GameReadWriter(saveFilePath);
+    private final DogGameSoundPlayer soundPlayer = new DogGameSoundPlayer();
     private final DogGameController controller;
 
     /**
@@ -41,7 +42,7 @@ public class DogGame {
 
         DogGameFrameLoader frameLoader = new DogGameFrameLoader();
         Rectangle cameraBounds = new Rectangle(0, 0, WIDTH, HEIGHT);
-        ControllerBuilder builder = new ControllerBuilder(frameLoader, cameraBounds, gReadWriter);
+        ControllerBuilder builder = new ControllerBuilder(frameLoader, cameraBounds, gReadWriter, soundPlayer);
 
         this.controller = builder.getController();
         this.controller.addReadWriter(this.gReadWriter);
@@ -95,5 +96,7 @@ public class DogGame {
      */
     public void start() {
         mainFrame.setVisible(true);
+        // courtesy of Toby Fox (Undertale)
+        soundPlayer.play("Dogsong.wav", -1);
     }
 }

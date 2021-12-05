@@ -69,6 +69,7 @@ public class PlatformerDogMover implements Mover {
                 // HANDLE JUMPING
                 if (onPlatform()) {
                     dy = -JUMP_SPEED;
+                    controller.playSound("jump.wav", 0);
                 }
 
                 t.translateBy(dx, 0);
@@ -131,6 +132,7 @@ public class PlatformerDogMover implements Mover {
 
         // end the game if you fall off
         if (t.getY() > cameraTransform.getY() + 500) {
+            controller.playSound("loss.wav", 0);
             controller.setActiveStage("Main");
             System.out.println("u lost the game lmao");
             timer.cancel();
@@ -138,6 +140,7 @@ public class PlatformerDogMover implements Mover {
 
         // end the game if you win
         if (won) {
+            controller.playSound("win.wav", 0);
             controller.setActiveStage("Main");
             int coinsEarned = 50000 + 100 * bank.getDCPS();
             bank.updateCoins(coinsEarned);

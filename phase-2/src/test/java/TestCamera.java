@@ -27,7 +27,7 @@ public class TestCamera {
         testController = new DogGameController();
         loader = new DogGameFrameLoader();
         BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-1/src/sprites/dog");
-        dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),new Bank());
+        dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),new Bank(), null);
         stage = new Stage("Main");
 
         camera = new Camera(stage, new Rectangle(0, 0, 1000, 1000));
@@ -43,7 +43,7 @@ public class TestCamera {
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames);
 
-        DogGameObject dogObj = new DogGameObject(0, 0, dogSprite ,new Bank());
+        DogGameObject dogObj = new DogGameObject(0, 0, dogSprite ,new Bank(), null);
         PlatformGameObject platform = new PlatformGameObject(300, 400, "example", dogSprite);
         stage.addGameObject(dogObj);
         stage.addGameObject(platform);

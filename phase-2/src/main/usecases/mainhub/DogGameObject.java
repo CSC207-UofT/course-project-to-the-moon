@@ -1,5 +1,6 @@
 package usecases.mainhub;
 
+import adaptors.IGameController;
 import adaptors.IGameGraphics;
 import entities.Dog;
 import usecases.Bank;
@@ -27,9 +28,10 @@ public class DogGameObject extends GameObject implements Clickable, Drawable {
      * @param y The y coordinate.
      * @param sprite The sprite of the dog.
      * @param bank The bank that this object modifies.
+     * @param controller The controller controlling this object.
      */
-    public DogGameObject(int x, int y, SpriteFacade sprite, Bank bank){
-        super(x, y, "DogGameObject", sprite, null);
+    public DogGameObject(int x, int y, SpriteFacade sprite, Bank bank, IGameController controller){
+        super(x, y, "DogGameObject", sprite, controller);
         this.myDog = new Dog();
         this.bank = bank;
 
@@ -69,6 +71,11 @@ public class DogGameObject extends GameObject implements Clickable, Drawable {
 
         this.updateDog(earnedCoin, earnedExp);
         this.bank.updateCoins(earnedCoin);
+
+        // play sound
+        if (this.controller != null) {
+            this.controller.playSound("wow.wav", 0);
+        }
     }
 
     /**

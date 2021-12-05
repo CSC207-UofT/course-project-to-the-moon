@@ -25,8 +25,9 @@ public class DogGameController implements IGameController {
     private ICamera camera = null;
     private IFrameLoader frameLoader = null;
     private Bank bank = null;
-    private GameReadWriter readWriter;
+    private GameReadWriter readWriter = null;
     private final MinigameStageFactory factory = new MinigameStageFactory(this);
+    private ISoundPlayer soundPlayer = null;
 
     public void initializeEcon(){
         this.econ = new Economy();
@@ -43,6 +44,25 @@ public class DogGameController implements IGameController {
      */
     public void addReadWriter(GameReadWriter grw){
         this.readWriter = grw;
+    }
+
+    /**
+     * Adds a sound player.
+     * @param player The sound player to add.
+     */
+    public void addSoundPlayer(ISoundPlayer player) {
+        this.soundPlayer = player;
+    }
+
+    /**
+     * Invokes the sound player to play a sound.
+     * @param name The name of the sound to play.
+     * @param loopCount The number of times to loop the sound.
+     */
+    @Override
+    public void playSound(String name, int loopCount) {
+        assert this.soundPlayer != null;
+        this.soundPlayer.play(name, loopCount);
     }
 
     @Override
@@ -198,10 +218,14 @@ public class DogGameController implements IGameController {
     public void setActiveStage(String name) {
         // create the platformer stage everytime the active stage gets set to platformer
         if (name.equals("Platformer")) {
+            this.soundPlayer.stop("Dogsong.wav");
+            this.soundPlayer.play("Knock You Down.wav", -1);
             Stage platformerStage = factory.createPlatformerStage(frameLoader, bank);
             this.addStage("Platformer", platformerStage);
         }
         else if(name.equals("Dino")){
+            this.soundPlayer.stop("Dogsong.wav");
+            this.soundPlayer.play("Knock You Down.wav", -1);
             Stage dinoStage = factory.createDinoStage(frameLoader, bank);
             this.addStage("Dino", dinoStage);
         }
@@ -210,6 +234,12 @@ public class DogGameController implements IGameController {
             // hopefully garbage collection does its thing
             this.stages.remove("Platformer");
             this.stages.remove("Dino");
+
+            // stop the minigame song
+            this.soundPlayer.stop("Knock You Down.wav");
+
+            // play the normal song
+            this.soundPlayer.play("Dogsong.wav", -1);
         }
 
         this.activeStage = this.stages.get(name);

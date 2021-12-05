@@ -25,11 +25,14 @@ public class ControllerBuilder {
      * Initializes a new ControllerBuilder using the given IFrameLoader and camera bounds.
      * @param fl The IFrameLoader to use.
      * @param bounds The camera bounds.
+     * @param gReadWriter The GameReadWriter to add.
+     * @param player The ISoundPlayer to use.
      */
-    public ControllerBuilder(IFrameLoader fl, Rectangle bounds, GameReadWriter gReadWriter) {
+    public ControllerBuilder(IFrameLoader fl, Rectangle bounds, GameReadWriter gReadWriter, ISoundPlayer player) {
         this.frameLoader = fl;
         controller = new DogGameController();
         controller.addFrameLoader(fl);
+        controller.addSoundPlayer(player);
 
         this.gReadWriter = gReadWriter;
         controller.addReadWriter(gReadWriter);
@@ -68,10 +71,11 @@ public class ControllerBuilder {
      */
     private DogGameObject createDog() {
         // create the default dog object
+        // the sprite is courtesy of Toby Fox (Undertale)
         BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
-        return new DogGameObject(50, 100, dogSprite, this.bank);
+        return new DogGameObject(50, 100, dogSprite, this.bank, this.controller);
     }
 
     /**
@@ -122,6 +126,7 @@ public class ControllerBuilder {
         MinerButton computer = new MinerButton(new Rectangle(90, 30, 130, 100),
                 "Buy Computer", "Computer", this.bank, 50, 10, 10);
 
+        computer.addController(this.controller);
         shopStage.addTextLabel(computer);
         controller.getEcon().addItem(computer);
 
@@ -138,6 +143,7 @@ public class ControllerBuilder {
         MinerButton factory = new MinerButton(new Rectangle(90, 165, 130, 100),
                 "Buy Factory", "Factory", this.bank, 500, 100 , 100);
 
+        factory.addController(this.controller);
         shopStage.addTextLabel(factory);
         controller.getEcon().addItem(factory);
 
@@ -154,6 +160,7 @@ public class ControllerBuilder {
         MinerButton lunarDogCafe = new MinerButton(new Rectangle(90, 300, 130, 100),
                 "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 800);
 
+        lunarDogCafe.addController(this.controller);
         shopStage.addTextLabel(lunarDogCafe);
         controller.getEcon().addItem(lunarDogCafe);
 
