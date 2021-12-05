@@ -41,7 +41,8 @@ public class MinerButton extends TextButton {
         this.mCost = this.cost * 10;
 
         this.setStrokeWidth(2);
-        this.setStrokeColor(Color.WHITE);
+        this.setTextColor(Color.WHITE);
+        this.setStrokeColor(Color.CYAN);
     }
 
     @Override
