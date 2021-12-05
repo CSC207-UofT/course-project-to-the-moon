@@ -31,11 +31,11 @@ public class DinoDogGameObject extends GameObject implements Drawable, Collidabl
      * @param controller The controller controlling this DogGameObject.
      */
     public DinoDogGameObject(int x, int y, ArrayList<SpriteFacade> spriteList, Bank bank, Stage stage,
-                             IGameController controller, IFrameLoader loader){
+                             IGameController controller){
         super(x, y, "DinoDogGameObject", spriteList.get(0), controller);
 
         this.spriteList =spriteList;
-        DinoDogMover dogMover = new DinoDogMover(this, bank, stage, controller, loader);
+        DinoDogMover dogMover = new DinoDogMover(this, bank, stage, controller);
         this.addMover(dogMover);
     }
 
@@ -52,28 +52,16 @@ public class DinoDogGameObject extends GameObject implements Drawable, Collidabl
 //        g.fillRect(drawnX, drawnY + 5 * (this.getHeight() / 6), hitbox.width, hitbox.height, Color.GREEN);
     }
 
-    /**
-     * Returns the dog's hitbox at its current coordinates.
-     * @return The hitbox at the current coordinates.
-     */
     @Override
     public Rectangle getHitBox() {
-        return new Rectangle((int) this.getX(), (int) this.getY() + 5 * (this.getHeight() / 6),
-                this.getWidth(), this.getHeight() / 6);
-        // for the platforming dog, we only care about the lower part of it
+        return new Rectangle((int) this.getX(), (int) this.getY(),
+                this.getWidth(), this.getHeight());
     }
 
-    /**
-     * Returns the dog's hitbox if the DOG were at the given coordinates.
-     * @param x X-coordinate.
-     * @param y Y-coordinate.
-     * @return The dog's hitbox if the dog were at the given coordinates.
-     */
     @Override
     public Rectangle getHitBoxAtCoords(int x, int y) {
-        return new Rectangle(x, y + 5 * (this.getHeight() / 6),
-                this.getWidth(), this.getHeight() / 6);
-        // for the platforming dog, we only care about the lower part of it
+        return new Rectangle(x, y,
+                this.getWidth(), this.getHeight());
     }
 
     public void switchSprite(boolean ducked){

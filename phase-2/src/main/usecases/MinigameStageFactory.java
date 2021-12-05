@@ -112,7 +112,7 @@ public class MinigameStageFactory {
         dogSprites.add(dogSprite);
         dogSprites.add(duckingDog);
 
-        return new DinoDogGameObject(100, 210, dogSprites, bank, stage, this.controller, frameLoader);
+        return new DinoDogGameObject(100, 210, dogSprites, bank, stage, this.controller);
     }
 
     /**
@@ -152,12 +152,12 @@ public class MinigameStageFactory {
         }
 
         BufferedImage[] winningPlatFrames = frameLoader.loadFramesFromFolder(
-                "phase-1/src/sprites/winning_platform");
+                "phase-2/src/sprites/finish_line");
         SpriteFacade winningPlatformSprite = new SpriteFacade(winningPlatFrames);
-        PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
-                previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
+        PlatformGameObject finish_flag = new PlatformGameObject(27000,
+                200, "flag", winningPlatformSprite);
 
-        platformerStage.addGameObject(winningPlatform);
+        platformerStage.addGameObject(finish_flag);
     }
     private void addRandomPlatforms(Stage platformerStage, IFrameLoader frameLoader){
         final int MAX_PLATFORM_DISTANCE = 100;
@@ -167,7 +167,7 @@ public class MinigameStageFactory {
         Random random = new Random();
         int previousY = 300;  // the y-coordinate of the previous platform
 
-        BufferedImage[] platFrames = frameLoader.loadFramesFromFolder("phase-1/src/sprites/platform");
+        BufferedImage[] platFrames = frameLoader.loadFramesFromFolder("phase-2/src/sprites/platform");
         SpriteFacade platformSprite = new SpriteFacade(platFrames);
 
         // the first platform should be under the dog
@@ -191,7 +191,7 @@ public class MinigameStageFactory {
         }
 
         BufferedImage[] winningPlatFrames = frameLoader.loadFramesFromFolder(
-                "phase-1/src/sprites/winning_platform");
+                "phase-2/src/sprites/winning_platform");
         SpriteFacade winningPlatformSprite = new SpriteFacade(winningPlatFrames);
         PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
                 previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
