@@ -116,5 +116,6 @@ public class GameReadWriter {
 
         this.bank.updateCoins((int) gs.getState().get("Coins"));
         this.bank.setDCPS((int) gs.getState().get("DCPS"));
+        this.dogObj.updateDog((int) gs.getState().get("Coins"), (int) gs.getState().get("Exp"));
     }
 }

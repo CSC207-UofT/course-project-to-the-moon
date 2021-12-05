@@ -100,7 +100,7 @@ public class DogGameObject extends GameObject implements Clickable, Drawable {
      * @param earnedCoin the number of coins earned.
      * @param earnedExp the amount of experience gained.
      */
-    private void updateDog(int earnedCoin, int earnedExp) {
+    public void updateDog(int earnedCoin, int earnedExp) {
         this.myDog.setCoins(this.myDog.getCoins() + earnedCoin);
         this.myDog.setExp(this.myDog.getExp() + earnedExp);
     }
