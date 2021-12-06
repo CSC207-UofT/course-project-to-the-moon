@@ -67,11 +67,15 @@ public class Stage implements Serializable {
 
         synchronized(this.gameObjects) {
             for (GameObject go : this.gameObjects) {
-                if ((go instanceof Collidable) && (go.getTag().equals(tag))) {
-                    Rectangle otherBox = ((Collidable) go).getHitBox();
+                // I honestly don't know how synchronization works, I just want to stop
+                // ConcurrentModificationExceptions
+                synchronized(go) {
+                    if ((go instanceof Collidable) && (go.getTag().equals(tag))) {
+                        Rectangle otherBox = ((Collidable) go).getHitBox();
 
-                    if (hitBox.intersects(otherBox)) {
-                        return true;
+                        if (hitBox.intersects(otherBox)) {
+                            return true;
+                        }
                     }
                 }
             }
