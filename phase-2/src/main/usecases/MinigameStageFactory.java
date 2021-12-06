@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * This class represents a factory to build the minigames for the dog game.
- * @author Praket
+ * @author Aria, Jimin, Praket
  * @since 4 December 2021
  */
 public class MinigameStageFactory {

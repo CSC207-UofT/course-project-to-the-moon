@@ -12,7 +12,7 @@ import java.beans.PropertyChangeListener;
 
 /**
  * A class using the Builder pattern to build a DogGameController.
- * @author Praket, Andy
+ * @author Praket, Andy, Fatimeh Hassan
  * @since Dec 2 2021
  */
 public class ControllerBuilder {
@@ -97,10 +97,11 @@ public class ControllerBuilder {
         mainStage.addTextLabel(coinLabel);
         this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
 
+        // create the shop button
         ShopButton shop = new ShopButton(new Rectangle(190, 400, 80, 20),
                 "Shop", "Shop", this.controller);
-        // You can change the coordinates of this button later
 
+        // create the minigames button
         MinigameSelectionButton minigameSelection = new MinigameSelectionButton(new Rectangle(190, 430,
                 80, 20),
                 "Minigames", "MinigameSelection", this.controller);
@@ -122,7 +123,7 @@ public class ControllerBuilder {
         shopStage.addTextLabel(coinLabel);
         this.bank.addPropertyChangeListener((PropertyChangeListener) coinLabel);
 
-        // the button to purchase the computer dogecoin miner
+        // create the button to purchase the computer dogecoin miner
         MinerButton computer = new MinerButton(new Rectangle(90, 30, 130, 100),
                 "Buy Computer", "Computer", this.bank, 50, 10, 10);
 
@@ -139,7 +140,7 @@ public class ControllerBuilder {
         shopStage.addTextLabel(compLabel);
         computer.addPropertyChangeListener((PropertyChangeListener) compLabel);
 
-        //the button to purchase the factory dogecoin miner
+        // create the button to purchase the factory dogecoin miner
         MinerButton factory = new MinerButton(new Rectangle(90, 165, 130, 100),
                 "Buy Factory", "Factory", this.bank, 500, 100 , 100);
 
@@ -156,7 +157,7 @@ public class ControllerBuilder {
         shopStage.addTextLabel(facLabel);
         factory.addPropertyChangeListener((PropertyChangeListener) facLabel);
 
-        //the button to purchase the lunar dog cafe dogecoin miner
+        // create the button to purchase the lunar dog cafe dogecoin miner
         MinerButton lunarDogCafe = new MinerButton(new Rectangle(90, 300, 130, 100),
                 "Buy Lunar Dog Cafe", "LunarDogCafe", this.bank, 5000, 1000, 800);
 
@@ -173,6 +174,7 @@ public class ControllerBuilder {
         shopStage.addTextLabel(cafeLabel);
         lunarDogCafe.addPropertyChangeListener((PropertyChangeListener) cafeLabel);
 
+        // create the home button to return to the main screen
         HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
                 "Return", "Home", this.controller);
         home.setLabelColor(null);
@@ -207,7 +209,7 @@ public class ControllerBuilder {
 
         minigameSelectionStage.addTextLabel(dinoButton);
 
-
+        // create the home button to return to the main screen
         HomeButton home = new HomeButton(new Rectangle(115, 430, 70, 20),
                 "Return", "Home", this.controller);
         home.setLabelColor(null);

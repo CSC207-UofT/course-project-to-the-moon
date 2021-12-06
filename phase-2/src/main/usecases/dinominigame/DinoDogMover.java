@@ -1,7 +1,6 @@
 package usecases.dinominigame;
 
 import adaptors.ICamera;
-import adaptors.IFrameLoader;
 import adaptors.IGameController;
 import entities.Transform;
 import usecases.Bank;
