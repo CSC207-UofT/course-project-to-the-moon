@@ -1,6 +1,5 @@
 package usecases.dinominigame;
 
-import adaptors.IFrameLoader;
 import adaptors.IGameController;
 import adaptors.IGameGraphics;
 import usecases.*;

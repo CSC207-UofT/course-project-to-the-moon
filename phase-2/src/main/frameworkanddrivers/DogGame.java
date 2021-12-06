@@ -1,7 +1,6 @@
 package frameworkanddrivers;
 
 import adaptors.*;
-import usecases.*;
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -12,7 +11,7 @@ import java.io.IOException;
 
 /**
  * This class represents a dog game instance, making all the JFrames necessary to run it.
- * @author Andy Wang, Fatimeh Hassan
+ * @author Andy Wang
  * @since 9 October 2021
  */
 public class DogGame {

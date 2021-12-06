@@ -2,7 +2,7 @@ package entities;
 
 /**
  * This class holds and edits coordinates.
- * @author Arip Paydari, Juntae Park
+ * @author Aria Paydari, Juntae Park
  * @since 21 October 2021
  */
 public class Transform {
