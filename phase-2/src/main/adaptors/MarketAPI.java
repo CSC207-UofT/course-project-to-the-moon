@@ -12,7 +12,13 @@ public class MarketAPI {
     private HttpClient client;
     private String key;
     private int sign;
+
     
+    /**
+     * Initializes a new MarketAPI object, responsible for making and parsing API calls for Dogecoin stock data.
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public MarketAPI()  throws IOException, InterruptedException {
         this.client = HttpClient.newHttpClient();
         this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -22,6 +28,12 @@ public class MarketAPI {
         this.sign = this.marketState();
     }
 
+    /**
+     * Makes API call and returns whether the dogecoin price changed today.
+     * @return +1 if price increased, -1 if decreased, 0 if no change
+     * @throws IOException
+     * @throws InterruptedException
+     */
     private int marketState() throws IOException, InterruptedException {
         String formattedToday = this.today.format(this.formatter);
         String query = "https://api.polygon.io/v1/open-close/crypto/DOGE/CAD/" + formattedToday + 
@@ -43,6 +55,9 @@ public class MarketAPI {
         return (int) Math.signum(open - close);
     }
 
+    /**
+     * @return the price change direction of today's dogecoin stock price.
+     */
     public int getSign() {
         return this.sign;
     }
