@@ -28,12 +28,27 @@ public class MinigameStageFactory {
     }
 
     /**
+     * The main factory method to create a minigame stage based on the string given.
+     * @param name The name of the minigame.
+     * @param fl The frame loader to use.
+     * @param bank The bank to use.
+     * @return The minigame stage.
+     */
+    public Stage getMinigameStage(String name, IFrameLoader fl, Bank bank) {
+        if (name.equals("Platformer")) {
+            return this.createPlatformerStage(fl, bank);
+        } else if (name.equals("Dino")) {
+            return this.createDinoStage(fl, bank);
+        } return null;
+    }
+
+    /**
      * A method which creates the platformer stage.
      * @param frameLoader The frame loader to use.
      * @param bank The bank to use.
      * @return The platformer stage.
      */
-    public Stage createPlatformerStage(IFrameLoader frameLoader, Bank bank) {
+    private Stage createPlatformerStage(IFrameLoader frameLoader, Bank bank) {
         // Assume (300, 500)
         Stage platformerStage = new Stage("Platformer");
         // Add background sprite.
@@ -70,7 +85,7 @@ public class MinigameStageFactory {
      * @param bank The bank to use.
      * @return The dini minigame stage.
      */
-    public Stage createDinoStage(IFrameLoader frameLoader, Bank bank){
+    private Stage createDinoStage(IFrameLoader frameLoader, Bank bank){
         // Assume (300, 500)
         Stage dinoStage = new Stage("Dino");
 
