@@ -1,7 +1,5 @@
 package usecases.interfaces;
 
-import java.io.IOException;
-
 /**
  * This interface is to be implemented on all clickable entities
  * @author Juntae Park

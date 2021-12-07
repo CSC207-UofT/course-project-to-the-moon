@@ -1,7 +1,6 @@
 package usecases.dinominigame;
 
 import adaptors.ICamera;
-import adaptors.IFrameLoader;
 import adaptors.IGameController;
 import entities.Transform;
 import usecases.Bank;
@@ -24,7 +23,6 @@ import java.util.TimerTask;
 public class DinoDogMover implements Mover {
     private final DinoDogGameObject dog ;
     private final IGameController controller ;
-    private final IFrameLoader loader;
     private final Bank bank;
     private final Stage dinoStage;
     private final ICamera camera;
@@ -46,13 +44,11 @@ public class DinoDogMover implements Mover {
      * @param stage The stage to use.
      * @param controller The controller to use.
      */
-    public DinoDogMover(DinoDogGameObject dog, Bank bank, Stage stage, IGameController controller,
-                        IFrameLoader loader) {
+    public DinoDogMover(DinoDogGameObject dog, Bank bank, Stage stage, IGameController controller) {
         this.dog = dog;
         this.bank = bank;
         this.controller = controller;
         this.camera = controller.getCamera();
-        this.loader = loader;
         dinoStage = stage;
     }
 
@@ -135,8 +131,8 @@ public class DinoDogMover implements Mover {
         synchronized (dinoStage) {
             boolean hitNormalPlatform = dinoStage.placeMeeting(dog, dog.getX() + 1, dog.getY(),
                     "Platform");
-            boolean onWinningPlatform = (dinoStage.placeMeeting(dog, dog.getX(), dog.getY() + 1,
-                    "WinningPlatform") && dy > 0);
+            boolean onWinningPlatform = (dinoStage.placeMeeting(dog, dog.getX() + 1, dog.getY(),
+                    "flag") && dy > 0);
 
             if (onWinningPlatform) {
                 won = true;

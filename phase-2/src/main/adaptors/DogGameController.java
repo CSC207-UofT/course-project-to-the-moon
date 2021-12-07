@@ -217,19 +217,12 @@ public class DogGameController implements IGameController {
     @Override
     public void setActiveStage(String name) {
         // create the platformer stage everytime the active stage gets set to platformer
-        if (name.equals("Platformer")) {
+        if (name.equals("Platformer") || name.equals("Dino")) {
             this.soundPlayer.stop("Dogsong.wav");
             this.soundPlayer.play("Knock You Down.wav", -1);
-            Stage platformerStage = factory.createPlatformerStage(frameLoader, bank);
-            this.addStage("Platformer", platformerStage);
-        }
-        else if(name.equals("Dino")){
-            this.soundPlayer.stop("Dogsong.wav");
-            this.soundPlayer.play("Knock You Down.wav", -1);
-            Stage dinoStage = factory.createDinoStage(frameLoader, bank);
-            this.addStage("Dino", dinoStage);
-        }
-        else {
+            Stage minigameStage = factory.getMinigameStage(name, frameLoader, bank);
+            this.addStage(name, minigameStage);
+        } else {
             // remove it whenever the controller switches from the minigame stage
             // hopefully garbage collection does its thing
             this.stages.remove("Platformer");

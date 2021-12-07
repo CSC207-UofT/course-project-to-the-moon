@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * This class represents a factory to build the minigames for the dog game.
- * @author Praket
+ * @author Aria, Jimin, Praket
  * @since 4 December 2021
  */
 public class MinigameStageFactory {
@@ -28,12 +28,27 @@ public class MinigameStageFactory {
     }
 
     /**
+     * The main factory method to create a minigame stage based on the string given.
+     * @param name The name of the minigame.
+     * @param fl The frame loader to use.
+     * @param bank The bank to use.
+     * @return The minigame stage.
+     */
+    public Stage getMinigameStage(String name, IFrameLoader fl, Bank bank) {
+        if (name.equals("Platformer")) {
+            return this.createPlatformerStage(fl, bank);
+        } else if (name.equals("Dino")) {
+            return this.createDinoStage(fl, bank);
+        } return null;
+    }
+
+    /**
      * A method which creates the platformer stage.
      * @param frameLoader The frame loader to use.
      * @param bank The bank to use.
      * @return The platformer stage.
      */
-    public Stage createPlatformerStage(IFrameLoader frameLoader, Bank bank) {
+    private Stage createPlatformerStage(IFrameLoader frameLoader, Bank bank) {
         // Assume (300, 500)
         Stage platformerStage = new Stage("Platformer");
         // Add background sprite.
@@ -70,7 +85,7 @@ public class MinigameStageFactory {
      * @param bank The bank to use.
      * @return The dini minigame stage.
      */
-    public Stage createDinoStage(IFrameLoader frameLoader, Bank bank){
+    private Stage createDinoStage(IFrameLoader frameLoader, Bank bank){
         // Assume (300, 500)
         Stage dinoStage = new Stage("Dino");
 
@@ -112,7 +127,7 @@ public class MinigameStageFactory {
         dogSprites.add(dogSprite);
         dogSprites.add(duckingDog);
 
-        return new DinoDogGameObject(100, 210, dogSprites, bank, stage, this.controller, frameLoader);
+        return new DinoDogGameObject(100, 210, dogSprites, bank, stage, this.controller);
     }
 
     /**
@@ -152,12 +167,12 @@ public class MinigameStageFactory {
         }
 
         BufferedImage[] winningPlatFrames = frameLoader.loadFramesFromFolder(
-                "phase-1/src/sprites/winning_platform");
+                "phase-2/src/sprites/finish_line");
         SpriteFacade winningPlatformSprite = new SpriteFacade(winningPlatFrames);
-        PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
-                previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
+        PlatformGameObject finish_flag = new PlatformGameObject(27000,
+                200, "flag", winningPlatformSprite);
 
-        platformerStage.addGameObject(winningPlatform);
+        platformerStage.addGameObject(finish_flag);
     }
     private void addRandomPlatforms(Stage platformerStage, IFrameLoader frameLoader){
         final int MAX_PLATFORM_DISTANCE = 100;
@@ -167,7 +182,7 @@ public class MinigameStageFactory {
         Random random = new Random();
         int previousY = 300;  // the y-coordinate of the previous platform
 
-        BufferedImage[] platFrames = frameLoader.loadFramesFromFolder("phase-1/src/sprites/platform");
+        BufferedImage[] platFrames = frameLoader.loadFramesFromFolder("phase-2/src/sprites/platform");
         SpriteFacade platformSprite = new SpriteFacade(platFrames);
 
         // the first platform should be under the dog
@@ -191,7 +206,7 @@ public class MinigameStageFactory {
         }
 
         BufferedImage[] winningPlatFrames = frameLoader.loadFramesFromFolder(
-                "phase-1/src/sprites/winning_platform");
+                "phase-2/src/sprites/winning_platform");
         SpriteFacade winningPlatformSprite = new SpriteFacade(winningPlatFrames);
         PlatformGameObject winningPlatform = new PlatformGameObject(random.nextInt(250),
                 previousY - MAX_PLATFORM_DISTANCE, "WinningPlatform", winningPlatformSprite);
