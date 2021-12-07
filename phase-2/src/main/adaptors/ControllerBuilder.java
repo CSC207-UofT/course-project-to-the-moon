@@ -72,7 +72,7 @@ public class ControllerBuilder {
     private DogGameObject createDog() {
         // create the default dog object
         // the sprite is courtesy of Toby Fox (Undertale)
-        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames, 2);
 
         return new DogGameObject(50, 100, dogSprite, this.bank, this.controller);

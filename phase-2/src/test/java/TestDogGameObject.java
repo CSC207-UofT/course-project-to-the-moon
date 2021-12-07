@@ -68,23 +68,5 @@ public class TestDogGameObject {
         assert (!testDogGameObject.isClicked(x, y));
     }
 
-//    @Test
-//    public void testOnClick(){
-//        // test onClick() methods work
-//        // set coins and exp
-//        // calls onClick() method
-//        testDogGameObject.onClick();
-//        assert (.getCoins() == 11);
-//    }
-//
-//    @Test
-//    public void testUpdated(){
-//        // test coins and exp are updated properly.
-//
-//        int earnedCoin = 5;
-//        int earnedExp = 1;
-//        //testDogGameObject.updateDog(earnedCoin, earnedExp);
-//        assert ();
-//    }
 
 }
