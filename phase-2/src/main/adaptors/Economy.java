@@ -106,6 +106,11 @@ public class Economy implements PropertyChangeListener {
         item.setCost(newCost);
     }
 
+    // for test
+    public ArrayList<MinerButton> getItems(){
+        return this.items;
+    }
+
     /**
      * Initializes the transition matrix used for random walk; values from historical dogecoin price changes.
      * @return
