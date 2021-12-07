@@ -18,12 +18,14 @@ import java.util.ArrayList;
 public class Stage implements Serializable {
     private final List<GameObject> gameObjects;
     private final List<TextLabel> textLabels;
+    private String name;
 
     /**
      * Initializes a new empty stage.
      * @param name The name to give this stage.
      */
     public Stage(String name) {
+        this.name = name;
         this.gameObjects = new ArrayList<GameObject>();
         this.textLabels = new ArrayList<TextLabel>();
     }
@@ -32,8 +34,7 @@ public class Stage implements Serializable {
      * Add a new GameObject to this stage.
      * @param go The object to add.
      */
-    public void addGameObject(GameObject go) {
-        this.gameObjects.add(go);
+    public void addGameObject(GameObject go) {this.gameObjects.add(go);
     }
 
     /**
@@ -53,6 +54,7 @@ public class Stage implements Serializable {
         return this.textLabels;
     }
 
+    public String getStageName(){return this.name;}
     /**
      * Determines if the given Collidable will collide with any object with the given tag,
      * at the given coordinates.

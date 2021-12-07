@@ -3,7 +3,7 @@ import adaptors.ISoundPlayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import usecases.platformerminigame.PlatformerButton;
+import usecases.dinominigame.DinoButton;
 import usecases.Stage;
 import adaptors.DogGameController;
 import adaptors.Camera;
@@ -18,8 +18,8 @@ import java.awt.*;
  * @since 13 November 2021
  */
 
-public class TestPlatformerButton {
-    private PlatformerButton testPlatformerButton;
+public class TestDinoButton {
+    private DinoButton testDinoButton;
     private Stage stage;
     private Rectangle rectangle;
     private DogGameController controller;
@@ -27,11 +27,13 @@ public class TestPlatformerButton {
     private Bank bank;
     private DogGameFrameLoader fl;
     private ISoundPlayer isoundPlayer;
+    private Stage dinoStage;
 
     @Before
     public void begin(){
         rectangle = new Rectangle(200, 430, 60, 20);
         stage = new Stage("Main");
+        dinoStage = new Stage("Dino");
         camera = new Camera(stage, rectangle);
         bank = new Bank();
         fl = new DogGameFrameLoader();
@@ -39,12 +41,13 @@ public class TestPlatformerButton {
             @Override public void stop(String name) {}};
         controller = new DogGameController();
         controller.addStage("Main", stage);
+        controller.addStage("Dino", dinoStage);
         controller.addSoundPlayer(isoundPlayer);
         controller.addFrameLoader(fl);
         controller.addBank(bank);
         controller.addCamera(camera);
         controller.setActiveStage("Main");
-        testPlatformerButton = new PlatformerButton(rectangle, "text", "tag", controller);
+        testDinoButton = new DinoButton(rectangle, "text", "tag", controller);
 
     }
 
@@ -52,9 +55,9 @@ public class TestPlatformerButton {
     public void endTests(){}
 
     @Test
-    public void testChangeStage(){
-        // check stage changed or not
-        testPlatformerButton.onClick();
+    public void testDinoButton(){
+        // to check the stage changed
+        testDinoButton.onClick();
         assert (stage != controller.getActiveStage());
     }
 

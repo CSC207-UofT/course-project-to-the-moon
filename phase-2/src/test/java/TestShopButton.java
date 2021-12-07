@@ -1,4 +1,5 @@
 import adaptors.DogGameFrameLoader;
+import adaptors.ISoundPlayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +26,7 @@ public class TestShopButton {
     private Camera camera;
     private Bank bank;
     private DogGameFrameLoader fl;
+    private ISoundPlayer isoundPlayer;
 
     @Before
     public void begin(){
@@ -33,8 +35,11 @@ public class TestShopButton {
         camera = new Camera(stage, rectangle);
         bank = new Bank();
         fl = new DogGameFrameLoader();
+        isoundPlayer = new ISoundPlayer() {@Override public void play(String name, int loopCount) {}
+            @Override public void stop(String name) {}};
         controller = new DogGameController();
         controller.addStage("Main", stage);
+        controller.addSoundPlayer(isoundPlayer);
         controller.addFrameLoader(fl);
         controller.addBank(bank);
         controller.addCamera(camera);

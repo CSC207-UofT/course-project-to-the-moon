@@ -8,15 +8,22 @@ import org.junit.Test;
 import usecases.*;
 import usecases.mainhub.DogGameObject;
 import usecases.platformerminigame.PlatformGameObject;
+import adaptors.ISoundPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * This is the test class.
+ * @author Aria edited by Jimin
+ * @since 4 December 2021
+ */
 public class TestCamera {
     private DogGameFrameLoader loader;
     private DogGameController testController;
     private DogGameObject dogObject;
+    private ISoundPlayer isoundPlayer;
     private Stage stage;
     private DogGameFrameLoader frameLoader;
     private Camera camera;
@@ -26,8 +33,10 @@ public class TestCamera {
     public void begin(){
         testController = new DogGameController();
         loader = new DogGameFrameLoader();
-        BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-1/src/sprites/dog");
+        BufferedImage[] dogFrames = loader.loadFramesFromFolder("phase-2/src/sprites/dog");
         dogObject = new DogGameObject(0,0,new SpriteFacade(dogFrames),new Bank(), null);
+        isoundPlayer = new ISoundPlayer() {@Override public void play(String name, int loopCount) {}
+            @Override public void stop(String name) {}};
         stage = new Stage("Main");
 
         camera = new Camera(stage, new Rectangle(0, 0, 1000, 1000));
@@ -40,7 +49,7 @@ public class TestCamera {
 
     @Test
     public void testGetDrawableInBounds(){
-        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-1/src/sprites/dog");
+        BufferedImage[] dogFrames = this.frameLoader.loadFramesFromFolder("phase-2/src/sprites/dog");
         SpriteFacade dogSprite = new SpriteFacade(dogFrames);
 
         DogGameObject dogObj = new DogGameObject(0, 0, dogSprite ,new Bank(), null);
@@ -48,6 +57,7 @@ public class TestCamera {
         stage.addGameObject(dogObj);
         stage.addGameObject(platform);
         testController.addStage("Main", stage);
+        testController.addSoundPlayer(isoundPlayer);
         testController.setActiveStage("Main");
         testController.addCamera(camera);
         camera.setStage(stage);
