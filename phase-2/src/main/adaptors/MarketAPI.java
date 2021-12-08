@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.net.URI;
 
 public class MarketAPI {
-    private DateTimeFormatter formatter;
-    private LocalDate today;
-    private HttpClient client;
-    private String key;
-    private int sign;
+    private final DateTimeFormatter formatter;
+    private final LocalDate today;
+    private final HttpClient client;
+    private final String key;
+    private final int sign;
 
     
     /**
      * Initializes a new MarketAPI object, responsible for making and parsing API calls for Dogecoin stock data.
-     * @throws IOException
-     * @throws InterruptedException
+     * @throws IOException throws an IOException.
+     * @throws InterruptedException throws an InterruptedException.
      */
     public MarketAPI()  throws IOException, InterruptedException {
         this.client = HttpClient.newHttpClient();
@@ -31,8 +31,8 @@ public class MarketAPI {
     /**
      * Makes API call and returns whether the dogecoin price changed today.
      * @return +1 if price increased, -1 if decreased, 0 if no change
-     * @throws IOException
-     * @throws InterruptedException
+     * @throws IOException throws an IOException.
+     * @throws InterruptedException throws an InterruptedException.
      */
     private int marketState() throws IOException, InterruptedException {
         String formattedToday = this.today.format(this.formatter);

@@ -16,7 +16,6 @@ import java.util.HashMap;
  * @since 9 October 2021
  */
 public class DogGameController implements IGameController {
-    private final String saveFilePath = "phase-2/src/save/savefile.ser";
 
     private final HashMap<String, Stage> stages = new HashMap<>();
     private final ArrayList<Integer> keysPressedList = new ArrayList<>();
@@ -40,7 +39,7 @@ public class DogGameController implements IGameController {
 
     /**
      * Adds a gameReadWriter
-     * @param grw
+     * @param grw the GameReadWriter to be added.
      */
     public void addReadWriter(GameReadWriter grw){
         this.readWriter = grw;
@@ -76,6 +75,7 @@ public class DogGameController implements IGameController {
     @Override
     public boolean loadFromFile() {
         try {
+            String saveFilePath = "phase-2/src/save/savefile.ser";
             File savefile = new File(saveFilePath);
 
             if(!savefile.exists()){

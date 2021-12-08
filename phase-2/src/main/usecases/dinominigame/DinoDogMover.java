@@ -70,7 +70,7 @@ public class DinoDogMover implements Mover {
                 }
                 // This case is when the dog is in the air
                 // And it's being brought down by gravity
-                else if (t.getY() < 200){
+                else if (t.getY() < 363){
                     dy += GRAVITY;
                 }
                 else{
@@ -103,7 +103,7 @@ public class DinoDogMover implements Mover {
                 }
 
                 t.translateBy(RUN_SPEED, dy);
-                updateXPositionAndCamera(t);
+                updateXPositionAndCamera();
 
                 // Flip the sprite if the player is moving right
                 // or flip the sprite back to face left if the player moves from right to left
@@ -145,7 +145,7 @@ public class DinoDogMover implements Mover {
 
     // update x position
     // this method also ends the game if the dog goes too low, or if the dog stands on the winning platform
-    private void updateXPositionAndCamera(Transform t) {
+    private void updateXPositionAndCamera() {
 
         Transform cameraTransform = camera.getTransform();
 

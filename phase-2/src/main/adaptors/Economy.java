@@ -12,8 +12,8 @@ import java.util.TimerTask;
 import usecases.mainhub.MinerButton;
 
 public class Economy implements PropertyChangeListener {
-    private ArrayList<MinerButton> items;
-    private int[][] transMatrix;
+    private final ArrayList<MinerButton> items;
+    private final int[][] transMatrix;
     private int stateIndex;
     private int dCost;
     private GameReadWriter grw;
@@ -25,14 +25,14 @@ public class Economy implements PropertyChangeListener {
     public Economy() {
         this.stateIndex = 0; //start at dull market
         this.transMatrix = this.initializeTransMatrix();
-        this.items = new ArrayList<MinerButton>();
+        this.items = new ArrayList<>();
 
         this.run();
     }
 
     /**
      * Adds a GameReadWriter 
-     * @param grw
+     * @param grw the GameReadWriter to be added.
      */
     public void addReadWriter(GameReadWriter grw){
         this.grw = grw;
@@ -58,7 +58,7 @@ public class Economy implements PropertyChangeListener {
 
     /**
      * Updates the transition matrix given the price change direction from API call.
-     * @param sign
+     * @param sign represents whether the price increases or decreases.
      */
     public void updateMatrix(int sign){
         if (sign > 0){ 
@@ -88,7 +88,7 @@ public class Economy implements PropertyChangeListener {
 
     /**
      * Adds a MinerButton item
-     * @param item
+     * @param item the MinerButton to be added.
      */
     public void addItem(MinerButton item) {
         this.items.add(item);
@@ -96,7 +96,7 @@ public class Economy implements PropertyChangeListener {
 
     /**
      * Updates the cost of the given item, sets it to its max cost if the new increase would go past it.
-     * @param item
+     * @param item the item (MinerButton) whose cost is updated.
      */
     public void updateItem(MinerButton item) {
         int newCost = item.getCost() + this.dCost;
@@ -113,7 +113,7 @@ public class Economy implements PropertyChangeListener {
 
     /**
      * Initializes the transition matrix used for random walk; values from historical dogecoin price changes.
-     * @return
+     * @return the inital values for the dogecoin prices.
      */
     private int[][] initializeTransMatrix() {
         //preset values

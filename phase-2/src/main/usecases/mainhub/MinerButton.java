@@ -16,7 +16,7 @@ import java.beans.PropertyChangeSupport;
 
 public class MinerButton extends TextButton {
     private int cost;
-    private int mCost;
+    private final int mCost;
     private final int costIncrease;
     private final int dcps;
     private final Bank bank;

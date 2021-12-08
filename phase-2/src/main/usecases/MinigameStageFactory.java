@@ -139,7 +139,7 @@ public class MinigameStageFactory {
         dogSprites.add(dogSprite);
         dogSprites.add(duckingDog);
 
-        return new DinoDogGameObject(100, 210, dogSprites, bank, stage, this.controller);
+        return new DinoDogGameObject(100, 363, dogSprites, bank, stage, this.controller);
     }
 
     /**
@@ -154,7 +154,6 @@ public class MinigameStageFactory {
         final int NUM_PLATFORMS = 100;
 
         Random random = new Random();
-        int previousY = 300;  // the Y-coordinate of the previous platform
         int previousX = 70;  // the Y-coordinate of the previous platform
 
         BufferedImage[] platFrames = frameLoader.loadFramesFromFolder("phase-2/src/sprites/horizontal_platform");
@@ -167,7 +166,7 @@ public class MinigameStageFactory {
 
                 int rX = random.nextInt(MAX_PLATFORM_DISTANCE - MIN_PLATFORM_DISTANCE + 1) + MIN_PLATFORM_DISTANCE;
                 // Random number between MIN_PLATFORM_DISTANCE and MAX_PLATFORM_DISTANCE
-                int rY = random.nextInt(50) +160;
+                int rY = random.nextInt(75) +290;
                 int newX = previousX + rX;
                 // start is 300 y
 

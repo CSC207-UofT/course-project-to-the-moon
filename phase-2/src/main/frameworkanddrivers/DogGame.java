@@ -20,7 +20,6 @@ public class DogGame {
     private JFrame mainFrame = null;
     private final GameReadWriter gReadWriter = new GameReadWriter(saveFilePath);
     private final DogGameSoundPlayer soundPlayer = new DogGameSoundPlayer();
-    private final DogGameController controller;
 
     /**
      * This is the main method. Run this to run the game.
@@ -43,8 +42,8 @@ public class DogGame {
         Rectangle cameraBounds = new Rectangle(0, 0, WIDTH, HEIGHT);
         ControllerBuilder builder = new ControllerBuilder(frameLoader, cameraBounds, gReadWriter, soundPlayer);
 
-        this.controller = builder.getController();
-        this.controller.addReadWriter(this.gReadWriter);
+        DogGameController controller = builder.getController();
+        controller.addReadWriter(this.gReadWriter);
 
         DogGameJPanel panel = new DogGameJPanel(WIDTH, HEIGHT);
         panel.setFocusable(true);

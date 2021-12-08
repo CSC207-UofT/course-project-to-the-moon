@@ -19,7 +19,6 @@ public class ControllerBuilder {
     private final Bank bank = new Bank();
     private final DogGameController controller;
     private final IFrameLoader frameLoader;
-    private final GameReadWriter gReadWriter;
 
     /**
      * Initializes a new ControllerBuilder using the given IFrameLoader and camera bounds.
@@ -34,7 +33,6 @@ public class ControllerBuilder {
         controller.addFrameLoader(fl);
         controller.addSoundPlayer(player);
 
-        this.gReadWriter = gReadWriter;
         controller.addReadWriter(gReadWriter);
         controller.initializeEcon();
 
@@ -46,7 +44,7 @@ public class ControllerBuilder {
         ICamera camera = new Camera(mainStage, bounds);
 
         controller.addBank(this.bank);
-        this.gReadWriter.addBank(this.bank);
+        gReadWriter.addBank(this.bank);
 
         controller.addStage("Main", mainStage);
         controller.addStage("Shop", shopStage);
@@ -233,7 +231,7 @@ public class ControllerBuilder {
         LoadGameButton loadGame = new LoadGameButton(new Rectangle(100, 250, 100, 40),
                 "Load Game", "LoadGame", this.controller);
 
-        loadGame.addPropertyChangeListener((PropertyChangeListener) this.controller.getEcon());
+        loadGame.addPropertyChangeListener(this.controller.getEcon());
         startStage.addTextLabel(newGame);
         startStage.addTextLabel(loadGame);
 

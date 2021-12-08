@@ -25,7 +25,7 @@ import usecases.mainhub.DogGameObject;
  * @since 13 November 2021
  */
 public class GameReadWriter {
-    private String filepath;
+    private final String filepath;
     private Bank bank;
     private DogGameObject dogObj;
 
@@ -35,7 +35,7 @@ public class GameReadWriter {
      * Initialize a new GameReadWrite.
      * @param filepath The filepath to save to.
      */
-    public GameReadWriter(String filepath) throws IOException{
+    public GameReadWriter(String filepath){
         this.filepath = filepath;
     }
 
@@ -101,8 +101,7 @@ public class GameReadWriter {
     }
 
     /**
-     * Reads a GameState from a file.
-     * @return The save file.
+     * Reads a GameState from a file..
      * @throws IOException Throws when there's an error reading.
      * @throws ClassNotFoundException Throws when the save file class isn't found.
      */

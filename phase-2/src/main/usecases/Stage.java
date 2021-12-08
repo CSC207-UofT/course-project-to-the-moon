@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Stage implements Serializable {
     private final List<GameObject> gameObjects;
     private final List<TextLabel> textLabels;
-    private String name;
+    private final String name;
 
     /**
      * Initializes a new empty stage.
