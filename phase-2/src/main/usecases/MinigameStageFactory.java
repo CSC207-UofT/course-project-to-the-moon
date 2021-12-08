@@ -89,6 +89,18 @@ public class MinigameStageFactory {
         // Assume (300, 500)
         Stage dinoStage = new Stage("Dino");
 
+        // Add background to the dinogame
+        // IceColdClaws. (n.d.). Backdrop: Grass field by icecoldclaws on DeviantArt. by IceColdClaws on DeviantArt.
+        // Retrieved December 8, 2021, from https://www.deviantart.com/icecoldclaws/art/Backdrop-Grass-Field-635951043.
+        BufferedImage[] bgFrames = frameLoader.loadFramesFromFolder("phase-2/src/sprites/dinogame_bg");
+        int bg_x = 0;
+        for (int i = 0; i < 100; i++) {
+            SpriteFacade bgSprite = new SpriteFacade(bgFrames, 1);
+            PlatformGameObject bgObject = new PlatformGameObject(bg_x, 0, "Background", bgSprite);
+            dinoStage.addGameObject(bgObject);
+            bg_x += 500;
+        }
+
         DinoDogGameObject miniDog = createDinoDog(dinoStage, frameLoader, bank);
         dinoStage.addGameObject(miniDog);
 
